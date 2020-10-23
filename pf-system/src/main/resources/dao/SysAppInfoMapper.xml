@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.SysAppInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysAppInfo">
+        <id column="app_id" property="appId" />
+        <result column="app_name" property="appName" />
+        <result column="app_type" property="appType" />
+        <result column="app_url" property="appUrl" />
+        <result column="app_icon" property="appIcon" />
+        <result column="app_desc" property="appDesc" />
+        <result column="app_state" property="appState" />
+        <result column="app_use_state" property="appUseState" />
+        <result column="app_int_user" property="appIntUser" />
+        <result column="app_int_date" property="appIntDate" />
+        <result column="app_upd_user" property="appUpdUser" />
+        <result column="app_upd_date" property="appUpdDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        app_id, app_name, app_type, app_url, app_icon, app_desc, app_state, app_use_state, app_int_user, app_int_date, app_upd_user, app_upd_date
+    </sql>
+
+</mapper>

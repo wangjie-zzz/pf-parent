@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.SysUserInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysUserInfo">
+        <id column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="user_passwd" property="userPasswd" />
+        <result column="user_card_id" property="userCardId" />
+        <result column="user_sex" property="userSex" />
+        <result column="user_birthday" property="userBirthday" />
+        <result column="user_head_img" property="userHeadImg" />
+        <result column="dept_id" property="deptId" />
+        <result column="com_id" property="comId" />
+        <result column="ten_id" property="tenId" />
+        <result column="user_code" property="userCode" />
+        <result column="user_phone" property="userPhone" />
+        <result column="user_wx_open_id" property="userWxOpenId" />
+        <result column="user_email" property="userEmail" />
+        <result column="user_qq_open_id" property="userQqOpenId" />
+        <result column="user_data_source" property="userDataSource" />
+        <result column="user_use_state" property="userUseState" />
+        <result column="user_int_user" property="userIntUser" />
+        <result column="user_int_date" property="userIntDate" />
+        <result column="user_upd_user" property="userUpdUser" />
+        <result column="user_upd_date" property="userUpdDate" />
+    </resultMap>
+    <resultMap id="UserAndPostMap" type="com.pf.system.model.entity.SysUserInfo" extends="BaseResultMap">
+        <collection property="uposts" resultMap="com.pf.system.dao.SysUpostRelMapper.BaseResultMap"></collection>
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        user_id, user_name, user_passwd, user_card_id, user_sex, user_birthday, user_head_img, dept_id, com_id, ten_id, user_code, user_phone, user_wx_open_id, user_email, user_qq_open_id, user_data_source, user_use_state, user_int_user, user_int_date, user_upd_user, user_upd_date
+    </sql>
+    <sql id="Base_Column_List_Sui">
+        sui.user_id, sui.user_name, sui.user_passwd, sui.user_card_id, sui.user_sex, sui.user_birthday,
+        sui.user_head_img, sui.dept_id, sui.com_id, sui.ten_id, sui.user_code, sui.user_phone, sui.user_wx_open_id,
+        sui.user_email, sui.user_qq_open_id, sui.user_data_source, sui.user_use_state, sui.user_int_user,
+        sui.user_int_date, sui.user_upd_user, sui.user_upd_date
+    </sql>
+
+    <select id="selectUserAndPostInfo" resultMap="UserAndPostMap">
+        select <include refid="Base_Column_List_Sui"/>,
+            <include refid="com.pf.system.dao.SysUpostRelMapper.Base_Column_List_Supr"/>
+        from sys_user_info sui
+        left join sys_upost_rel supr on sui.user_id = supr.user_id
+        <where>
+            <if test="type == '0'">/*手机号*/
+                sui.user_phone = #{code, jdbcType=VARCHAR}
+            </if>
+            <if test="type == '1'">/*用户账号*/
+                sui.user_code = #{code, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+</mapper>

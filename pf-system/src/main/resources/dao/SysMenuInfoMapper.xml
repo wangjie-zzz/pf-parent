@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.SysMenuInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysMenuInfo">
+        <id column="menu_id" property="menuId" />
+        <result column="menu_name" property="menuName" />
+        <result column="app_id" property="appId" />
+        <result column="menu_url" property="menuUrl" />
+        <result column="menu_icon" property="menuIcon" />
+        <result column="menu_bg_img" property="menuBgImg" />
+        <result column="menu_bg_color" property="menuBgColor" />
+        <result column="menu_sup_menu_id" property="menuSupMenuId" />
+        <result column="menu_level" property="menuLevel" />
+        <result column="menu_is_leaf" property="menuIsLeaf" />
+        <result column="menu_row_span" property="menuRowSpan" />
+        <result column="menu_col_span" property="menuColSpan" />
+        <result column="menu_sort_no" property="menuSortNo" />
+        <result column="menu_user_state" property="menuUserState" />
+        <result column="menu_int_user" property="menuIntUser" />
+        <result column="menu_int_date" property="menuIntDate" />
+        <result column="menu_upd_user" property="menuUpdUser" />
+        <result column="menu_upd_date" property="menuUpdDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        menu_id, menu_name, app_id, menu_url, menu_icon, menu_bg_img, menu_bg_color, menu_sup_menu_id, menu_level, menu_is_leaf, menu_row_span, menu_col_span, menu_sort_no, menu_user_state, menu_int_user, menu_int_date, menu_upd_user, menu_upd_date
+    </sql>
+
+</mapper>

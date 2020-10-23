@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.SysTreedictInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysTreedictInfo">
+        <id column="treedict_id" property="treedictId" />
+        <result column="app_id" property="appId" />
+        <result column="treedict_field" property="treedictField" />
+        <result column="treedict_name" property="treedictName" />
+        <result column="treedict_key" property="treedictKey" />
+        <result column="treedict_value" property="treedictValue" />
+        <result column="treedict_sup_id" property="treedictSupId" />
+        <result column="treedict_level" property="treedictLevel" />
+        <result column="treedict_is_leaf" property="treedictIsLeaf" />
+        <result column="treedict_sort_no" property="treedictSortNo" />
+        <result column="treedict_use_state" property="treedictUseState" />
+        <result column="treedict_int_user" property="treedictIntUser" />
+        <result column="treedict_int_date" property="treedictIntDate" />
+        <result column="treedict_upd_user" property="treedictUpdUser" />
+        <result column="treedict_upd_date" property="treedictUpdDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        treedict_id, app_id, treedict_field, treedict_name, treedict_key, treedict_value, treedict_sup_id, treedict_level, treedict_is_leaf, treedict_sort_no, treedict_use_state, treedict_int_user, treedict_int_date, treedict_upd_user, treedict_upd_date
+    </sql>
+
+</mapper>

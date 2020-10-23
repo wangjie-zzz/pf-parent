@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.SysCompanyInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysCompanyInfo">
+        <id column="com_id" property="comId" />
+        <result column="com_level" property="comLevel" />
+        <result column="com_name" property="comName" />
+        <result column="ten_id" property="tenId" />
+        <result column="com_sup_com_id" property="comSupComId" />
+        <result column="com_tel_man" property="comTelMan" />
+        <result column="com_org_phone" property="comOrgPhone" />
+        <result column="com_provice_no" property="comProviceNo" />
+        <result column="com_city_no" property="comCityNo" />
+        <result column="com_cut_no" property="comCutNo" />
+        <result column="com_address" property="comAddress" />
+        <result column="com_di_ingo" property="comDiIngo" />
+        <result column="com_ong_info" property="comOngInfo" />
+        <result column="com_sort_no" property="comSortNo" />
+        <result column="com_user_state" property="comUserState" />
+        <result column="com_int_user" property="comIntUser" />
+        <result column="com_int_date" property="comIntDate" />
+        <result column="com_upd_user" property="comUpdUser" />
+        <result column="com_upd_date" property="comUpdDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        com_id, com_level, com_name, ten_id, com_sup_com_id, com_tel_man, com_org_phone, com_provice_no, com_city_no, com_cut_no, com_address, com_di_ingo, com_ong_info, com_sort_no, com_user_state, com_int_user, com_int_date, com_upd_user, com_upd_date
+    </sql>
+
+</mapper>

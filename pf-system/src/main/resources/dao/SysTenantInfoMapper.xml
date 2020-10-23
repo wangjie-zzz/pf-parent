@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.SysTenantInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysTenantInfo">
+        <id column="ten_id" property="tenId" />
+        <result column="ten_name" property="tenName" />
+        <result column="ten_use_state" property="tenUseState" />
+        <result column="ten_int_user" property="tenIntUser" />
+        <result column="ten_int_date" property="tenIntDate" />
+        <result column="ten_upd_user" property="tenUpdUser" />
+        <result column="ten_upd_date" property="tenUpdDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ten_id, ten_name, ten_use_state, ten_int_user, ten_int_date, ten_upd_user, ten_upd_date
+    </sql>
+
+</mapper>

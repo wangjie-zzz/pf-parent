@@ -1,0 +1,9 @@
+pf-gateway: 8201
+pf-system: 8501
+pf-plat: 8301
+pf-auth: 8401
+pf-admin: 8080
+
+seata: 8091
+nacos: 8848
+sentinel: 8849

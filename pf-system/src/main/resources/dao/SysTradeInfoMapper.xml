@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.SysTradeInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysTradeInfo">
+        <id column="trade_id" property="tradeId" />
+        <result column="menu_id" property="menuId" />
+        <result column="app_id" property="appId" />
+        <result column="trade_url" property="tradeUrl" />
+        <result column="trade_name" property="tradeName" />
+        <result column="trade_sort_no" property="tradeSortNo" />
+        <result column="trade_user_state" property="tradeUserState" />
+        <result column="trade_int_user" property="tradeIntUser" />
+        <result column="trade_int_date" property="tradeIntDate" />
+        <result column="trade_upd_user" property="tradeUpdUser" />
+        <result column="trade_upd_date" property="tradeUpdDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        menu_id, trade_id, app_id, trade_url, trade_name, trade_sort_no, trade_user_state, trade_int_user, trade_int_date, trade_upd_user, trade_upd_date
+    </sql>
+
+</mapper>

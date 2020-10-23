@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.SysInterfaceInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysInterfaceInfo">
+        <id column="interface_id" property="interfaceId" />
+        <result column="interface_code" property="interfaceCode" />
+        <result column="app_id" property="appId" />
+        <result column="interface_url" property="interfaceUrl" />
+        <result column="interface_name" property="interfaceName" />
+        <result column="interface_sort_no" property="interfaceSortNo" />
+        <result column="interface_user_state" property="interfaceUserState" />
+        <result column="interface_int_user" property="interfaceIntUser" />
+        <result column="interface_int_date" property="interfaceIntDate" />
+        <result column="interface_upd_user" property="interfaceUpdUser" />
+        <result column="interface_upd_date" property="interfaceUpdDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        interface_id, interface_code, app_id, interface_url, interface_name, interface_sort_no, interface_user_state, interface_int_user, interface_int_date, interface_upd_user, interface_upd_date
+    </sql>
+
+</mapper>

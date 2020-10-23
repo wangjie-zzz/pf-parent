@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.SysRoleInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysRoleInfo">
+        <id column="role_id" property="roleId" />
+        <result column="ten_id" property="tenId" />
+        <result column="dept_id" property="deptId" />
+        <result column="role_name" property="roleName" />
+        <result column="role_type" property="roleType" />
+        <result column="role_user_state" property="roleUserState" />
+        <result column="role_int_user" property="roleIntUser" />
+        <result column="role_int_date" property="roleIntDate" />
+        <result column="role_upd_user" property="roleUpdUser" />
+        <result column="role_upd_date" property="roleUpdDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        role_id, ten_id, dept_id, role_name, role_type, role_user_state, role_int_user, role_int_date, role_upd_user, role_upd_date
+    </sql>
+    <sql id="Base_Column_List_Sri">
+        sri.role_id, sri.ten_id, sri.dept_id, sri.role_name, sri.role_type, sri.role_user_state, sri.role_int_user,
+        sri.role_int_date, sri.role_upd_user, sri.role_upd_date
+    </sql>
+    <select id="selectRoleByUserAndPost" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List_Sri"/>
+        from sys_role_info sri
+        inner join sys_role_rel srr on sri.role_id = srr.role_id
+        where srr.rel_id in
+        <foreach collection="list" item="id" index="index" separator="," close=")" open="(" >
+            #{id, jdbcType=VARCHAR}
+        </foreach>
+    </select>
+</mapper>

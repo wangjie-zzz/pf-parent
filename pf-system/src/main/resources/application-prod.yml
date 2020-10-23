@@ -1,0 +1,51 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        namespace: 1f966ded-f369-4ec8-ac84-2fe03d3710b4
+      config:
+        namespace: 1f966ded-f369-4ec8-ac84-2fe03d3710b4
+  datasource:
+    url: jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      filters: stat
+      initial-size: 1 # 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时  生产建议： 15
+      max-active: 5 # 最大连接池数量   生产建议：100
+      min-idle: 1 # 最小连接池数量 生产建议： 15
+      max-wait: 60000 # 程序向连接池中请求连接时,超过maxWait的值后，认为本次请求失败，即连接池
+      min-evictable-idle-time-millis: 60000 # 连接保持空闲而不被驱逐的最小时间
+      pool-prepared-statements: false # 是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
+      test-on-borrow: false # 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      test-on-return: false # 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      test-while-idle: true # 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+      validation-query: select 1 # 测试连接是否可用的SQL语句
+  #  data:
+  #    mongodb:
+  #      host: localhost
+  #      port: 27017
+  #      database: mall-port
+  #  redis:
+  #    host: localhost # Redis服务器地址
+  #    database: 0 # Redis数据库索引（默认为0）
+  #    port: 6379 # Redis服务器连接端口
+  #    password: # Redis服务器连接密码（默认为空）
+  #  rabbitmq:
+  #    host: localhost
+  #    port: 5672
+  #    virtual-host: /mall
+  #    username: mall
+  #    password: mall
+seata:
+  service:
+    grouplist:
+      default: 127.0.0.1:8091 # 仅注册中心为file时使用
+  enabled: true # 是否启用分布式事务
+  registry:
+    nacos:
+      namespace: ${spring.cloud.nacos.discovery.namespace} # 命名空间的ID
+  config:
+    nacos:
+      namespace: ${spring.cloud.nacos.config.namespace} # 命名空间的ID

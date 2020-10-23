@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.SysPostInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysPostInfo">
+        <id column="post_id" property="postId" />
+        <result column="post_name" property="postName" />
+        <result column="post_type" property="postType" />
+        <result column="ten_id" property="tenId" />
+        <result column="post_user_state" property="postUserState" />
+        <result column="post_int_user" property="postIntUser" />
+        <result column="post_int_date" property="postIntDate" />
+        <result column="post_upd_user" property="postUpdUser" />
+        <result column="post_upd_date" property="postUpdDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        post_id, post_name, post_type, ten_id, post_user_state, post_int_user, post_int_date, post_upd_user, post_upd_date
+    </sql>
+
+</mapper>

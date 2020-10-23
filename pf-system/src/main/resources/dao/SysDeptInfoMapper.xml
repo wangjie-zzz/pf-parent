@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.SysDeptInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysDeptInfo">
+        <id column="dept_id" property="deptId" />
+        <result column="dept_name" property="deptName" />
+        <result column="com_id" property="comId" />
+        <result column="ten_id" property="tenId" />
+        <result column="dept_level" property="deptLevel" />
+        <result column="dept_sup_dept_id" property="deptSupDeptId" />
+        <result column="dept_type" property="deptType" />
+        <result column="dept_manager" property="deptManager" />
+        <result column="dept_sort_no" property="deptSortNo" />
+        <result column="dept_user_state" property="deptUserState" />
+        <result column="dept_int_user" property="deptIntUser" />
+        <result column="dept_int_date" property="deptIntDate" />
+        <result column="dept_upd_user" property="deptUpdUser" />
+        <result column="dept_upd_date" property="deptUpdDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        dept_id, dept_name, com_id, ten_id, dept_level, dept_sup_dept_id, dept_type, dept_manager, dept_sort_no, dept_user_state, dept_int_user, dept_int_date, dept_upd_user, dept_upd_date
+    </sql>
+
+</mapper>

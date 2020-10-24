@@ -64,7 +64,7 @@ seata:
     compressor: gzip # client和server通信数据压缩方式
   service:
     vgroup-mapping:
-      mall-seata: default # ms-mfw-seata为分组，配置项值为TC集群名
+      mall-seata: default # mall-seata为分组，配置项值为TC集群名
     disable-global-transaction: false # 全局事务开关，默认false。false为开启，true为关闭
   registry:
     type: nacos # 注册中心类型，默认file，支持file 、nacos 、eureka、redis、zk、consul、etcd3、sofa、custom

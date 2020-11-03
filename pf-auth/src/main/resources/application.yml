@@ -68,6 +68,11 @@ mybatis-plus:
 #  ConnectTimeout: 3000 #服务请求连接超时时间（毫秒）
 #  ReadTimeout: 3000 #服务请求处理超时时间（毫秒）
 dubbo:
+#  scan:
+#    base-packages:
+  protocol:
+    name: dubbo
+    port: -1 # 协议端口（ -1 表示自增端口，从 20880 开始）
   consumer:
     check: false # 关闭所有服务的启动时检查 (没有提供者时报错)
     retries: 0 # 远程服务调用重试次数，不包括第一次调用，不需要重试请设为0

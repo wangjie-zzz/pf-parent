@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.wj.pf</groupId>
-    <artifactId>pf-gateway</artifactId>
-    <version>${revision}</version>
-    <name>pf-gateway</name>
-    <description>mall-gateway project for mall</description>
-
     <parent>
         <groupId>com.wj.pf</groupId>
         <artifactId>pf-parent</artifactId>
         <version>${revision}</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>pf-gateway</artifactId>
+    <version>${revision}</version>
+    <packaging>jar</packaging>
+    <name>pf-gateway</name>
+    <properties>
+        <start-class>com.pf.gateway.PfGatewayApplication</start-class>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -110,6 +111,26 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>${start-class}</mainClass>
+                    <layout>ZIP</layout>
+                    <!--<excludes>
+                        <exclude>
+                            <groupId>com.wj.pf</groupId>
+                            <artifactId>pf-common</artifactId>
+                        </exclude>
+                    </excludes>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <!--<configuration>
+                            <classifier>exec</classifier>
+                        </configuration>-->
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>com.spotify</groupId>

@@ -11,13 +11,13 @@
 
     <modules>
         <module>pf-common</module>
+        <module>pf-api</module>
         <module>pf-gateway</module>
         <module>pf-auth</module>
         <module>pf-system</module>
-        <module>pf-api</module>
         <module>pf-plat</module>
-        <!--<module>mall-mbg</module>
-        <module>mall-demo</module>
+        <module>pf-test</module>
+        <!--<module>mall-demo</module>
         <module>mall-admin</module>
         <module>mall-search</module>
         <module>mall-portal</module>
@@ -51,7 +51,7 @@
 
     <properties>
         <revision>1.0-SNAPSHOT</revision>
-        <mall-common.version>1.0-SNAPSHOT</mall-common.version>
+        <pf-common.version>1.0-SNAPSHOT</pf-common.version>
         <mall-mbg.version>1.0-SNAPSHOT</mall-mbg.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -112,11 +112,11 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--mall通用模块-->
+            <!--pf公共模块-->
             <dependency>
                 <groupId>com.wj.pf</groupId>
                 <artifactId>pf-common</artifactId>
-                <version>${mall-common.version}</version>
+                <version>${pf-common.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.wj.pf</groupId>

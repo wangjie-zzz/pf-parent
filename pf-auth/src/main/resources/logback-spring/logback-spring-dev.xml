@@ -6,7 +6,7 @@
     <springProperty scope="context" name="appName" source="spring.application.name" defaultValue="pf-auth"/>
     
     <!-- 定义日志文件 输入位置 -->  
-    <property name="logDir" value="./logs/${appName}"/>
+    <property name="logDir" value="../dev/logs/${appName}"/>
     
     <!-- 日志最大的历史 60天 -->  
     <property name="maxHistory" value="60"/> 

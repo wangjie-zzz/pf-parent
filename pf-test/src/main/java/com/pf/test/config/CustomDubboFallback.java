@@ -1,7 +1,7 @@
-package com.pf.auth.config;
+package com.pf.test.config;
 
+import com.alibaba.csp.sentinel.adapter.dubbo.config.DubboAdapterGlobalConfig;
 import com.alibaba.csp.sentinel.adapter.dubbo.fallback.DubboFallback;
-import com.alibaba.csp.sentinel.adapter.dubbo.fallback.DubboFallbackRegistry;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.pf.base.CommonResult;
 import com.pf.enums.SysStatusCode;
@@ -18,13 +18,15 @@ import javax.annotation.PostConstruct;
  * @ClassName : FlowRuleConfig
  * @Description : 请求回退及限流规则配置
  */
-@Configuration
 @Slf4j
-public class SentinelConfig {
+@Configuration
+public class CustomDubboFallback {
+    public CustomDubboFallback() {
+    }
 
     @PostConstruct
     private void dubboProviderFallback() {
-        DubboFallbackRegistry.setProviderFallback(new DubboFallback() {
+        DubboAdapterGlobalConfig.setProviderFallback(new DubboFallback() {
             @Override
             public Result handle(Invoker<?> invoker, Invocation invocation, BlockException ex) {
                 log.info(getClass().getName(), ex);
@@ -36,7 +38,7 @@ public class SentinelConfig {
 
     @PostConstruct
     private void dubboConsumerFallback() {
-        DubboFallbackRegistry.setConsumerFallback(new DubboFallback() {
+        DubboAdapterGlobalConfig.setProviderFallback(new DubboFallback() {
             @Override
             public Result handle(Invoker<?> invoker, Invocation invocation, BlockException ex) {
                 log.info(getClass().getName(), ex);

@@ -1,0 +1,124 @@
+server:
+  port: 8101
+  servlet:
+    context-path: '/pf-test'
+  compression:
+    enabled: true #数据压缩
+    mime-types: application/json,text/html,text/xml,text/plain,text/css,text/javascript,application/javascript #支持压缩的MIME类型列表，以逗号分隔
+    min-response-size: 2048 #当前大于2kb则进行压缩-执行压缩所需的最小“Content-Length”值。单位：字节,
+management: #开启SpringBoot Admin的监控
+  #  server:
+  #    port: 10104 # 如果不想通过HTTP公开端点，可以将管理端口设置为 -1
+  #    servlet:
+  #      context-path: '/04F51581C56ECF190A28EA7C90DD1536' # 管理端口的上下文路径
+  endpoints:
+    enabled-by-default: true # 默认情况下是否启用或禁用所有端点
+    web:
+      exposure: # 需要暴露的端点
+        include: '*' #health,info,hystrix.stream # Endpoint IDs that should be included or '*' for all.
+        #exclude: # Endpoint IDs that should be excluded or '*' for all.
+  endpoint:
+    health:
+      show-details: ALWAYS
+spring:
+  profiles:
+    active: "@spring.profiles.active@"
+  application:
+    name: pf-test
+  servlet:
+    multipart:
+      enabled: true # 是否启用分段上传支持。
+      max-file-size: 10MB # 最大文件大小。值可以使用后缀“MB”或“KB”分别表示兆字节或千字节。
+      max-request-size: 250MB # 最大请求大小。值可以使用后缀“MB”或“KB”分别表示兆字节或千字节。
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 172.16.3.184:8848 # Nacos 注册中心服务端地址
+        group: DEFAULT_GROUP # 设置服务所处的分组
+        weight: 1 # 权重-取值范围 1 到 100，数值越大，权重越大
+        cluster-name: DEFAULT # 配置成Nacos集群名称
+        username: nacos
+        password: nacos
+      config:
+        server-addr: 172.16.3.184:8848 # Nacos 配置中心服务端地址
+        username: nacos
+        password: nacos
+        # 事务分组-Seata-server1和seata-server2是两个集群，taobao和jd是可以映射到同一集群的两个事务组， 例如seata-server1。发生故障时，您需要通过配置中心更改事务分组映射的集群名称，以完成集群的快速切换。
+    sentinel:
+      eager: true # 是否提前触发 Sentinel 初始化
+      filter:
+        enabled: true # 启用实例CommonFilter
+      datasource: # 动态数据源支持
+        ds1: # ds1, ds2, ds3, ds4 是ReadableDataSource的名字，可随意编写。后面的 file ，zk ，nacos , apollo 就是对应具体的数据源，它们后面的配置就是这些具体数据源各自的配置。
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            username: ${spring.cloud.nacos.config.username}
+            password: ${spring.cloud.nacos.config.password}
+            data-id: ${spring.application.name}-sentinel # 配置的 data-id
+            group: DEFAULT_GROUP # 配置分组
+            data-type: json # 表示 Converter 类型，Spring Cloud Alibaba Sentinel 默认提供两种内置的值，分别是 json 和 xml (不填默认是json)
+            rule-type: flow # 配置表示该数据源中的规则属于哪种类型的规则(flow，degrade，authority，system, param-flow, gw-flow, gw-api-group)
+seata:
+  tx-service-group: mall-seata
+  transport:
+    compressor: gzip # client和server通信数据压缩方式
+  service:
+    vgroup-mapping:
+      mall-seata: default # mall-seata为分组，配置项值为TC集群名
+    disable-global-transaction: false # 全局事务开关，默认false。false为开启，true为关闭
+  registry:
+    type: nacos # 注册中心类型，默认file，支持file 、nacos 、eureka、redis、zk、consul、etcd3、sofa、custom
+    nacos:
+      username: nacos
+      password: nacos
+      server-addr: ${spring.cloud.nacos.discovery.server-addr} # 注册中心服务端地址
+      cluster: default # 集群名称
+      application: serverAddr
+      group: DEFAULT_GROUP
+  config:
+    type: nacos
+    nacos:
+      username: nacos
+      password: nacos
+      server-addr: ${spring.cloud.nacos.config.server-addr}
+      group: SEATA_GROUP # 配置分组
+mybatis-plus:
+  type-aliases-package: com.pf.test.model.entity
+  mapper-locations:
+    - classpath:dao/*.xml
+    - classpath*:com/**/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+dubbo:
+  scan:
+    base-packages: com.pf.test.provider # 指定 Dubbo 服务实现类的扫描基准包
+  protocol: # Dubbo 服务暴露的协议配置
+    name: dubbo # 协议名称
+    port: -1 # 协议端口（ -1 表示自增端口，从 20880 开始）
+  provider:
+    timeout: 10000
+  consumer:
+    check: false # 关闭所有服务的启动时检查 (没有提供者时报错)
+    retries: 0 # 远程服务调用重试次数，不包括第一次调用，不需要重试请设为0
+    timeout: 10000 # 服务方法调用超时时间(毫秒)
+  registry:
+    check: false # 注册中心不存在时，是否报错
+    address: spring-cloud://localhost # Dubbo 服务注册中心配置，其中子属性 address 的值 "spring-cloud://localhost"，说明挂载到 Spring Cloud 注册中心
+  cloud:
+    subscribed-services: pf-auth,pf-system # 用于服务消费方订阅服务提供方的应用名称的列表，若需订阅多应用，使用 "," 分割。 不推荐使用默认值为 "*"，它将订阅所有应用。
+#客户端版本号，在监控中心显示
+info:
+  version: "@project.version@" #客户端版本号，在监控中心显示  | 监控中心地址
+  owner: Pf
+  name: "@project.name@"
+  description: "@project.description@"
+  spring-boot-version: "@project.parent.version@"
+logging:
+  config: classpath:logback-spring/logback-spring-${spring.profiles.active}.xml
+# 日志配置
+#logging:
+#  level:
+#    root: debug
+#    com..mall: debug
+#logstash:
+#  host: localhost

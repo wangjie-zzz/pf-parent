@@ -1,4 +1,4 @@
-package com.pf.test;
+package com.pf;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

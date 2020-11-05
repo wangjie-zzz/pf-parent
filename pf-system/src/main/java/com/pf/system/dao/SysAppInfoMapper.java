@@ -3,6 +3,8 @@ package com.pf.system.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pf.system.model.entity.SysAppInfo;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -13,4 +15,5 @@ import com.pf.system.model.entity.SysAppInfo;
  */
 public interface SysAppInfoMapper extends BaseMapper<SysAppInfo> {
 
+    List<SysAppInfo> selectListWithMenus();
 }

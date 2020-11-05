@@ -1,4 +1,4 @@
-package com.pf.plat;
+package com.pf;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

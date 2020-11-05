@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -58,5 +59,5 @@ public class SysMenuInfo implements Serializable {
 
     private LocalDateTime menuUpdDate;
 
-
+    private List<SysMenuInfo> children;
 }

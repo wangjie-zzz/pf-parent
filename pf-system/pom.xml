@@ -15,7 +15,9 @@
 
     <name>pf-system</name>
     <description>pf-system project for mall</description>
-
+    <properties>
+        <start-class>com.pf.PfSystemApplication</start-class>
+    </properties>
 
     <dependencies>
         <!--公共模块-->
@@ -117,6 +119,26 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>${start-class}</mainClass>
+                    <layout>ZIP</layout>
+                    <!--<excludes>
+                        <exclude>
+                            <groupId>com.wj.pf</groupId>
+                            <artifactId>pf-common</artifactId>
+                        </exclude>
+                    </excludes>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <!--<configuration>
+                            <classifier>exec</classifier>
+                        </configuration>-->
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>com.spotify</groupId>

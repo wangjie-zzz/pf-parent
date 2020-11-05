@@ -45,6 +45,12 @@ public class SysUserInfoProvider implements ISysUserInfoProvider {
     @Transactional(readOnly = true)
     public CommonResult<String> selectUserAndRoleInfo(String userId) {
         SysUserInfo sysUserInfo = sysUserInfoMapper.selectById(userId);
+//        long l = 200000;
+//        try {
+//            Thread.sleep(l);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         if(sysUserInfo == null) Asserts.fail("该用户不存在！");
         sysUserInfo.checkUserUseState();
         List<String> ids = new ArrayList<>();

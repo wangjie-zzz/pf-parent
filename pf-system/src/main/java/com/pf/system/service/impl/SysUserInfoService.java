@@ -7,7 +7,7 @@ import com.pf.constant.CacheConstants;
 import com.pf.enums.LoginTypeEnum;
 import com.pf.enums.SysStatusCode;
 import com.pf.enums.UserDataSourceEnum;
-import com.pf.exception.Asserts;
+import com.pf.util.Asserts;
 import com.pf.system.dao.SysUserInfoMapper;
 import com.pf.system.model.domain.Token;
 import com.pf.system.model.entity.SysUserInfo;

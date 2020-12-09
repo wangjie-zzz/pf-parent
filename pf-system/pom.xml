@@ -29,6 +29,10 @@
             <groupId>com.wj.pf</groupId>
             <artifactId>pf-system-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.wj.pf</groupId>
+            <artifactId>pf-test-api</artifactId>
+        </dependency>
         <!-- web程序 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

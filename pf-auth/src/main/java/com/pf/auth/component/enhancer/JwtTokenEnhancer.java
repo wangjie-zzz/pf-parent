@@ -28,6 +28,7 @@ public class JwtTokenEnhancer implements TokenEnhancer {
             if( principal instanceof SecurityUser) {
                 SecurityUser user = (SecurityUser) principal;
                 additionalInfo.put("roles", user.getAuthorities());
+                additionalInfo.put("testAdd", true);
             }
             ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
         }

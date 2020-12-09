@@ -1,6 +1,7 @@
 package com.pf.test.config;
 
 import com.pf.test.bean.TestBean;
+import com.pf.test.bean.TestBeanProcessor;
 import org.aspectj.weaver.ast.Test;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,5 +24,10 @@ public class TestBeanConfig {
     @Bean(initMethod = "initMethod",destroyMethod = "destroyMethod")
     public TestBean testBean() {
         return new TestBean();
+    }
+
+    @Bean
+    public TestBeanProcessor testBeanProcessor() {
+        return new TestBeanProcessor();
     }
 }

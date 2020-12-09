@@ -33,13 +33,18 @@ public class TestBean implements DisposableBean, InitializingBean {
         this.name = name;
     }
 
+    //Config中@Bean 的initMethod
+    public void initMethod(){
+        System.out.println("调用Bean的函数(initMethod)");
+    }
+    //Config中@Bean 的destroyMethod
+    public void destroyMethod(){
+        System.out.println("调用Bean的函数(destroyMethod)");
+    }
+
     @PostConstruct
     public void postConstruct(){
         System.out.println("调用Bean的函数(postConstruct)");
-    }
-    //MainConfig中@Bean 的initMethod
-    public void initMethod(){
-        System.out.println("调用Bean的函数(initMethod)");
     }
     //InitializingBean接口的方法afterPropertiesSet
     @Override
@@ -54,9 +59,5 @@ public class TestBean implements DisposableBean, InitializingBean {
     @Override
     public void destroy() throws Exception {
         System.out.println("调用Bean的函数(destroy)");
-    }
-    //MainConfig中@Bean 的destroyMethod
-    public void destroyMethod(){
-        System.out.println("调用Bean的函数(destroyMethod)");
     }
 }

@@ -8,3 +8,5 @@ pf-admin: 8080
 seata: 8091
 nacos: 8848
 sentinel: 8849
+redis: 6379
+rabbit: 15672

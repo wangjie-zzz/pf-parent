@@ -2,9 +2,9 @@ package com.pf.system.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.pf.config.SnowflakeIdWorker;
+import com.pf.bean.SnowflakeIdWorker;
 import com.pf.enums.UseStateEnum;
-import com.pf.exception.Asserts;
+import com.pf.util.Asserts;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;

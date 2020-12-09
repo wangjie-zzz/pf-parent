@@ -12,7 +12,7 @@
     <packaging>jar</packaging>
     <name>pf-gateway</name>
     <properties>
-        <start-class>com.pf.gateway.PfGatewayApplication</start-class>
+        <start-class>com.pf.PfGatewayApplication</start-class>
     </properties>
 
     <dependencies>

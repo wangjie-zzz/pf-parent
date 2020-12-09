@@ -1,5 +1,6 @@
 package com.pf.system.config;
 
+import com.pf.bean.RedisDistributionLock;
 import org.springframework.context.annotation.Configuration;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -118,6 +119,11 @@ public class RedisConfig extends CachingConfigurerSupport {
 
         };
 
+    }
+
+    @Bean
+    public RedisDistributionLock redisDistributionLock() {
+        return new RedisDistributionLock(stringRedisTemplate());
     }
 
 }

@@ -3,7 +3,7 @@ package com.pf.plat.exchange.socket;
 import com.google.common.collect.Lists;
 import com.pf.enums.DataFormatsEnum;
 import com.pf.enums.SysStatusCode;
-import com.pf.exception.Asserts;
+import com.pf.util.Asserts;
 import com.pf.plat.exchange.ExchangeClient;
 import com.pf.plat.exchange.socket.config.ExponentialBackOffRetry;
 import com.pf.plat.exchange.socket.config.RetryPolicy;

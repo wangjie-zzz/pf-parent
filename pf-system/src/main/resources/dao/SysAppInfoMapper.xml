@@ -17,10 +17,22 @@
         <result column="app_upd_user" property="appUpdUser" />
         <result column="app_upd_date" property="appUpdDate" />
     </resultMap>
-
+    <resultMap id="ResultMapWithMenus" type="com.pf.system.model.entity.SysAppInfo" extends="BaseResultMap">
+        <collection property="sysMenuInfoList" resultMap="com.pf.system.dao.SysMenuInfoMapper.BaseResultMap">
+        </collection>
+    </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         app_id, app_name, app_type, app_url, app_icon, app_desc, app_state, app_use_state, app_int_user, app_int_date, app_upd_user, app_upd_date
     </sql>
-
+    <sql id="Alias_Column_List">
+        sai.app_id, sai.app_name, sai.app_type, sai.app_url, sai.app_icon, sai.app_desc, sai.app_state,
+        sai.app_use_state, sai.app_int_user, sai.app_int_date, sai.app_upd_user, sai.app_upd_date
+    </sql>
+    <select id="selectListWithMenus" resultMap="ResultMapWithMenus">
+        select <include refid="Alias_Column_List"/>,
+        <include refid="com.pf.system.dao.SysMenuInfoMapper.Alias_Column_List"/>
+        from sys_app_info sai
+        left join sys_menu_info smi on sai.app_id = smi.app_id
+    </select>
 </mapper>

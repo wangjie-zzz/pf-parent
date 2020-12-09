@@ -1,5 +1,6 @@
 pf-gateway: 8201
 pf-system: 8501
+pf-test: 8101
 pf-plat: 8301
 pf-auth: 8401
 pf-admin: 8080
@@ -7,3 +8,5 @@ pf-admin: 8080
 seata: 8091
 nacos: 8848
 sentinel: 8849
+redis: 6379
+rabbit: 15672

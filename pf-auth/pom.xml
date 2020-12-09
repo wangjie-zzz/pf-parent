@@ -3,7 +3,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    <parent>
+        <groupId>com.wj.pf</groupId>
+        <artifactId>pf-parent</artifactId>
+        <version>${revision}</version>
+    </parent>
     <groupId>com.wj.pf</groupId>
     <artifactId>pf-auth</artifactId>
     <version>${revision}</version>
@@ -11,12 +15,9 @@
 
     <name>pf-auth</name>
     <description>pf-auth project for pf</description>
-
-    <parent>
-        <groupId>com.wj.pf</groupId>
-        <artifactId>pf-parent</artifactId>
-        <version>${revision}</version>
-    </parent>
+    <properties>
+        <start-class>com.pf.PfAuthApplication</start-class>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -110,6 +111,26 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>${start-class}</mainClass>
+                    <layout>ZIP</layout>
+                    <!--<excludes>
+                        <exclude>
+                            <groupId>com.wj.pf</groupId>
+                            <artifactId>pf-common</artifactId>
+                        </exclude>
+                    </excludes>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <!--<configuration>
+                            <classifier>exec</classifier>
+                        </configuration>-->
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>com.spotify</groupId>

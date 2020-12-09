@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -51,4 +52,6 @@ public class SysAppInfo implements Serializable {
 
     @TableField(exist = false)
     private String appActiveRule;
+
+    private List<SysMenuInfo> sysMenuInfoList;
 }

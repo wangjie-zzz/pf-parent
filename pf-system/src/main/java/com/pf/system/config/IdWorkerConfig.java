@@ -1,6 +1,6 @@
 package com.pf.system.config;
 
-import com.pf.config.SnowflakeIdWorker;
+import com.pf.bean.SnowflakeIdWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

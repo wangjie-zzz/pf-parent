@@ -9,4 +9,7 @@ public interface SysGeneralConsts {
     /** 统一公开端点 **/
     String PERMIT_ENDPOINT = "/permitAll";
 
+    class REDIS_KEY_PREFIX {
+        public static final String SYS_CHECK_RESUBMIT = "redis-lock-";
+    };
 }

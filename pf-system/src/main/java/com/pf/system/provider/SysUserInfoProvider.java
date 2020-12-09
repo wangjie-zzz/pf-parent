@@ -1,7 +1,7 @@
 package com.pf.system.provider;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.pf.exception.Asserts;
+import com.pf.util.Asserts;
 import com.pf.system.dao.SysRoleInfoMapper;
 import com.pf.system.service.ISysUserInfoProvider;
 import com.pf.base.CommonResult;
@@ -45,6 +45,12 @@ public class SysUserInfoProvider implements ISysUserInfoProvider {
     @Transactional(readOnly = true)
     public CommonResult<String> selectUserAndRoleInfo(String userId) {
         SysUserInfo sysUserInfo = sysUserInfoMapper.selectById(userId);
+//        long l = 200000;
+//        try {
+//            Thread.sleep(l);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         if(sysUserInfo == null) Asserts.fail("该用户不存在！");
         sysUserInfo.checkUserUseState();
         List<String> ids = new ArrayList<>();

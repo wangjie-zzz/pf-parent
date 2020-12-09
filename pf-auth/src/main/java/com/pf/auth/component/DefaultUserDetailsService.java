@@ -1,7 +1,7 @@
 package com.pf.auth.component;
 
 import com.pf.auth.constant.MessageConstant;
-import com.pf.exception.Asserts;
+import com.pf.util.Asserts;
 import com.pf.system.model.UserDto;
 import com.pf.system.service.ISysUserInfoProvider;
 import com.pf.auth.domain.SecurityUser;

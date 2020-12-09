@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration >
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <!-- spring admin配置 -->
+    <jmxConfigurator/>
+    <springProperty scope="context" name="appName" source="spring.application.name" defaultValue="pf-test"/>
+
+    <!-- 定义日志文件 输入位置 -->
+    <property name="logDir" value="../prod/logs/${appName}"/>
+
+    <!-- 日志最大的历史 60天 -->
+    <property name="maxHistory" value="60"/>
+    <property name="maxFileSize" value="100MB"/>
+    <property name="totalSizeCap" value="20GB"/>
+
+    <property name="logPattern" value="[%date{yyyy-MM-dd HH:mm:ss}] [%-5level] [%logger:%line] --%mdc{client} %msg%n"/>
+
+    <!--输出到控制台-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${logPattern}</pattern>
+        </layout>
+    </appender>
+
+    <!-- 标准输出到文件 -->
+    <appender name="FILELOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <encoder>
+            <pattern>${logPattern}</pattern>
+            <!-- 设置字符集 -->
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 单个日志文件最多 100MB, 60天的日志周期，最大不能超过20GB -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志输出位置  可相对、和绝对路径 -->
+            <fileNamePattern>${logDir}/%d{yyyy-MM-dd}/log-%i.log</fileNamePattern>
+            <!-- 日志文件最大的大小 -->
+            <maxFileSize>${maxFileSize}</maxFileSize>
+            <!--日志文件保留天数-->
+            <maxHistory>${maxHistory}</maxHistory>
+            <!-- 可选节点，用来指定日志文件的上限大小，例如设置为3GB的话，那么到了这个值，就会删除旧的日志 -->
+            <totalSizeCap>${totalSizeCap}</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 为logstash输出的JSON格式的Appender
+	<appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+		<destination>10.213.120.32:5056</destination>
+		 日志输出编码
+		<encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
+	</appender>-->
+
+    <!-- 项目工程代码日志 -->
+    <logger name="com.pf" additivity="false">
+        <level value="DEBUG" />
+        <!-- 文件输出 -->
+        <appender-ref ref="FILELOG" />
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <root level="INFO">
+        <!-- 控制台输出 -->
+        <appender-ref ref="FILELOG" />
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

@@ -123,6 +123,11 @@
                 <artifactId>pf-system-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.wj.pf</groupId>
+                <artifactId>pf-test-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!--Spring Cloud 相关依赖-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>

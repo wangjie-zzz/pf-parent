@@ -1,7 +1,7 @@
 package com.pf.auth.component;
 
 
-import com.pf.exception.Asserts;
+import com.pf.util.Asserts;
 import com.pf.system.model.UserDto;
 import com.pf.base.CommonResult;
 import com.pf.enums.SysStatusCode;

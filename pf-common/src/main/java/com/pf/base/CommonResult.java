@@ -23,6 +23,14 @@ public class CommonResult<T> implements BaseResult {
     /**
      * 成功返回结果
      *
+     * @param 获取的数据
+     */
+    public static <T> CommonResult<T> success() {
+        return new CommonResult<T>(SysStatusCode.SUCCESS.getCode(), SysStatusCode.SUCCESS.getMessage(), null);
+    }
+    /**
+     * 成功返回结果
+     *
      * @param data 获取的数据
      */
     public static <T> CommonResult<T> success(T data) {

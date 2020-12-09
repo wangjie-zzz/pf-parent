@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>pf-system-api</module>
+        <module>pf-test-api</module>
     </modules>
 
     <dependencies>

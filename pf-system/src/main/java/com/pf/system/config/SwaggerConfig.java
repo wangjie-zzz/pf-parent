@@ -1,6 +1,6 @@
 package com.pf.system.config;
 
-import com.pf.config.BaseSwaggerConfig;
+import com.pf.bean.BaseSwaggerConfig;
 import com.pf.constant.SwaggerProperties;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;

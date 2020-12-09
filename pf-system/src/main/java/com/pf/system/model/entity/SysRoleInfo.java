@@ -1,6 +1,6 @@
 package com.pf.system.model.entity;
 
-import com.pf.config.SnowflakeIdWorker;
+import com.pf.bean.SnowflakeIdWorker;
 import com.pf.enums.UseStateEnum;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;

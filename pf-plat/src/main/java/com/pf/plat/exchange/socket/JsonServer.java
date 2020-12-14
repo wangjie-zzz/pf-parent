@@ -14,13 +14,15 @@ import io.netty.handler.ssl.util.SelfSignedCertificate;
 
 public class JsonServer {
 
-	static final boolean SSL = System.getProperty("ssl") != null;
-    static final int PORT = Integer.parseInt(System.getProperty("port", "8077"));
-
-    public static void main(String[] args) throws Exception {
-        // Configure SSL.
+	private final boolean SSL;
+    private final int PORT;
+    public JsonServer(boolean SSL ,int PORT) {
+        this.SSL = SSL;
+        this.PORT = PORT;
+    }
+    public void start() throws Exception {
         final SslContext sslContext;
-        if (true) {
+        if (SSL) {
             SelfSignedCertificate selfSignedCertificate = new SelfSignedCertificate();
             sslContext = SslContextBuilder.forServer(selfSignedCertificate.certificate(), selfSignedCertificate.privateKey()).build();
         } else {

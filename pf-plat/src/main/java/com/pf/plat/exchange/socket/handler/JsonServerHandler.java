@@ -10,7 +10,7 @@ public class JsonServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         // Echo back the received object to the client.
 		System.out.println(msg.toString());
-        ctx.write("{\"report_type\":\"01\",\"begin_date\":\"20191009\",\"serial_no\":\"201910096926\",\"record\":{\"timestmp\":\"20191009 11:21:11\",\"seq_no\":\"ZLSHNGC201910098500\",\"checker_code\":\"system\",\"result\":\"0\",\"remark\":null},\"end_date\":\"20191009\",\"fund_id\":\"hn2019\",\"bank_id\":\"5\",\"func_num\":\"101251\"}");
+		ctx.write("{\"accept\":\"true\"}");
 		ReferenceCountUtil.release(msg);
     }
 

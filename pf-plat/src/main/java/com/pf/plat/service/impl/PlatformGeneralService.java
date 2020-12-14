@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class PlatformGeneralService implements IPlatformGeneralService {
     @Override
-    public void receiptNotice(List<String> extendNo, String matchingRule, String data) {
+    public void receiptNotice(String data) {
 
     }
 }

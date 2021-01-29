@@ -9,3 +9,15 @@ target/
 .settings/
 .classpath
 .project
+
+# other
+document
+logs
+pf-mbg
+mall-admin
+mall-demo
+mall-monitor
+mall-portal
+mall-search
+README_.md
+/config/

@@ -2,15 +2,15 @@ spring:
   cloud:
     nacos:
       discovery:
-        username: nacos
+        username: nacos11
         password: nacos
-        server-addr: 172.16.3.184:8848
+        server-addr: 127.0.0.1:8848
         group: DEFAULT_GROUP # 设置服务所处的分组
         weight: 1 # 权重-取值范围 1 到 100，数值越大，权重越大
         cluster-name: DEFAULT # 配置成Nacos集群名称
       config:
-        username: nacos
+        username: nacos11
         password: nacos
-        server-addr: 172.16.3.184:8848 # Nacos 配置中心服务端地址
+        server-addr: 127.0.0.1:8848 # Nacos 配置中心服务端地址
         group: DEFAULT_GROUP # 设置服务所处的分组
         file-extension: yaml

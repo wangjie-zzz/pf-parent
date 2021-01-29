@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * @ClassName : SysUserInfoController
- * @Description : 
+ * @Description :
  * @Author : wangjie
  * @Date: 2020/9/17-11:16
  */
@@ -35,5 +35,10 @@ public class TestSeataController {
     @PostMapping(value = "/insertData")
     public CommonResult<String> insertData(TestADto testADto) {
         return iTestSeataService.insertData(testADto);
+    }
+
+    @PostMapping(value = "/updateData")
+    public CommonResult<String> updateData(TestADto testADto) {
+        return iTestSeataService.updateData(testADto);
     }
 }

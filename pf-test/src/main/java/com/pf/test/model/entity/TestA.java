@@ -1,5 +1,6 @@
 package com.pf.test.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,7 +9,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author pf
@@ -21,6 +22,7 @@ public class TestA implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @TableId
     private String test1;
 
     private String test2;

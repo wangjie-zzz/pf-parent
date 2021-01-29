@@ -9,5 +9,5 @@ import java.util.List;
  * @Date: 2020/10/16-11:07
  */
 public interface IPlatformGeneralService {
-    void receiptNotice(List<String> extendNo, String matchingRule, String data);
+    void receiptNotice(String data);
 }

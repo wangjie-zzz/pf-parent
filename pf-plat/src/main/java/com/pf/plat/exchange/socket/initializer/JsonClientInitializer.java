@@ -1,9 +1,6 @@
 package com.pf.plat.exchange.socket.initializer;
 
-import com.pf.plat.exchange.socket.handler.JsonClientHandler;
-import com.pf.plat.exchange.socket.handler.JsonSyncClientHandler;
-import com.pf.plat.exchange.socket.handler.PingHandler;
-import com.pf.plat.exchange.socket.handler.ReconnectHandler;
+import com.pf.plat.exchange.socket.handler.*;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -11,6 +8,7 @@ import io.netty.handler.codec.json.JsonObjectDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.ssl.SslContext;
+import io.netty.handler.timeout.IdleStateHandler;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName : JsonClientInitializer
@@ -33,10 +32,6 @@ import java.util.List;
 @AllArgsConstructor
 public class JsonClientInitializer extends ChannelInitializer<SocketChannel> {
     private final SslContext sslContext;
-
-    private final List<String> extendNo;
-
-    private final String matchingRule;
 
     private final String heartbeatRequest;
 
@@ -64,12 +59,19 @@ public class JsonClientInitializer extends ChannelInitializer<SocketChannel> {
                 new StringDecoder(charset),
                 new StringEncoder(charset)
         );
-        if(!StringUtils.isEmpty(heartbeatRequest) && !StringUtils.isEmpty(heartbeatResponse)
-            && !CollectionUtils.isEmpty(extendNo)) {
+        if(!StringUtils.isEmpty(heartbeatRequest) && !StringUtils.isEmpty(heartbeatResponse)) {
             pipeline.addLast(
                     new PingHandler(heartbeatRequest, heartbeatResponse),
-                    new JsonClientHandler(extendNo, matchingRule, initResData)
+                    new JsonClientHandler(initResData)
             );
+            /*由下向上激活，但是接受消息时由上自下拦截*/
+            /*pipeline.addLast(
+                    new IdleStateHandler(0,5,0, TimeUnit.SECONDS),
+                    new ClientIdleStateTrigger(heartbeatRequest),
+                    new JsonClientHandler3(initResData),
+                    new JsonClientHandler(initResData),
+                    new JsonClientHandler2(initResData)
+            );*/
         } else {
             // 短连接
             pipeline.addLast(new JsonSyncClientHandler());

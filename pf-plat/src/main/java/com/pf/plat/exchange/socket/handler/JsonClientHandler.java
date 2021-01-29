@@ -19,22 +19,11 @@ import java.util.List;
 @Slf4j
 public class JsonClientHandler extends SimpleChannelInboundHandler<String> {
 
-    private final List<String> extendNo;
-
-    private final String matchingRule;
-
     private TcpDispacher tcpDispacher;
 
     private String initResData;
 
-    public JsonClientHandler(List<String> extendNo, String matchingRule) {
-        this.extendNo = extendNo;
-        this.matchingRule = matchingRule;
-    }
-
-    public JsonClientHandler(List<String> extendNo, String matchingRule, String initResData) {
-        this.extendNo = extendNo;
-        this.matchingRule = matchingRule;
+    public JsonClientHandler(String initResData) {
         this.initResData = initResData;
     }
 
@@ -56,8 +45,8 @@ public class JsonClientHandler extends SimpleChannelInboundHandler<String> {
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception{
-        log.info("\r\n从Channel中读数据,数据分发标识号{},消息内容:{}",extendNo, msg);
-        tcpDispacher.messageRecived(extendNo, matchingRule, msg);
+        log.info("\r\n从Channel中读数据,消息内容:{}", msg);
+        tcpDispacher.messageRecived(msg);
         ReferenceCountUtil.release(msg);
     }
 

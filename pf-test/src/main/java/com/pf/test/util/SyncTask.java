@@ -27,7 +27,7 @@ public class SyncTask<T, E> implements Runnable {
 	@Getter
 	private List<E> results;
 	private CountDownLatch countDownLatch;
-	private ThreadLocal<T> tThreadLocal;
+	private ThreadLocal<T> tThreadLocal = new ThreadLocal<>();
 
 	@Resource(name = "calcThreadPool")
 	private ThreadPoolTaskExecutor calcThreadPool;
@@ -100,8 +100,10 @@ public class SyncTask<T, E> implements Runnable {
 		}
 		return data;
 	}
-	protected synchronized void addResult(E e) {
-		if(this.results == null) results = new ArrayList<>();
+	protected void addResult(E e) {
+		synchronized(this){
+			if(this.results == null) results = new ArrayList<>();
+		}
 		this.results.add(e);
 	}
 }

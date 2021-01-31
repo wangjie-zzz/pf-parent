@@ -10,3 +10,7 @@ nacos: 8848
 sentinel: 8849
 redis: 6379
 rabbit: 15672
+
+本地环境：local
+测试环境：develop
+生产环境：master

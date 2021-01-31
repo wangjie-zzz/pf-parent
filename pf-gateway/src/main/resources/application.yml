@@ -31,7 +31,7 @@ spring:
         group: DEFAULT_GROUP # 设置服务所处的分组
         weight: 1 # 权重-取值范围 1 到 100，数值越大，权重越大
         cluster-name: DEFAULT # 配置成Nacos集群名称
-        username: nacos
+        username: nacos11
         password: nacos
       config:
         server-addr: 127.0.0.1:8848 # Nacos 配置中心服务端地址
@@ -138,8 +138,7 @@ secure:
       /actuator/**,
 
       /**/permitAll/**,
-      /pf-system/api/v1/sysUserInfo/permitAll/login,
-      /pf-system/api/v1/sysUserInfo/registerGuest,
+      /pf-system/api/v1/sysUserInfo/permitAll/**,
       /pf-auth/rsa/publicKey,
 
       /mall-search/**,

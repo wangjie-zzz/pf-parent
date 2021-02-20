@@ -67,6 +67,18 @@ spring:
             - Path=/pf-auth/**                    #断言，路径相匹配的进行路由
 #          filters:
 #            - StripPrefix=1                      # 切割路径个数 ex：/a/b ==> /b
+        - id: pf-system
+          uri: lb://pf-system
+          predicates:
+            - Path=/pf-system/**
+#          filters:
+#            - StripPrefix=1
+        - id: pf-test
+          uri: lb://pf-test
+          predicates:
+            - Path=/pf-test/**
+#          filters:
+#            - StripPrefix=1
 #        - id: mall-admin
 #          uri: lb://mall-admin
 #          predicates:
@@ -89,12 +101,6 @@ spring:
 #          uri: lb://mall-demo
 #          predicates:
 #            - Path=/mall-demo/**
-#          filters:
-#            - StripPrefix=1
-        - id: pf-system
-          uri: lb://pf-system
-          predicates:
-            - Path=/pf-system/**
 #          filters:
 #            - StripPrefix=1
       globalcors: # 全局设置跨域
@@ -137,9 +143,9 @@ secure:
       /webjars/**,
       /actuator/**,
 
-      /**/permitAll/**,
-      /pf-system/api/v1/sysUserInfo/permitAll/**,
+      /pf-system/api/v1/**/permitAll/**,
       /pf-auth/rsa/publicKey,
+      /pf-test/**,
 
       /mall-search/**,
       /mall-portal/home/test1,

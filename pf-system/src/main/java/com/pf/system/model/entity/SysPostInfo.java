@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author
@@ -28,7 +28,7 @@ public class SysPostInfo implements Serializable {
 
     private String postType;
 
-    private String tenId;
+    private String postTenId;
 
     private String postUserState;
 

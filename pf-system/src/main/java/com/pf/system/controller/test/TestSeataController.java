@@ -1,4 +1,4 @@
-package com.pf.system.controller;
+package com.pf.system.controller.test;
 
 import com.pf.base.CommonResult;
 import com.pf.system.constants.SystemGeneralConsts;

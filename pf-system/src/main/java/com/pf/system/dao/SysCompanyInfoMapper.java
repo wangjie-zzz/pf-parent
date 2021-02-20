@@ -3,6 +3,8 @@ package com.pf.system.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pf.system.model.entity.SysCompanyInfo;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -13,4 +15,6 @@ import com.pf.system.model.entity.SysCompanyInfo;
  */
 public interface SysCompanyInfoMapper extends BaseMapper<SysCompanyInfo> {
 
+    /*组织架构树查询*/
+    List<SysCompanyInfo> selectListWithDept();
 }

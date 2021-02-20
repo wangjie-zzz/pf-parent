@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author
@@ -47,11 +47,11 @@ public class SysUserInfo implements Serializable {
 
     private String userHeadImg;
 
-    private String deptId;
+    private String userDeptId;
 
-    private String comId;
+    private String userComId;
 
-    private String tenId;
+    private String userTenId;
 
     private String userCode;
 

@@ -115,7 +115,7 @@ dubbo:
     timeout: 10000 # 服务方法调用超时时间(毫秒)
   registry:
     check: false # 注册中心不存在时，是否报错
-    address: spring-cloud://localhost # Dubbo 服务注册中心配置，其中子属性 address 的值 "spring-cloud://localhost"，说明挂载到 Spring Cloud 注册中心
+    address: nacos://localhost:8848 # Dubbo 服务注册中心配置，其中子属性 address 的值 "spring-cloud://localhost"，说明挂载到 Spring Cloud 注册中心
   cloud:
     subscribed-services: pf-auth,pf-test # 用于服务消费方订阅服务提供方的应用名称的列表，若需订阅多应用，使用 "," 分割。 不推荐使用默认值为 "*"，它将订阅所有应用。
 #客户端版本号，在监控中心显示

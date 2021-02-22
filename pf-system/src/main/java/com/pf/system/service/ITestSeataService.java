@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @ClassName : ITestSeataService
- * @Description : 
+ * @Description :
  * @Author : wangjie
  * @Date: 2020/11/7-9:39
  */
@@ -17,4 +17,5 @@ import org.springframework.stereotype.Service;
 public interface ITestSeataService {
 
     public CommonResult<String> insertData(TestADto testADto);
+    public CommonResult<String> updateData(TestADto testADto);
 }

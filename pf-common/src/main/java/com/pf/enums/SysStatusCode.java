@@ -19,7 +19,21 @@ public enum SysStatusCode implements BaseErrCode {
 
 
     PLAT_CONN_TYPE_EXCEPTION( 10001, "连接类型错误"),
-    PLAT_SOCKET_CLIENT_INIT_ERROR(50056, "socket客户端初始化失败"),
+    PLAT_SOCKET_CLIENT_INIT_ERROR(10002, "socket客户端初始化失败"),
+    /**签名错误**/
+    SIGNATURE_ERROR(10003, "签名错误"),
+    /**签名缺失**/
+    SIGNATURE_MISSING(10004, "请求未签名"),
+    /**签名参数不完整**/
+    SIGNATURE_PARAMETER_MISSING(10005, "签名参数缺失"),
+    /**签名:时间戳长度错误**/
+    SIGNATURE_TIMESTAMP_LENGTH_ERROE(10006, "时间戳长度错误"),
+    /**签名:签名已过期**/
+    SIGNATURE_TIMESTAMP_VALIDDATE_TIME_OUT(10007, "签名已过期"),
+    /**签名：应用不存在或不可用**/
+    SIGNATURE_APP_UNAVAILABLE(10008, "应用不存在或不可用"),
+    /**签名：签名已失效**/
+    SIGNATURE_SIGN_INVALID(10009, "签名已失效"),
     ;
     private Integer code;
     private String message;

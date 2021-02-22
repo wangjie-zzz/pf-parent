@@ -1,22 +1,24 @@
 spring:
+  application:
+    name: pf-auth
   cloud:
     nacos:
       discovery:
-        namespace: 70662fd1-d325-41ce-9c81-41c3e269a50b
+        namespace: e9ddbe41-8a6f-4876-99cb-53b1396d70a6
       config:
-        namespace: 70662fd1-d325-41ce-9c81-41c3e269a50b
+        namespace: e9ddbe41-8a6f-4876-99cb-53b1396d70a6
     sentinel:
       transport:
         # port: 9002 # 应用与Sentinel控制台交互的端口，应用本地会起一个该端口占用的HttpServer,可不提供，默认为 8719，若端口冲突会自动向下探测可用的端口。
-        dashboard: 172.16.3.184:8849 # Sentinel 控制台地址
+        dashboard: 127.0.0.1:8849 # Sentinel 控制台地址
       datasource: # 动态数据源支持
         ds1: # ds1, ds2, ds3, ds4 是ReadableDataSource的名字，可随意编写。后面的 file ，zk ，nacos , apollo 就是对应具体的数据源，它们后面的配置就是这些具体数据源各自的配置。
           nacos:
             namespace: ${spring.cloud.nacos.config.namespace}
   datasource:
-    url: 'jdbc:mysql://172.16.3.184:3306/mall?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai'
-    username: test
-    password: test123
+    url: jdbc:mysql://127.0.0.1:3306/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
     druid:
       filters: stat
@@ -36,10 +38,10 @@ spring:
 #        port: 27017
 #        database: mall-port
   redis:
-    host: 172.16.3.184 # Redis服务器地址
+    host: 127.0.0.1 # Redis服务器地址
     database: 0 # Redis数据库索引（默认为0）
     port: 6379 # Redis服务器连接端口
-    password: redis123 # Redis服务器连接密码（默认为空）
+#    password: redis123 # Redis服务器连接密码（默认为空）
     timeout: 10000 # 连接超时时间（毫秒）
     lettuce:
       pool:
@@ -47,19 +49,9 @@ spring:
         max-wait: -1 # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
         max-idle: 35 # 连接池中的最大空闲连接 默认 8
         min-idle: 5 # 连接池中的最小空闲连接 默认 0
-  rabbitmq:
-      host: 172.16.3.184
-      port: 5672
-      username: test
-      password: test123
-seata:
-  service:
-    grouplist:
-      default: 172.16.3.184:8091 # 仅注册中心为file时使用
-  enabled: true # 是否启用分布式事务
-  registry:
-    nacos:
-      namespace: ${spring.cloud.nacos.discovery.namespace} # 命名空间的ID
-  config:
-    nacos:
-      namespace: ${spring.cloud.nacos.config.namespace} # 命名空间的ID
+#    rabbitmq:
+#      host: 172.16.3.184
+#      port: 5672
+##      virtual-host: /mall
+#      username: test
+#      password: test123

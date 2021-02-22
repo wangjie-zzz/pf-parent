@@ -5,9 +5,11 @@ import com.pf.bean.RedisDistributionLock;
 import com.pf.util.Asserts;
 import lombok.extern.slf4j.Slf4j;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,13 @@ public class RedisLockAdvice {
 	@Autowired
     private RedisDistributionLock redisDistributionLock;
 
+    @Before("@annotation(redisLock)")
+    public void before(JoinPoint point, RedisLock redisLock) {
+        System.out.println(point.getArgs());
+        for (Object arg : point.getArgs()) {
+            System.out.println(arg.toString());
+        }
+    }
     @Around("@annotation(redisLock)")
     public Object processAround(ProceedingJoinPoint pjp, RedisLock redisLock) throws Throwable {
         //获取方法上的注解对象
@@ -33,7 +42,6 @@ public class RedisLockAdvice {
 
 
         Object[] args = pjp.getArgs();
-        Object arg = args[0];
         StringBuilder temp = new StringBuilder();
         temp.append(redisLockAnnoation.keyPrefix());
         for (Object o : args) {
@@ -49,7 +57,7 @@ public class RedisLockAdvice {
                 while (!redisDistributionLock.lock(redisKey, redisLockAnnoation.expireTime())) {
                     if (lockRetryTime++ > redisLockAnnoation.retryTimes()) {
                         log.error("lock exception. key:{}, lockRetryTime:{}", redisKey, lockRetryTime);
-                        Asserts.fail("分布式锁异常!");
+                        Asserts.fail("请勿重复提交!");
                     }
                     Thread.currentThread().sleep(redisLockAnnoation.waitTime());
                 }
@@ -70,5 +78,5 @@ public class RedisLockAdvice {
             }
         }
     }
-    
+
 }

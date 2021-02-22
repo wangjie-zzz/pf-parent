@@ -28,7 +28,7 @@
         <profile>
             <id>dev</id>
             <properties>
-                <spring.profiles.active>dev</spring.profiles.active>
+                <spring.profiles.active>win</spring.profiles.active>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -94,14 +94,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

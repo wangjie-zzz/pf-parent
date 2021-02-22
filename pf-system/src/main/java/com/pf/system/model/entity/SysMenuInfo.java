@@ -1,16 +1,19 @@
 package com.pf.system.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author
@@ -23,11 +26,12 @@ public class SysMenuInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @TableId
     private String menuId;
 
     private String menuName;
 
-    private String appId;
+    private String menuAppId;
 
     private String menuUrl;
 
@@ -59,5 +63,19 @@ public class SysMenuInfo implements Serializable {
 
     private LocalDateTime menuUpdDate;
 
+    @TableField(exist = false)
     private List<SysMenuInfo> children;
+
+    public void addChildren(List<SysMenuInfo> roots) {
+        for (SysMenuInfo root : roots) {
+            if(root.getMenuId().equals(this.getMenuSupMenuId())) {
+                if(root.getChildren() == null)
+                    root.setChildren(new ArrayList<>());
+                root.getChildren().add(this);
+                return;
+            } else if(root.getChildren() != null && root.getChildren().size() > 0) {
+                this.addChildren(root.getChildren());
+            }
+        }
+    }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author
@@ -53,5 +53,6 @@ public class SysAppInfo implements Serializable {
     @TableField(exist = false)
     private String appActiveRule;
 
-    private List<SysMenuInfo> sysMenuInfoList;
+    @TableField(exist = false)
+    private List<SysMenuInfo> sysMenuInfos;
 }

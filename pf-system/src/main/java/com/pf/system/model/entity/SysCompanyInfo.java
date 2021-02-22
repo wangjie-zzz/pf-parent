@@ -1,15 +1,20 @@
 package com.pf.system.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author
@@ -22,13 +27,14 @@ public class SysCompanyInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @TableId
     private String comId;
 
     private Integer comLevel;
 
     private String comName;
 
-    private String tenId;
+    private String comTenId;
 
     private String comSupComId;
 
@@ -60,5 +66,21 @@ public class SysCompanyInfo implements Serializable {
 
     private LocalDateTime comUpdDate;
 
+    @TableField(exist = false)
+    private List<SysDeptInfo> sysDeptInfos;
 
+    @TableField(exist = false)
+    private List<SysCompanyInfo> children;
+
+    public void addChildren(List<SysCompanyInfo> roots){
+        for (SysCompanyInfo root : roots) {
+            if(root.getComId().equals(this.comSupComId)){
+                if(root.getChildren()==null)root.setChildren(new ArrayList<>());
+                root.getChildren().add(this);
+                return;
+            }else if(!CollectionUtils.isEmpty(root.getChildren())){
+                this.addChildren(root.getChildren());
+            }
+        }
+    }
 }

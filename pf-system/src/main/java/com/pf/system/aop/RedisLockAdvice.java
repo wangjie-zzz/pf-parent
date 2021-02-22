@@ -33,7 +33,6 @@ public class RedisLockAdvice {
 
 
         Object[] args = pjp.getArgs();
-        Object arg = args[0];
         StringBuilder temp = new StringBuilder();
         temp.append(redisLockAnnoation.keyPrefix());
         for (Object o : args) {
@@ -49,7 +48,7 @@ public class RedisLockAdvice {
                 while (!redisDistributionLock.lock(redisKey, redisLockAnnoation.expireTime())) {
                     if (lockRetryTime++ > redisLockAnnoation.retryTimes()) {
                         log.error("lock exception. key:{}, lockRetryTime:{}", redisKey, lockRetryTime);
-                        Asserts.fail("分布式锁异常!");
+                        Asserts.fail("请勿重复提交!");
                     }
                     Thread.currentThread().sleep(redisLockAnnoation.waitTime());
                 }
@@ -70,5 +69,5 @@ public class RedisLockAdvice {
             }
         }
     }
-    
+
 }

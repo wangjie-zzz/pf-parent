@@ -2,22 +2,22 @@ spring:
   cloud:
     nacos:
       discovery:
-        namespace: 1f966ded-f369-4ec8-ac84-2fe03d3710b4
+        namespace: e9ddbe41-8a6f-4876-99cb-53b1396d70a6
       config:
-        namespace: 1f966ded-f369-4ec8-ac84-2fe03d3710b4
+        namespace: e9ddbe41-8a6f-4876-99cb-53b1396d70a6
     sentinel:
       transport:
         # port: 9002 # 应用与Sentinel控制台交互的端口，应用本地会起一个该端口占用的HttpServer,可不提供，默认为 8719，若端口冲突会自动向下探测可用的端口。
-        dashboard: 172.16.3.184:8849 # Sentinel 控制台地址
+        dashboard: 127.0.0.1:8849 # Sentinel 控制台地址
       datasource: # 动态数据源支持
         ds1: # ds1, ds2, ds3, ds4 是ReadableDataSource的名字，可随意编写。后面的 file ，zk ，nacos , apollo 就是对应具体的数据源，它们后面的配置就是这些具体数据源各自的配置。
           nacos:
             namespace: ${spring.cloud.nacos.config.namespace}
   redis:
-    database: 0
-    port: 6379
-    host: 172.16.3.184
-    password: redis123
+    host: 127.0.0.1 # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+#    password: redis123 # Redis服务器连接密码（默认为空）
     timeout: 10000 # 连接超时时间（毫秒）
     lettuce:
       pool:

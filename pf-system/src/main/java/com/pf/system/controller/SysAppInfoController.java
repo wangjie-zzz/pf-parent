@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * @ClassName : SysUserInfoController
- * @Description : 
+ * @Description :
  * @Author : wangjie
  * @Date: 2020/9/17-11:16
  */
@@ -27,19 +27,47 @@ public class SysAppInfoController {
 
     @Resource(name = "sysAppInfoService")
     private ISysAppInfoService iSysAppInfoService;
-    
+
     /**
     * @Title: 用户App查询
-    * @Param: 
-    * @description: 
+    * @Param:
+    * @description:
     * @author: wangjie
     * @date: 2020/9/17 14:30
-    * @return: 
-    * @throws: 
+    * @return:
+    * @throws:
     */
     @ApiOperation(value="App查询", notes="用户App查询")
     @GetMapping(value = "/selectAppAndMenuList", consumes = MediaType.ALL_VALUE)
     public CommonResult<List<SysAppInfo>> selectAppAndMenuList() {
         return iSysAppInfoService.selectAppAndMenuList();
+    }
+    /**
+    * @Title: 用户App查询
+    * @Param:
+    * @description:
+    * @author: wangjie
+    * @date: 2020/9/17 14:30
+    * @return:
+    * @throws:
+    */
+    @ApiOperation(value="App查询", notes="用户App查询")
+    @GetMapping(value = "/selectAppList", consumes = MediaType.ALL_VALUE)
+    public CommonResult<List<SysAppInfo>> selectAppList() {
+        return iSysAppInfoService.selectAppList();
+    }
+    /**
+    * @Title: 用户App查询
+    * @Param:
+    * @description:
+    * @author: wangjie
+    * @date: 2020/9/17 14:30
+    * @return:
+    * @throws:
+    */
+    @ApiOperation(value="App查询", notes="用户App查询")
+    @PostMapping(value = "/addApp")
+    public CommonResult<String> addApp(@RequestBody SysAppInfo sysAppInfo) {
+        return iSysAppInfoService.addApp(sysAppInfo);
     }
 }

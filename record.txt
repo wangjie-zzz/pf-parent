@@ -10,3 +10,15 @@ nacos: 8848
 sentinel: 8849
 redis: 6379
 rabbit: 15672
+
+本地环境：local
+测试环境：develop
+生产环境：master
+
+表结构调整
+sys_menu_info: app_id : menu_app_id
+sys_dept_info: ten_id : dept_ten_id, com_id : dept_com_id
+sys_company_info: ten_id : com_ten_id
+sys_post_info: ten_id : post_ten_id
+sys_user_info: dept_id : user_dept_id, ten_id : user_ten_id, com_id : user_com_id
+sys_role_info: ten_id : role_ten_id, dept_id : role_dept_id

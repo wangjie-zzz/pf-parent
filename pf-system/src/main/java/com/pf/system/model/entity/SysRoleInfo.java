@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author
@@ -26,9 +26,9 @@ public class SysRoleInfo implements Serializable {
 
     private String roleId;
 
-    private String tenId;
+    private String roleTenId;
 
-    private String deptId;
+    private String roleDeptId;
 
     private String roleName;
 

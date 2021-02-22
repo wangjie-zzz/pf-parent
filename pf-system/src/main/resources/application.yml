@@ -43,7 +43,8 @@ spring:
         server-addr: 127.0.0.1:8848 # Nacos 配置中心服务端地址
         username: nacos11
         password: nacos
-        # 事务分组-Seata-server1和seata-server2是两个集群，taobao和jd是可以映射到同一集群的两个事务组， 例如seata-server1。发生故障时，您需要通过配置中心更改事务分组映射的集群名称，以完成集群的快速切换。
+        group: DEFAULT_GROUP # 设置服务所处的分组 默认 DEFAULT_GROUP
+        file-extension: yaml
     sentinel:
       eager: true # 是否提前触发 Sentinel 初始化
       filter:
@@ -59,6 +60,7 @@ spring:
             data-type: json # 表示 Converter 类型，Spring Cloud Alibaba Sentinel 默认提供两种内置的值，分别是 json 和 xml (不填默认是json)
             rule-type: flow # 配置表示该数据源中的规则属于哪种类型的规则(flow，degrade，authority，system, param-flow, gw-flow, gw-api-group)
 seata:
+  # 事务分组-Seata-server1和seata-server2是两个集群，taobao和jd是可以映射到同一集群的两个事务组， 例如seata-server1。发生故障时，您需要通过配置中心更改事务分组映射的集群名称，以完成集群的快速切换。
   tx-service-group: mall-seata
   transport:
     compressor: gzip # client和server通信数据压缩方式

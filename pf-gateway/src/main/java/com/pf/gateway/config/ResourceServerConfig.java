@@ -30,7 +30,8 @@ public class ResourceServerConfig {
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        http.cors().and().csrf().disable()
+        http
+                .cors().and().csrf().disable() //TODO 关闭跨域后也应关闭 待验证
                 .authorizeExchange()
                 .pathMatchers(HttpMethod.OPTIONS).permitAll()
                 .pathMatchers(ignoreUrlsConfig.getIgnoreds()).permitAll()//白名单配置

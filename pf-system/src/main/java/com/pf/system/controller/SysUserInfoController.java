@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 
 /**
  * @ClassName : SysUserInfoController
- * @Description : 
+ * @Description :
  * @Author : wangjie
  * @Date: 2020/9/17-11:16
  */
@@ -30,30 +30,14 @@ public class SysUserInfoController {
     @Resource(name = "sysUserInfoService")
     private ISysUserInfoService iSysUserInfoService;
 
-
-    /**
-    * @Title: 用户信息查询，暴露给auth
-    * @Param: 
-    * @description: 
-    * @author: wangjie
-    * @date: 2020/9/17 14:30
-    * @return: 
-    * @throws: 
-    */
-    /*@ApiOperation(value="用户信息+角色信息查询", notes="用户信息+角色信息查询")
-    @GetMapping(value = "/selectUserAndRoleInfo", consumes = MediaType.ALL_VALUE)
-    public CommonResult<SysUserInfo> selectUserAndRoleInfo(@RequestParam("userId") String userId) {
-        return iSysUserInfoService.selectUserAndRoleInfo(userId);
-    }*/
-    
     /**
     * @Title: 用户注册
-    * @Param: 
-    * @description: 
+    * @Param:
+    * @description:
     * @author: wangjie
     * @date: 2020/9/17 14:30
-    * @return: 
-    * @throws: 
+    * @return:
+    * @throws:
     */
     @ApiOperation(value="用户注册", notes="用户注册")
     @PostMapping(value = "/registerGuest")
@@ -74,5 +58,19 @@ public class SysUserInfoController {
     @PostMapping(value = SysGeneralConsts.PERMIT_ENDPOINT + "/login")
     public CommonResult<Token> login(@RequestBody LoginRequest loginRequest) {
         return iSysUserInfoService.login(loginRequest);
+    }
+    /**
+    * @Title: token刷新
+    * @Param:
+    * @description:
+    * @author: wangjie
+    * @date: 2020/9/17 14:30
+    * @return:
+    * @throws:
+    */
+    @ApiOperation(value="token刷新", notes="token刷新")
+    @GetMapping(value = SysGeneralConsts.PERMIT_ENDPOINT + "/refreshToken")
+    public CommonResult<String> refreshToken(@RequestParam("refreshToken") String refreshToken) {
+        return iSysUserInfoService.refreshToken(refreshToken);
     }
 }

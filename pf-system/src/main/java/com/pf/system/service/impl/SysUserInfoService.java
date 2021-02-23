@@ -13,6 +13,7 @@ import com.pf.system.model.domain.Token;
 import com.pf.system.model.entity.SysUserInfo;
 import com.pf.system.model.request.LoginRequest;
 import com.pf.system.service.ISysUserInfoService;
+import com.pf.util.CacheDataUtil;
 import com.pf.util.HttpHeaderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -28,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName : SysUsreInfoService
- * @Description : 
+ * @Description :
  * @Author : wangjie
  * @Date: 2020/9/17-10:19
  */
@@ -66,7 +67,6 @@ public class SysUserInfoService implements ISysUserInfoService {
     * @description:
     * @author: wangjie
     * @date: 2020/9/17 16:39
-    * @return: com..mall.common.base.CommonResult<com..mall.system.model.domain.Token>
     * @throws:
     */
     @Override
@@ -106,5 +106,25 @@ public class SysUserInfoService implements ISysUserInfoService {
         // 保存新的缓存
         redisTemplate.opsForValue().set(sysUserInfoKey, token.getSysUserInfo(), CacheConstants.EXPIRATION_TIME, TimeUnit.SECONDS);
         return CommonResult.success(token);
+    }
+
+    @Override
+    public CommonResult<String> refreshToken(String refreshToken) {
+        SysUserInfo sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate);
+        if(sysUserInfo==null) Asserts.fail(SysStatusCode.UNAUTHORIZED);
+        HttpEntity<String> request = new HttpEntity<String>(HttpHeaderUtil.createLoginHeaders());
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(AuthConstant.AUTH_SERVER_URI)
+                .queryParam("refresh_token", refreshToken)
+                .queryParam("grant_type", "refresh_token");
+        ResponseEntity<Map> response = loadBalancedRestTemplate.exchange(
+                builder.toUriString(),
+                HttpMethod.POST,
+                request,
+                Map.class);
+        Map<String, Object> map = response.getBody();
+        if( map.get("access_token") == null ) {
+            return CommonResult.failed(SysStatusCode.USER_CODE_PWD_FAIL);
+        }
+        return CommonResult.success(map.get("access_token").toString());
     }
 }

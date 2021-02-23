@@ -61,7 +61,11 @@ public class CustomReactiveAuthorizationManager implements ReactiveAuthorization
                             log.info("\r\n((Jwt)a.getDetails()):{}", a.getDetails());
                             //存储当前数据
                             List<Object> authUsers = new ArrayList<>();
-                            authUsers.add(jwtValue.getClaims().get("roles"));
+                            /*TODO token不存储附加信息
+                            *  当refreshToken刷新后，附加信息同时会清空
+                            *  先将权限等控制放入自定义逻辑中*/
+//                            authUsers.add(jwtValue.getClaims().get("roles"));
+                            authUsers.add(new ArrayList<>());
                             return authUsers;
                         })
                         //转成成权限名称

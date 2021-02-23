@@ -74,21 +74,21 @@ spring:
           uri: lb://pf-test
           predicates:
             - Path=/pf-test/**
-      globalcors: # 全局设置跨域
-        corsConfigurations:
-          '[/**]':
-            allowCredentials: true # 允许cookies跨域
-            allowedOrigins: "*" # 允许向该服务器提交请求的URI，*表示全部允许
-            allowedHeaders: "*" # 允许访问的头信息,*表示全部
-            allowedMethods: # 允许提交请求的方法，*表示全部允许
-              - OPTIONS
-              - HEAD
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - PATCH
-            maxAge: 18000 # 预检请求的缓存时间（秒），即在这个时间段里，对于相同的跨域请求不会再预检了
+#      globalcors: # 全局设置跨域
+#        corsConfigurations:
+#          '[/**]':
+#            allowCredentials: true # 允许cookies跨域
+#            allowedOrigins: "*" # 允许向该服务器提交请求的URI，*表示全部允许
+#            allowedHeaders: "*" # 允许访问的头信息,*表示全部
+#            allowedMethods: # 允许提交请求的方法，*表示全部允许
+#              - OPTIONS
+#              - HEAD
+#              - GET
+#              - POST
+#              - PUT
+#              - DELETE
+#              - PATCH
+#            maxAge: 18000 # 预检请求的缓存时间（秒），即在这个时间段里，对于相同的跨域请求不会再预检了
   security:
     oauth2:
       resourceserver:
@@ -113,6 +113,7 @@ secure:
       /actuator/**,
 
       /pf-system/api/v1/**/permitAll/**,
+      /pf-system/api/v1/sysUserInfo/permitAll/refreshToken,
       /pf-auth/rsa/publicKey,
       /pf-test/**,
 #客户端版本号，在监控中心显示

@@ -1,19 +1,20 @@
 package com.pf.constant;
 
 /**
- * @ClassName : PermitEndpointConsts
- * @Description : PermitEndpointConsts
+ * @ClassName : CommonConstants
+ * @Description : CommonConstants
  */
-public interface PermitEndpointConsts {
+public interface CommonConstants {
+    /** 统一公开端点 **/
+    String PERMIT_ENDPOINT = "/permitAll";
 
-    String[] COMMON = {
+    String[] COMMON_PERMIT_ENDPOINT = {
         /*内置端点*/
         "/favicon.ico",
         "/webjars/**",
         "/actuator/**",
-        "/oauth/**",
         /*自定义开放端口*/
-        "/**" + SysGeneralConsts.PERMIT_ENDPOINT + "/**",
+        "/**" + PERMIT_ENDPOINT + "/**",
         /*swagger页面及资源文件*/
         "/swagger-ui.html",
         "/doc.html",
@@ -27,14 +28,10 @@ public interface PermitEndpointConsts {
         "/**/img/**",
         "/**/fonts/**"
     };
-    String[] AUTH = {
-        /*内置端点*/
-        "/rsa/publicKey",
-        "/rsa/test1",
-        "/rsa/test2",
-    };
-    String[] PROTAL = {
-        /*内置端点*/
-    };
 
+    class CACHE_KEY {
+
+        public static  final String SYS_USER_INFO_KEY_PREFIX = "sysUserInfo-";
+        public static  final Integer EXPIRATION_TIME = 2 * 60 * 60;
+    }
 }

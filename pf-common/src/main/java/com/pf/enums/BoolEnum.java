@@ -4,18 +4,16 @@ package com.pf.enums;
 import com.pf.base.BaseErrCode;
 
 /**
- * 登录类型
+ * 使用状态
  */
-public enum UserDataSourceEnum implements BaseErrCode {
-    WEB_REGISTER( 0, "网络注册" ) ,
-    OUT_IMPORT( 1, "外部导入" ) ,
-    ADMIN_CREATE( 2, "后台插入" ) ,
-    ;
-
+public enum BoolEnum implements BaseErrCode {
+    TRUE( 1, "是" ) ,
+    FALSE( 0, "否" ) ,
+;
     private final int code;
     private final String info;
 
-    UserDataSourceEnum(int code, String info) {
+    BoolEnum(int code, String info) {
         this.code = code;
         this.info = info;
     }

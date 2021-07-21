@@ -1,9 +1,7 @@
 package com.pf.util;
 
 import com.google.common.collect.ImmutableList;
-import com.pf.constant.AuthConstant;
 import com.pf.enums.DataFormatsEnum;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
@@ -16,12 +14,12 @@ import java.io.IOException;
 
 /**
 * @Title: Http消息头工具类
-* @Param: 
-* @description: 
+* @Param:
+* @description:
 * @author: wangjie
 * @date: 2020/10/15 22:08
-* @return: 
-* @throws: 
+* @return:
+* @throws:
 */
 public class HttpHeaderUtil {
 
@@ -96,21 +94,6 @@ public class HttpHeaderUtil {
         return t;
     }
 
-    /**
-    * @Title: 创建登录消息头
-    * @Param:
-    * @description:
-    * @author: wangjie
-    * @date: 2020/10/15 18:26
-    * @return:
-    * @throws:
-    */
-    public static HttpHeaders createLoginHeaders() {
-        HttpHeaders headers = initHttpHeaders(DataFormatsEnum.JSON, DataFormatsEnum.JSON);
-        String base64ClientCredentials = new String(Base64.encodeBase64(AuthConstant.CLIENT_CREDENTIALS.getBytes()));
-        headers.add(HttpHeaders.AUTHORIZATION, "Basic " + base64ClientCredentials);
-        return headers;
-    }
     public static HttpHeaders initHttpHeaders(DataFormatsEnum requestDataFormatsEnum, DataFormatsEnum responseDataFormatsEnum) {
         HttpHeaders httpHeaders = new HttpHeaders();
         /*请求类型*/

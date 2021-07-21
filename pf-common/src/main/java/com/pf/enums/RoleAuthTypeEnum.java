@@ -6,16 +6,15 @@ import com.pf.base.BaseErrCode;
 /**
  * 登录类型
  */
-public enum RoleTypeEnum implements BaseErrCode {
-    GUEST( 0, "游客" ) ,
-    ADMIN( 1, "管理员" ) ,
-    SADMIN( 2, "超级管理员" ) ,
+public enum RoleAuthTypeEnum implements BaseErrCode {
+    MENU( 0, "菜单权限" ) ,
+    INTERFACE( 1, "接口权限" ) ,
     ;
 
     private final int code;
     private final String info;
 
-    RoleTypeEnum(int code, String info) {
+    RoleAuthTypeEnum(int code, String info) {
         this.code = code;
         this.info = info;
     }

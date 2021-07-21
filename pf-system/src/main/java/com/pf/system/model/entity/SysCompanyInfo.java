@@ -42,21 +42,9 @@ public class SysCompanyInfo implements Serializable {
 
     private String comOrgPhone;
 
-    private String comProviceNo;
-
-    private String comCityNo;
-
-    private String comCutNo;
-
     private String comAddress;
 
-    private String comDiIngo;
-
-    private String comOngInfo;
-
-    private Integer comSortNo;
-
-    private String comUserState;
+    private String comUseState;
 
     private String comIntUser;
 
@@ -69,18 +57,4 @@ public class SysCompanyInfo implements Serializable {
     @TableField(exist = false)
     private List<SysDeptInfo> sysDeptInfos;
 
-    @TableField(exist = false)
-    private List<SysCompanyInfo> children;
-
-    public void addChildren(List<SysCompanyInfo> roots){
-        for (SysCompanyInfo root : roots) {
-            if(root.getComId().equals(this.comSupComId)){
-                if(root.getChildren()==null)root.setChildren(new ArrayList<>());
-                root.getChildren().add(this);
-                return;
-            }else if(!CollectionUtils.isEmpty(root.getChildren())){
-                this.addChildren(root.getChildren());
-            }
-        }
-    }
 }

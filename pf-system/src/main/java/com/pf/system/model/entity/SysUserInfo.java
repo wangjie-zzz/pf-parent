@@ -80,18 +80,6 @@ public class SysUserInfo implements Serializable {
     @TableField(exist = false)
     private List<SysRoleInfo> roles;
 
-    public static SysUserInfo updateDefaultInfo(SysUserInfo sysUserInfo) {
-        if(sysUserInfo == null) sysUserInfo = new SysUserInfo();
-        LocalDateTime now = LocalDateTime.now();
-        String userId = SnowflakeIdWorker.getInstance().nextIdString();
-        sysUserInfo.setUserId(userId);
-        sysUserInfo.setUserIntUser(userId);
-        sysUserInfo.setUserUpdUser(userId);
-        sysUserInfo.setUserUpdDate(now);
-        sysUserInfo.setUserIntDate(now);
-        sysUserInfo.setUserUseState(UseStateEnum.EFFECTIVE.getCodeToStr());
-        return sysUserInfo;
-    }
     public void checkUserUseState() {
         if(UseStateEnum.FROZEN.getCodeToStr().equals(userUseState)) {
             Asserts.fail("该用户已冻结！");

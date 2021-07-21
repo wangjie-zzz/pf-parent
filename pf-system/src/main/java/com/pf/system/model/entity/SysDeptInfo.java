@@ -40,13 +40,9 @@ public class SysDeptInfo implements Serializable {
 
     private String deptSupDeptId;
 
-    private String deptType;
-
     private String deptManager;
 
-    private Integer deptSortNo;
-
-    private String deptUserState;
+    private String deptUseState;
 
     private String deptIntUser;
 
@@ -56,21 +52,4 @@ public class SysDeptInfo implements Serializable {
 
     private LocalDateTime deptUpdDate;
 
-    @TableField(exist = false)
-    private List<SysDeptInfo> children;
-    @TableField(exist = false)
-    private List<SysUserInfo> sysUserInfos;
-
-
-    public void addChildren(List<SysDeptInfo> roots){
-        for (SysDeptInfo root : roots) {
-            if(root.getDeptId().equals(this.deptSupDeptId)){
-                if(root.getChildren() == null) root.setChildren(new ArrayList<>());
-                root.getChildren().add(this);
-                return;
-            }else if(!CollectionUtils.isEmpty(root.getChildren())){
-                this.addChildren(root.getChildren());
-            }
-        }
-    }
 }

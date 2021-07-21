@@ -1,5 +1,6 @@
 package com.pf.system.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +23,7 @@ public class SysPostInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @TableId
     private String postId;
 
     private String postName;
@@ -30,7 +32,7 @@ public class SysPostInfo implements Serializable {
 
     private String postTenId;
 
-    private String postUserState;
+    private String postUseState;
 
     private String postIntUser;
 

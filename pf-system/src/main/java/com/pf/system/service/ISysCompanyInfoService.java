@@ -16,11 +16,9 @@ import java.util.List;
  */
 public interface ISysCompanyInfoService {
 
-    public CommonResult<List<SysCompanyInfo>> selectComTree();
-
-    public CommonResult<List<SysUserInfo>> selectUsers(String deptId);
-
+    CommonResult<List<SysUserInfo>> userList(String id , boolean isCom);
+    CommonResult<List<SysCompanyInfo>> selectComTree();
+    CommonResult<List<SysDeptInfo>> deptList(String id, boolean isCom);
     CommonResult<String> addCompany(SysCompanyInfo sysCompanyInfo);
-
     CommonResult<String> addDept(SysDeptInfo sysDeptInfo);
 }

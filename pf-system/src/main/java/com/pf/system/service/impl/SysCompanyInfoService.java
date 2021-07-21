@@ -1,8 +1,14 @@
 package com.pf.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.pf.base.CommonResult;
+import com.pf.bean.SnowflakeIdWorker;
 import com.pf.enums.SysStatusCode;
+import com.pf.enums.UseStateEnum;
 import com.pf.system.dao.SysCompanyInfoMapper;
+import com.pf.system.dao.SysDeptInfoMapper;
 import com.pf.system.dao.SysUserInfoMapper;
 import com.pf.system.model.entity.SysCompanyInfo;
 import com.pf.system.model.entity.SysDeptInfo;
@@ -15,7 +21,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -35,7 +43,22 @@ public class SysCompanyInfoService implements ISysCompanyInfoService {
     private SysCompanyInfoMapper sysCompanyInfoMapper;
     @Autowired
     private SysUserInfoMapper sysUserInfoMapper;
+    @Autowired
+    private SysDeptInfoMapper sysDeptInfoMapper;
 
+
+    @Override
+    @Transactional(readOnly = true)
+    public CommonResult<List<SysUserInfo>> userList(String id , boolean isCom) {
+        List<SysUserInfo> list;
+        if(isCom) {
+            list = sysUserInfoMapper.selectList(Wrappers.lambdaQuery(SysUserInfo.class).eq(SysUserInfo::getUserComId, id));
+        } else {
+            list = sysUserInfoMapper.selectByDeptId(id);
+        }
+        list.forEach(user -> user.setUserPasswd(""));
+        return CommonResult.success(list);
+    }
     /**
     * @Title: 查询组织架构树
     * @Param:
@@ -51,61 +74,73 @@ public class SysCompanyInfoService implements ISysCompanyInfoService {
         SysUserInfo sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate);
         if(sysUserInfo == null) {
             Asserts.fail(SysStatusCode.UNAUTHORIZED);
+            return null;
         }
         List<SysCompanyInfo> list = sysCompanyInfoMapper.selectListWithDept();
-        if(CollectionUtils.isEmpty(list))
-            return CommonResult.success(list);
-        List<SysCompanyInfo> roots = new ArrayList<>();
-        Iterator<SysCompanyInfo> it = list.iterator();
-        while (it.hasNext()){
-            SysCompanyInfo sysCompanyInfo = it.next();
-            /*处理公司下部门数据*/
-            if(!CollectionUtils.isEmpty(sysCompanyInfo.getSysDeptInfos())){
-                Iterator<SysDeptInfo> it1 = sysCompanyInfo.getSysDeptInfos().iterator();
-                List<SysDeptInfo> roots1 = new ArrayList<>();
-                while (it1.hasNext()){
-                    SysDeptInfo sysDeptInfo = it1.next();
-                    if(sysDeptInfo.getDeptId().equals(sysDeptInfo.getDeptSupDeptId())){
-                        roots1.add(sysDeptInfo);
-                        it1.remove();
-                    }
-                }
-                for (SysDeptInfo sysDeptInfo : sysCompanyInfo.getSysDeptInfos()) {
-                    sysDeptInfo.addChildren(roots1);
-                }
-                sysCompanyInfo.setSysDeptInfos(roots1);
-            }
-            /*获取公司组织根节点*/
-            if(sysCompanyInfo.getComId().equals(sysCompanyInfo.getComSupComId())){
-                roots.add(sysCompanyInfo);
-                it.remove();
-            }
-        }
-        for (SysCompanyInfo sysCompanyInfo : list) {
-            sysCompanyInfo.addChildren(roots);
-        }
-        return CommonResult.success(roots);
+        return CommonResult.success(list);
     }
-
     @Override
     @Transactional(readOnly = true)
-    public CommonResult<List<SysUserInfo>> selectUsers(String deptId) {
-        List<SysUserInfo> list = sysUserInfoMapper.selectByDeptId(deptId);
-        return CommonResult.success(list);
+    public CommonResult<List<SysDeptInfo>> deptList(String id, boolean isCom) {
+        LambdaQueryWrapper<SysDeptInfo> wrapper = Wrappers.lambdaQuery(SysDeptInfo.class);
+        if(isCom) {
+            wrapper.eq(SysDeptInfo::getDeptComId, id);
+        } else {
+            wrapper.eq(SysDeptInfo::getDeptSupDeptId, id);
+        }
+        return CommonResult.success(sysDeptInfoMapper.selectList(wrapper));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public CommonResult<String> addCompany(SysCompanyInfo sysCompanyInfo) {
-        /*TODO*/
-        return null;
+        SysUserInfo sysUserInfo;
+        if((sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate)) == null) {
+            Asserts.fail(SysStatusCode.UNAUTHORIZED);
+        }
+        sysCompanyInfo.setComUpdDate(LocalDateTime.now());
+        sysCompanyInfo.setComUpdUser(sysUserInfo.getUserId());
+        if(StringUtils.isEmpty(sysCompanyInfo.getComId())) {
+            /*insert*/
+            sysCompanyInfo.setComId(SnowflakeIdWorker.getInstance().nextIdString());
+            if(StringUtils.isEmpty(sysCompanyInfo.getComSupComId())){ /*无父级公司*/
+                sysCompanyInfo.setComSupComId(sysCompanyInfo.getComId());
+            }
+            sysCompanyInfo.setComUseState(UseStateEnum.EFFECTIVE.getCodeToStr());/*新增的公司数据都是有效的*/
+            sysCompanyInfo.setComIntDate(LocalDateTime.now());
+            sysCompanyInfo.setComIntUser(sysUserInfo.getUserId());
+            sysCompanyInfoMapper.insert(sysCompanyInfo);
+        } else {
+            /*update*/
+            sysCompanyInfoMapper.updateById(sysCompanyInfo);
+        }
+        return CommonResult.success();
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public CommonResult<String> addDept(SysDeptInfo sysDeptInfo) {
-        /*TODO*/
-        return null;
+        SysUserInfo sysUserInfo;
+        if((sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate)) == null) {
+            Asserts.fail(SysStatusCode.UNAUTHORIZED);
+        }
+        sysDeptInfo.setDeptUpdDate(LocalDateTime.now());
+        sysDeptInfo.setDeptUpdUser(sysUserInfo.getUserId());
+        if(StringUtils.isEmpty(sysDeptInfo.getDeptId())) {
+            /*insert*/
+            sysDeptInfo.setDeptId(SnowflakeIdWorker.getInstance().nextIdString());
+            if(StringUtils.isEmpty(sysDeptInfo.getDeptSupDeptId())){ /*无父级公司*/
+                sysDeptInfo.setDeptSupDeptId(sysDeptInfo.getDeptId());
+            }
+            sysDeptInfo.setDeptUseState(UseStateEnum.EFFECTIVE.getCodeToStr());/*新增的公司数据都是有效的*/
+            sysDeptInfo.setDeptIntDate(LocalDateTime.now());
+            sysDeptInfo.setDeptIntUser(sysUserInfo.getUserId());
+            sysDeptInfoMapper.insert(sysDeptInfo);
+        } else {
+            /*update*/
+            sysDeptInfoMapper.updateById(sysDeptInfo);
+        }
+        return CommonResult.success();
     }
 
 }

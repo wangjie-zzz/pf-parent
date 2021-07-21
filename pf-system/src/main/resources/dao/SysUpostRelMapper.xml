@@ -7,7 +7,9 @@
         <id column="user_id" property="userId" />
         <result column="post_id" property="postId" />
     </resultMap>
-
+    <resultMap id="ResultMapAndUserName" type="com.pf.system.model.entity.SysUpostRel" extends="BaseResultMap">
+        <result column="user_name" property="userName"></result>
+    </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         user_id, post_id
@@ -15,5 +17,8 @@
     <sql id="Base_Column_List_Supr">
         supr.user_id, supr.post_id
     </sql>
-
+    <select id="selectListAndUserName" resultMap="ResultMapAndUserName">
+        select sui.user_id, supr.post_id, sui.user_name from sys_upost_rel supr
+        right join sys_user_info sui on supr.user_id = sui.user_id
+    </select>
 </mapper>

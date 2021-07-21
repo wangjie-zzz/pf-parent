@@ -8,7 +8,7 @@
         <result column="post_name" property="postName" />
         <result column="post_type" property="postType" />
         <result column="post_ten_id" property="postTenId" />
-        <result column="post_user_state" property="postUserState" />
+        <result column="post_use_state" property="postUseState" />
         <result column="post_int_user" property="postIntUser" />
         <result column="post_int_date" property="postIntDate" />
         <result column="post_upd_user" property="postUpdUser" />
@@ -17,7 +17,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        post_id, post_name, post_type, post_ten_id, post_user_state, post_int_user, post_int_date, post_upd_user, post_upd_date
+        post_id, post_name, post_type, post_ten_id, post_use_state, post_int_user, post_int_date, post_upd_user, post_upd_date
     </sql>
 
 </mapper>

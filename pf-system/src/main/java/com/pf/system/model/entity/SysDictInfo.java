@@ -1,5 +1,6 @@
 package com.pf.system.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,10 +10,10 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
- * @author
+ * @author wangjie
  * @since 2020-09-15
  */
 @Data
@@ -22,6 +23,7 @@ public class SysDictInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @TableId
     private String dictId;
 
     private String appId;
@@ -45,6 +47,5 @@ public class SysDictInfo implements Serializable {
     private String dictUpdUser;
 
     private LocalDateTime dictUpdDate;
-
 
 }

@@ -1,7 +1,7 @@
 package com.pf.system.controller;
 
 import com.pf.base.CommonResult;
-import com.pf.system.constants.SystemGeneralConsts;
+import com.pf.system.constants.SystemConstants;
 import com.pf.system.model.entity.SysAppInfo;
 import com.pf.system.service.ISysAppInfoService;
 import io.swagger.annotations.Api;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Api(value = "用户controller", tags = {"用户操作接口"})
 @RestController
-@RequestMapping(value = SystemGeneralConsts.MS_API_PREFIX + SysAppInfoController.API_PREFIX, produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(value = SystemConstants.MS_API_PREFIX + SysAppInfoController.API_PREFIX, produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
 public class SysAppInfoController {
 
     public final static String API_PREFIX = "/sysAppInfo";

@@ -1,5 +1,6 @@
 package com.pf.system.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author
@@ -22,6 +23,7 @@ public class SysTreedictInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @TableId
     private String treedictId;
 
     private String appId;

@@ -10,7 +10,7 @@
         <result column="trade_url" property="tradeUrl" />
         <result column="trade_name" property="tradeName" />
         <result column="trade_sort_no" property="tradeSortNo" />
-        <result column="trade_user_state" property="tradeUserState" />
+        <result column="trade_use_state" property="tradeUseState" />
         <result column="trade_int_user" property="tradeIntUser" />
         <result column="trade_int_date" property="tradeIntDate" />
         <result column="trade_upd_user" property="tradeUpdUser" />
@@ -19,7 +19,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        menu_id, trade_id, app_id, trade_url, trade_name, trade_sort_no, trade_user_state, trade_int_user, trade_int_date, trade_upd_user, trade_upd_date
+        menu_id, trade_id, app_id, trade_url, trade_name, trade_sort_no, trade_use_state, trade_int_user, trade_int_date, trade_upd_user, trade_upd_date
     </sql>
 
 </mapper>

@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface ISysAppInfoService {
 
-    public CommonResult<List<SysAppInfo>> selectAppAndMenuList();
-    public CommonResult<List<SysAppInfo>> selectAppList();
-    public CommonResult<String> addApp(SysAppInfo sysAppInfo);
+    CommonResult<List<SysAppInfo>> selectAppAndMenuList();
+    CommonResult<List<SysAppInfo>> selectAppList();
+    CommonResult<String> addApp(SysAppInfo sysAppInfo);
 }

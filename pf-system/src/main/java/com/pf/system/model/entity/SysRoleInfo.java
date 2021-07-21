@@ -1,5 +1,7 @@
 package com.pf.system.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.pf.bean.SnowflakeIdWorker;
 import com.pf.enums.UseStateEnum;
 import io.swagger.annotations.ApiModel;
@@ -8,6 +10,7 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -24,17 +27,16 @@ public class SysRoleInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @TableId
     private String roleId;
 
     private String roleTenId;
-
-    private String roleDeptId;
 
     private String roleName;
 
     private String roleType;
 
-    private String roleUserState;
+    private String roleUseState;
 
     private String roleIntUser;
 
@@ -44,16 +46,8 @@ public class SysRoleInfo implements Serializable {
 
     private LocalDateTime roleUpdDate;
 
-    public SysRoleInfo updateDefaultInfo(String userId, SysRoleInfo sysRoleInfo) {
-        if(sysRoleInfo == null) sysRoleInfo = new SysRoleInfo();
-        String roleId = SnowflakeIdWorker.getInstance().nextIdString();
-        LocalDateTime now = LocalDateTime.now();
-        sysRoleInfo.setRoleId(roleId);
-        sysRoleInfo.setRoleIntDate(now);
-        sysRoleInfo.setRoleUpdDate(now);
-        sysRoleInfo.setRoleIntUser(userId);
-        sysRoleInfo.setRoleUpdUser(userId);
-        sysRoleInfo.setRoleUserState(UseStateEnum.EFFECTIVE.getCodeToStr());
-        return sysRoleInfo;
-    }
+    @TableField(exist = false)
+    private List<SysRoleAuth> authList;
+    @TableField(exist = false)
+    private List<SysRoleRel> relList;
 }

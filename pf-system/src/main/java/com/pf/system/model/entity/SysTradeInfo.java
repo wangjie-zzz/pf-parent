@@ -1,5 +1,6 @@
 package com.pf.system.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author
@@ -24,6 +25,7 @@ public class SysTradeInfo implements Serializable {
 
     private String menuId;
 
+    @TableId
     private String tradeId;
 
     private String appId;
@@ -34,7 +36,7 @@ public class SysTradeInfo implements Serializable {
 
     private Integer tradeSortNo;
 
-    private String tradeUserState;
+    private String tradeUseState;
 
     private String tradeIntUser;
 

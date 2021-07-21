@@ -1,4 +1,4 @@
-package com.pf.system.model.domain;
+package com.pf.system.model;
 
 import com.pf.system.model.entity.SysUserInfo;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * @ClassName : Token
- * @Description : 
+ * @Description :
  * @Author : wangjie
  * @Date: 2020/9/17-16:31
  */

@@ -6,10 +6,9 @@
     <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysRoleInfo">
         <id column="role_id" property="roleId" />
         <result column="role_ten_id" property="roleTenId" />
-        <result column="role_dept_id" property="roleDeptId" />
         <result column="role_name" property="roleName" />
         <result column="role_type" property="roleType" />
-        <result column="role_user_state" property="roleUserState" />
+        <result column="role_use_state" property="roleUseState" />
         <result column="role_int_user" property="roleIntUser" />
         <result column="role_int_date" property="roleIntDate" />
         <result column="role_upd_user" property="roleUpdUser" />
@@ -18,10 +17,10 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        role_id, role_ten_id, role_dept_id, role_name, role_type, role_user_state, role_int_user, role_int_date, role_upd_user, role_upd_date
+        role_id, role_ten_id, role_name, role_type, role_use_state, role_int_user, role_int_date, role_upd_user, role_upd_date
     </sql>
     <sql id="Base_Column_List_Sri">
-        sri.role_id, sri.role_ten_id, sri.role_dept_id, sri.role_name, sri.role_type, sri.role_user_state, sri.role_int_user,
+        sri.role_id, sri.role_ten_id, sri.role_name, sri.role_type, sri.role_use_state, sri.role_int_user,
         sri.role_int_date, sri.role_upd_user, sri.role_upd_date
     </sql>
     <select id="selectRoleByUserAndPost" resultMap="BaseResultMap">

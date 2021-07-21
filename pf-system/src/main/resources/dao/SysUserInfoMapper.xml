@@ -47,19 +47,16 @@
         from sys_user_info sui
         left join sys_upost_rel supr on sui.user_id = supr.user_id
         <where>
-            <if test="type == '0'">/*手机号*/
+            <if test="type == 0">/*手机号*/
                 sui.user_phone = #{code, jdbcType=VARCHAR}
             </if>
-            <if test="type == '1'">/*用户账号*/
+            <if test="type == 1">/*用户账号*/
                 sui.user_code = #{code, jdbcType=VARCHAR}
             </if>
         </where>
     </select>
     <select id="selectByDeptId" resultMap="BaseResultMap">
-        select sui.user_id, sui.user_name, sui.user_card_id, sui.user_sex, sui.user_birthday,
-        sui.user_head_img, sui.user_dept_id, sui.user_com_id, sui.user_ten_id, sui.user_code,
-        sui.user_phone, sui.user_wx_open_id,
-        sui.user_email, sui.user_qq_open_id, sui.user_data_source, sui.user_use_state
+        select <include refid="Base_Column_List_Sui"/>
         from sys_user_info sui
         inner join sys_udept_rel sudr on sui.user_id = sudr.user_id and sudr.dept_id = #{deptId, jdbcType=VARCHAR}
     </select>

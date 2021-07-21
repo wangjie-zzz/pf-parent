@@ -54,10 +54,10 @@
             <artifactId>commons-pool2</artifactId>
         </dependency>
         <!--集成消息队列-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
-        </dependency>
+        </dependency>-->
         <!-- 服务配置 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

@@ -53,7 +53,7 @@ public class SysMenuInfo implements Serializable {
 
     private Integer menuSortNo;
 
-    private String menuUserState;
+    private String menuUseState;
 
     private String menuIntUser;
 

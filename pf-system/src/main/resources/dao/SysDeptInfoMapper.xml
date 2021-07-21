@@ -10,10 +10,8 @@
         <result column="dept_ten_id" property="deptTenId" />
         <result column="dept_level" property="deptLevel" />
         <result column="dept_sup_dept_id" property="deptSupDeptId" />
-        <result column="dept_type" property="deptType" />
         <result column="dept_manager" property="deptManager" />
-        <result column="dept_sort_no" property="deptSortNo" />
-        <result column="dept_user_state" property="deptUserState" />
+        <result column="dept_use_state" property="deptUseState" />
         <result column="dept_int_user" property="deptIntUser" />
         <result column="dept_int_date" property="deptIntDate" />
         <result column="dept_upd_user" property="deptUpdUser" />
@@ -21,11 +19,11 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        dept_id, dept_name, dept_com_id, dept_ten_id, dept_level, dept_sup_dept_id, dept_type, dept_manager, dept_sort_no, dept_user_state, dept_int_user, dept_int_date, dept_upd_user, dept_upd_date
+        dept_id, dept_name, dept_com_id, dept_ten_id, dept_level, dept_sup_dept_id, dept_manager, dept_use_state, dept_int_user, dept_int_date, dept_upd_user, dept_upd_date
     </sql>
     <sql id="Alias_Column_List">
-        sdi.dept_id, sdi.dept_name, sdi.dept_com_id, sdi.dept_ten_id, sdi.dept_level, sdi.dept_sup_dept_id, sdi.dept_type,
-        sdi.dept_manager, sdi.dept_sort_no, sdi.dept_user_state, sdi.dept_int_user, sdi.dept_int_date, sdi.dept_upd_user, sdi.dept_upd_date
+        sdi.dept_id, sdi.dept_name, sdi.dept_com_id, sdi.dept_ten_id, sdi.dept_level, sdi.dept_sup_dept_id,
+        sdi.dept_manager, sdi.dept_use_state, sdi.dept_int_user, sdi.dept_int_date, sdi.dept_upd_user, sdi.dept_upd_date
     </sql>
 
 </mapper>

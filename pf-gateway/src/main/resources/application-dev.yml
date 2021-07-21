@@ -18,7 +18,3 @@ spring:
     port: 6379
     host: 172.16.3.184
     password: redis123
-dubbo:
-  registry:
-    parameters:
-      namespace: ${spring.cloud.nacos.discovery.namespace}

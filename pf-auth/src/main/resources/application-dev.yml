@@ -46,3 +46,7 @@ spring:
 #      virtual-host: /mall
       username: test
       password: test123
+dubbo:
+  registry:
+    parameters:
+      namespace: ${spring.cloud.nacos.discovery.namespace}

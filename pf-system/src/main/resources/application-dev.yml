@@ -63,3 +63,7 @@ seata:
   config:
     nacos:
       namespace: ${spring.cloud.nacos.config.namespace} # 命名空间的ID
+dubbo:
+  registry:
+    parameters:
+      namespace: ${spring.cloud.nacos.discovery.namespace}

@@ -33,7 +33,6 @@ public class ResourceServerConfig {
         http
                 .cors().and().csrf().disable() //TODO 关闭跨域后也应关闭 待验证
                 .authorizeExchange()
-                .pathMatchers(HttpMethod.OPTIONS).permitAll()
                 .pathMatchers(ignoreUrlsConfig.getIgnoreds()).permitAll()//白名单配置
                 .anyExchange().access(reactiveAuthorizationManager())
                 .and()

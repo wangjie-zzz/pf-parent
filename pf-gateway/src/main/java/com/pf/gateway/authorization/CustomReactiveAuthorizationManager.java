@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.ReactiveAuthorizationManager;
@@ -44,7 +45,11 @@ public class CustomReactiveAuthorizationManager implements ReactiveAuthorization
         log.info("\r\n请求url:{}",url);
         String httpMethod = request.getMethod().name();
         log.info("\r\n请求方法:{}",httpMethod);
-        //需要进行权限验证的
+
+        //预检请求
+        if(HttpMethod.OPTIONS.matches(httpMethod)) {
+            return Mono.just(new AuthorizationDecision(true));
+        }
         return authentication
                         //过滤验证成功的
                         .filter(a ->  a.isAuthenticated())

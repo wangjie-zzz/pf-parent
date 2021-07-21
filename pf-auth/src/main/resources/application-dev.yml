@@ -12,7 +12,7 @@ spring:
       datasource: # 动态数据源支持
         ds1: # ds1, ds2, ds3, ds4 是ReadableDataSource的名字，可随意编写。后面的 file ，zk ，nacos , apollo 就是对应具体的数据源，它们后面的配置就是这些具体数据源各自的配置。
           nacos:
-            namespace: ${spring.cloud.nacos.config.namespace}
+            namespace: ${spring.cloud.nacos.discovery.namespace}
   datasource:
     url: jdbc:mysql://172.16.3.184:3306/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: test

@@ -5,6 +5,14 @@ spring:
         namespace: 1f966ded-f369-4ec8-ac84-2fe03d3710b4
       config:
         namespace: 1f966ded-f369-4ec8-ac84-2fe03d3710b4
+    sentinel:
+      transport:
+        # port: 9002 # 应用与Sentinel控制台交互的端口，应用本地会起一个该端口占用的HttpServer,可不提供，默认为 8719，若端口冲突会自动向下探测可用的端口。
+        dashboard: 172.16.3.184:8849 # Sentinel 控制台地址
+      datasource: # 动态数据源支持
+        ds1: # ds1, ds2, ds3, ds4 是ReadableDataSource的名字，可随意编写。后面的 file ，zk ，nacos , apollo 就是对应具体的数据源，它们后面的配置就是这些具体数据源各自的配置。
+          nacos:
+            namespace: ${spring.cloud.nacos.discovery.namespace}
   datasource:
     url: jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root

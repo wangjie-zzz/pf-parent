@@ -31,20 +31,6 @@ spring:
       max-file-size: 10MB # 最大文件大小。值可以使用后缀“MB”或“KB”分别表示兆字节或千字节。
       max-request-size: 250MB # 最大请求大小。值可以使用后缀“MB”或“KB”分别表示兆字节或千字节。
   cloud:
-    nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848 # Nacos 注册中心服务端地址
-        group: DEFAULT_GROUP # 设置服务所处的分组
-        weight: 1 # 权重-取值范围 1 到 100，数值越大，权重越大
-        cluster-name: DEFAULT # 配置成Nacos集群名称
-        username: nacos11
-        password: nacos
-      config:
-        server-addr: 127.0.0.1:8848 # Nacos 配置中心服务端地址
-        username: nacos11
-        password: nacos
-        group: DEFAULT_GROUP # 设置服务所处的分组 默认 DEFAULT_GROUP
-        file-extension: yaml
     sentinel:
       eager: true # 是否提前触发 Sentinel 初始化
       filter:
@@ -68,36 +54,22 @@ seata:
     vgroup-mapping:
       mall-seata: default # mall-seata为分组，配置项值为TC集群名
     disable-global-transaction: false # 全局事务开关，默认false。false为开启，true为关闭
-    grouplist:
-      default: 127.0.0.1:8091 # 仅注册中心为file时使用
   registry:
     type: nacos # 注册中心类型，默认file，支持file 、nacos 、eureka、redis、zk、consul、etcd3、sofa、custom
     nacos:
-      username: nacos11
-      password: nacos
+      username: ${spring.cloud.nacos.discovery.username}
+      password: ${spring.cloud.nacos.discovery.password}
       server-addr: ${spring.cloud.nacos.discovery.server-addr} # 注册中心服务端地址
       cluster: default # 集群名称
       application: serverAddr
       group: DEFAULT_GROUP
-      namespace: e9ddbe41-8a6f-4876-99cb-53b1396d70a6
   config:
     type: nacos
     nacos:
-      username: nacos11
-      password: nacos
+      username: ${spring.cloud.nacos.discovery.username}
+      password: ${spring.cloud.nacos.discovery.password}
       server-addr: ${spring.cloud.nacos.config.server-addr}
       group: SEATA_GROUP # 配置分组
-      namespace: e9ddbe41-8a6f-4876-99cb-53b1396d70a6
-#      service:
-#        grouplist:
-#          default: 127.0.0.1:8091 # 仅注册中心为file时使用
-#        enabled: true # 是否启用分布式事务
-#        registry:
-#          nacos:
-#            namespace: ${spring.cloud.nacos.discovery.namespace} # 命名空间的ID
-#        config:
-#          nacos:
-#            namespace: ${spring.cloud.nacos.config.namespace} # 命名空间的ID
 mybatis-plus:
   type-aliases-package: com.pf.system.model.entity
   mapper-locations:

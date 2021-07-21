@@ -22,3 +22,6 @@ sys_company_info: ten_id : com_ten_id
 sys_post_info: ten_id : post_ten_id
 sys_user_info: dept_id : user_dept_id, ten_id : user_ten_id, com_id : user_com_id
 sys_role_info: ten_id : role_ten_id, dept_id : role_dept_id
+
+表结构调整-2021-5-13
+sys_role_info: role_dept_id : 删除

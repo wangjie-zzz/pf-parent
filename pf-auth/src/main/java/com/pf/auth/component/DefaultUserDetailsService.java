@@ -1,6 +1,6 @@
 package com.pf.auth.component;
 
-import com.pf.auth.constant.MessageConstant;
+import com.pf.auth.constant.AuthConstants;
 import com.pf.util.Asserts;
 import com.pf.system.model.UserDto;
 import com.pf.system.service.ISysUserInfoProvider;
@@ -38,7 +38,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
     * @Param: [uniqueId]
     * @description:
     * @return: org.springframework.security.core.userdetails.UserDetails
-    * @throws: 
+    * @throws:
     */
     @Override
     public UserDetails loadUserByUsername(String uniqueId) {
@@ -62,18 +62,18 @@ public class DefaultUserDetailsService implements UserDetailsService {
 
     protected SecurityUser checkUserInfo(UserDto userDto) {
         if ( userDto==null ) {
-            throw new UsernameNotFoundException(MessageConstant.USERNAME_PASSWORD_ERROR);
+            throw new UsernameNotFoundException(AuthConstants.USERNAME_PASSWORD_ERROR);
         }
 
         SecurityUser securityUser = new SecurityUser(userDto);
         if (!securityUser.isEnabled()) {
-            throw new DisabledException(MessageConstant.ACCOUNT_DISABLED);
+            throw new DisabledException(AuthConstants.ACCOUNT_DISABLED);
         } else if (!securityUser.isAccountNonLocked()) {
-            throw new LockedException(MessageConstant.ACCOUNT_LOCKED);
+            throw new LockedException(AuthConstants.ACCOUNT_LOCKED);
         } else if (!securityUser.isAccountNonExpired()) {
-            throw new AccountExpiredException(MessageConstant.ACCOUNT_EXPIRED);
+            throw new AccountExpiredException(AuthConstants.ACCOUNT_EXPIRED);
         } else if (!securityUser.isCredentialsNonExpired()) {
-            throw new CredentialsExpiredException(MessageConstant.CREDENTIALS_EXPIRED);
+            throw new CredentialsExpiredException(AuthConstants.CREDENTIALS_EXPIRED);
         }
         return securityUser;
     }

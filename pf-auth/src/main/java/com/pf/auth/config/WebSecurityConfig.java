@@ -2,22 +2,27 @@ package com.pf.auth.config;
 
 import com.pf.auth.component.DefaultUserDetailsService;
 import com.pf.auth.component.MobileUserDetailsService;
+import com.pf.auth.component.exception.CustomAccessDeniedHandler;
+import com.pf.auth.component.exception.CustomAuthenticationEntryPoint;
 import com.pf.auth.component.granter.MobileAuthenticationProvider;
+import com.pf.auth.constant.AuthConstants;
+import com.pf.constant.CommonConstants;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsUtils;
 
-/**
- * SpringSecurity配置
- * Created by  on 2020/6/19.
- */
+@Slf4j
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -79,5 +84,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(mobileUserDetailsService); // 设置userDetailsService
         provider.setPasswordEncoder(passwordEncoder()); // 设置密码规则
         return provider;
+    }
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.headers().frameOptions().disable();
+        http.cors().and().csrf().disable();
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // 匿名用户访问无权限资源时的异常
+                .accessDeniedHandler(new CustomAccessDeniedHandler()) // 认证过的用户访问无权限资源时的异常
+                .and()
+                .authorizeRequests()
+//                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
+                .antMatchers(CommonConstants.COMMON_PERMIT_ENDPOINT).permitAll()
+                .antMatchers(AuthConstants.PERMIT_ENDPOINTS).permitAll()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                .anyRequest().authenticated();
+        log.info("HttpSecurity is complete!");
     }
 }

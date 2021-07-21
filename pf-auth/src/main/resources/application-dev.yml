@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: pf-auth
   cloud:
     nacos:
       discovery:

@@ -1,6 +1,6 @@
 package com.pf.auth.controller;
 
-import com.pf.auth.constant.JwtConsts;
+import com.pf.auth.constant.AuthConstants;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import org.springframework.core.io.ClassPathResource;
@@ -20,8 +20,8 @@ public class KeyPairController {
 
     @GetMapping("/rsa/publicKey")
     public Map<String, Object> getKey() {
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource(JwtConsts.KEYSTORE), JwtConsts.KEYPASS.toCharArray());
-        RSAPublicKey publicKey = (RSAPublicKey) keyStoreKeyFactory.getKeyPair(JwtConsts.ALIAS).getPublic();
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource(AuthConstants.Jwt.KEYSTORE), AuthConstants.Jwt.KEYPASS.toCharArray());
+        RSAPublicKey publicKey = (RSAPublicKey) keyStoreKeyFactory.getKeyPair(AuthConstants.Jwt.ALIAS).getPublic();
         RSAKey key = new RSAKey.Builder(publicKey).build();
         return new JWKSet(key).toJSONObject();
     }

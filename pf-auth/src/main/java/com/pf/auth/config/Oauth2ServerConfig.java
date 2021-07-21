@@ -6,7 +6,7 @@ import com.pf.auth.component.exception.CustomAccessDeniedHandler;
 import com.pf.auth.component.exception.CustomAuthenticationEntryPoint;
 import com.pf.auth.component.exception.CustomWebResponseExceptionTranslator;
 import com.pf.auth.component.granter.MobileTokenGranter;
-import com.pf.auth.constant.JwtConsts;
+import com.pf.auth.constant.AuthConstants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -150,8 +150,8 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
         oauthServer
                 .allowFormAuthenticationForClients() // 允许客户表单认证,不加的话/oauth/token无法访问
-                .checkTokenAccess("permitAll()") // 开启/oauth/check_token验证端口认证权限访问
-                .tokenKeyAccess("permitAll()") // 开启/oauth/token_key验证端口无权限访问
+                .checkTokenAccess("isAuthenticated()") // 开启/oauth/check_token验证端口认证权限访问
+                .tokenKeyAccess("isAuthenticated()") // 开启/oauth/token_key验证端口无权限访问
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .accessDeniedHandler(new CustomAccessDeniedHandler());
         log.info("AuthorizationServerSecurityConfigurer is complete");
@@ -214,9 +214,9 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
      */
     @Bean
     protected JwtAccessTokenConverter jwtAccessTokenConverter() {
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource(JwtConsts.KEYSTORE), JwtConsts.KEYPASS.toCharArray());
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource(AuthConstants.Jwt.KEYSTORE), AuthConstants.Jwt.KEYPASS.toCharArray());
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-        jwtAccessTokenConverter.setKeyPair(keyStoreKeyFactory.getKeyPair(JwtConsts.ALIAS));
+        jwtAccessTokenConverter.setKeyPair(keyStoreKeyFactory.getKeyPair(AuthConstants.Jwt.ALIAS));
         return jwtAccessTokenConverter;
     }
 

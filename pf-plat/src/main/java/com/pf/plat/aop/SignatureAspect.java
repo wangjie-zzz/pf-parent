@@ -2,7 +2,7 @@ package com.pf.plat.aop;
 
 import com.pf.enums.SysStatusCode;
 import com.pf.plat.annotation.Signature;
-import com.pf.plat.constants.PlatGeneralConsts;
+import com.pf.plat.constants.PlatConstants;
 import com.pf.plat.util.SignatureUtil;
 import com.pf.util.Asserts;
 import org.apache.commons.lang3.StringUtils;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -23,8 +22,6 @@ import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 @Component
@@ -45,7 +42,7 @@ public class SignatureAspect {
     public void doBefore(JoinPoint joinPoint) throws Throwable, IOException {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        String oldSign = request.getHeader(PlatGeneralConsts.Signature.SIGN_HEADER);
+        String oldSign = request.getHeader(PlatConstants.Signature.SIGN_HEADER);
         if (StringUtils.isBlank(oldSign)) { Asserts.fail(SysStatusCode.SIGNATURE_ERROR); }
 
         // 获取parameters（对应@RequestParam）
@@ -76,15 +73,15 @@ public class SignatureAspect {
         // 签名必填参数校验
         this.signatureParameterValid(params);
         // 有效期校验
-        String timestamp = params.get(PlatGeneralConsts.Signature.TIMESTAMP_QUERY)[0];
+        String timestamp = params.get(PlatConstants.Signature.TIMESTAMP_QUERY)[0];
         this.timestampExpireValid(timestamp);
 
         // 请求唯一性校验，防篡改
-        String nonce = params.get(PlatGeneralConsts.Signature.NONCE_QUERY)[0];
-        String appId = params.get(PlatGeneralConsts.Signature.APP_ID_KEY)[0];
+        String nonce = params.get(PlatConstants.Signature.NONCE_QUERY)[0];
+        String appId = params.get(PlatConstants.Signature.APP_ID_KEY)[0];
         this.nonceValid(appId,nonce);
 
-        String newSign = new SignatureUtil.Builder(PlatGeneralConsts.Signature.DEFAULT_APP_SECRET).body(body).params(params).paths(paths).build().sign();
+        String newSign = new SignatureUtil.Builder(PlatConstants.Signature.DEFAULT_APP_SECRET).body(body).params(params).paths(paths).build().sign();
         if (!newSign.equals(oldSign)) {
         	Asserts.fail(SysStatusCode.SIGNATURE_ERROR);
         }
@@ -93,9 +90,9 @@ public class SignatureAspect {
 
     private void signatureParameterValid(Map<String, String[]> map) {
     	if(
-    	        !( map.containsKey(PlatGeneralConsts.Signature.APP_ID_KEY) && StringUtils.isNoneBlank(map.get(PlatGeneralConsts.Signature.APP_ID_KEY))
-    			&& map.containsKey(PlatGeneralConsts.Signature.TIMESTAMP_QUERY) && StringUtils.isNoneBlank(map.get(PlatGeneralConsts.Signature.TIMESTAMP_QUERY))
-    			&& map.containsKey(PlatGeneralConsts.Signature.NONCE_QUERY) && StringUtils.isNoneBlank(map.get(PlatGeneralConsts.Signature.NONCE_QUERY)) )
+    	        !( map.containsKey(PlatConstants.Signature.APP_ID_KEY) && StringUtils.isNoneBlank(map.get(PlatConstants.Signature.APP_ID_KEY))
+    			&& map.containsKey(PlatConstants.Signature.TIMESTAMP_QUERY) && StringUtils.isNoneBlank(map.get(PlatConstants.Signature.TIMESTAMP_QUERY))
+    			&& map.containsKey(PlatConstants.Signature.NONCE_QUERY) && StringUtils.isNoneBlank(map.get(PlatConstants.Signature.NONCE_QUERY)) )
         ) {
     		Asserts.fail(SysStatusCode.SIGNATURE_PARAMETER_MISSING);
     	}

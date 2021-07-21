@@ -6,15 +6,12 @@ package com.pf.plat.constants;
  * @Author : wangjie
  * @Date: 2020/9/17-11:20
  */
-public class PlatGeneralConsts {
+public interface PlatConstants {
 
     /** API统一版本版本 **/
-    public final static String MS_API_PREFIX = "/api/v1";
+    String MS_API_PREFIX = "/api/v1";
 
-    /*用户初始密码明文*/
-    public final static String INITIAL_PASSWORD = "123456";
-
-    public final class Signature {
+    final class Signature {
         public static final String APP_ID_KEY = "appId";
         public static final String TIMESTAMP_QUERY = "timestamp";
         public static final String NONCE_QUERY = "nonce";

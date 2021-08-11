@@ -1,7 +1,7 @@
 server:
   port: 8401
-  servlet:
-    context-path: '/pf-auth'
+#  servlet:
+#    context-path: '/pf-auth'
   compression:
     enabled: true #数据压缩
     mime-types: application/json,text/html,text/xml,text/plain,text/css,text/javascript,application/javascript #支持压缩的MIME类型列表，以逗号分隔

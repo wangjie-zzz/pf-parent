@@ -1,6 +1,7 @@
 package com.pf.test.controller;
 
 import com.pf.base.CommonResult;
+import com.pf.system.model.UserDto;
 import com.pf.test.service.ITestAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,7 +21,7 @@ public class TestAController {
     private ITestAService iTestAService;
 
     @GetMapping(path = "/A1", consumes = MediaType.ALL_VALUE)
-    public CommonResult<String> testA1() {
+    public CommonResult<UserDto> testA1() {
 
         return iTestAService.testA1();
     }

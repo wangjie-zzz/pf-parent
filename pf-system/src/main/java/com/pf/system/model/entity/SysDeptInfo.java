@@ -1,24 +1,19 @@
 package com.pf.system.model.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
- * @author
- * @since 2020-09-15
+ * @author pf
+ * @since 2021-08-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -27,29 +22,29 @@ public class SysDeptInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId
-    private String deptId;
+    private Long deptId;
 
     private String deptName;
 
-    private String deptComId;
+    private Long deptTenId;
 
-    private String deptTenId;
+    private Long deptComId;
 
     private Integer deptLevel;
 
-    private String deptSupDeptId;
+    private Long deptSupDeptId;
 
-    private String deptManager;
+    private Long deptManager;
 
-    private String deptUseState;
+    private Integer deptUseState;
 
-    private String deptIntUser;
+    private Long deptIntUser;
 
     private LocalDateTime deptIntDate;
 
-    private String deptUpdUser;
+    private Long deptUpdUser;
 
     private LocalDateTime deptUpdDate;
+
 
 }

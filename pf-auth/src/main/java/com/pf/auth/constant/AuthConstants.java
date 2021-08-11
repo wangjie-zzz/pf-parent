@@ -1,5 +1,7 @@
 package com.pf.auth.constant;
 
+import com.pf.util.HttpHeaderUtil;
+
 /**
  * 消息常量
  * Created by  on 2020/6/19.
@@ -15,12 +17,17 @@ public interface AuthConstants {
     String ACCOUNT_LOCKED = "该账号已被锁定，请联系管理员!";
 
     String ACCOUNT_EXPIRED = "该账号已过期，请联系管理员!";
+    
+    String LOGIN_PAGE = "/sso/login";
 
     String[] PERMIT_ENDPOINTS = {
             /*内置端点*/
-            "/oauth/**",
+            /*SSO模式下，oauth的端点需要进行登录校验*/
+            /*"/oauth/**",*/
             "/rsa/publicKey",
     };
+    String TOKEN_URL = "http://localhost:8401/oauth/token";
+
     class Jwt {
 
         /** 密钥库的路径及名称 **/
@@ -32,5 +39,14 @@ public interface AuthConstants {
         /** 别名条目的密码(私钥的密码) **/
         public final static String KEYPASS = "123456";
 
+    }
+
+    class Cookies {
+        public final static String tokenKey = "access_token";
+        public final static String refreshTokenKey = "refresh_token";
+        public final static String userKey = HttpHeaderUtil.USER_IDENTITY;
+        public final static int refreshTokenInvalidTime = 3600 * 24 * 7;
+        public final static String domain = "localhost";
+        public final static String path = "/";
     }
 }

@@ -48,7 +48,7 @@ public class SysDictInfoService implements ISysDictInfoService {
         sysDictInfo.setDictUpdDate(LocalDateTime.now());
         sysDictInfo.setDictUpdUser(sysUserInfo.getUserId());
         if(StringUtils.isEmpty(sysDictInfo.getDictId())) {
-            sysDictInfo.setDictId(SnowflakeIdWorker.getInstance().nextIdString());
+            sysDictInfo.setDictId(SnowflakeIdWorker.getNextId());
             sysDictInfo.setDictIntDate(LocalDateTime.now());
             sysDictInfo.setDictIntUser(sysUserInfo.getUserId());
             sysDictInfoMapper.insert(sysDictInfo);

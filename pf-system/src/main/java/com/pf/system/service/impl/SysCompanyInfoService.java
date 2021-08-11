@@ -1,7 +1,6 @@
 package com.pf.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.pf.base.CommonResult;
 import com.pf.bean.SnowflakeIdWorker;
@@ -20,12 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -102,11 +98,11 @@ public class SysCompanyInfoService implements ISysCompanyInfoService {
         sysCompanyInfo.setComUpdUser(sysUserInfo.getUserId());
         if(StringUtils.isEmpty(sysCompanyInfo.getComId())) {
             /*insert*/
-            sysCompanyInfo.setComId(SnowflakeIdWorker.getInstance().nextIdString());
+            sysCompanyInfo.setComId(SnowflakeIdWorker.getInstance().nextId());
             if(StringUtils.isEmpty(sysCompanyInfo.getComSupComId())){ /*无父级公司*/
                 sysCompanyInfo.setComSupComId(sysCompanyInfo.getComId());
             }
-            sysCompanyInfo.setComUseState(UseStateEnum.EFFECTIVE.getCodeToStr());/*新增的公司数据都是有效的*/
+            sysCompanyInfo.setComUseState(UseStateEnum.EFFECTIVE.getCode());/*新增的公司数据都是有效的*/
             sysCompanyInfo.setComIntDate(LocalDateTime.now());
             sysCompanyInfo.setComIntUser(sysUserInfo.getUserId());
             sysCompanyInfoMapper.insert(sysCompanyInfo);
@@ -128,11 +124,11 @@ public class SysCompanyInfoService implements ISysCompanyInfoService {
         sysDeptInfo.setDeptUpdUser(sysUserInfo.getUserId());
         if(StringUtils.isEmpty(sysDeptInfo.getDeptId())) {
             /*insert*/
-            sysDeptInfo.setDeptId(SnowflakeIdWorker.getInstance().nextIdString());
+            sysDeptInfo.setDeptId(SnowflakeIdWorker.getNextId());
             if(StringUtils.isEmpty(sysDeptInfo.getDeptSupDeptId())){ /*无父级公司*/
                 sysDeptInfo.setDeptSupDeptId(sysDeptInfo.getDeptId());
             }
-            sysDeptInfo.setDeptUseState(UseStateEnum.EFFECTIVE.getCodeToStr());/*新增的公司数据都是有效的*/
+            sysDeptInfo.setDeptUseState(UseStateEnum.EFFECTIVE.getCode());/*新增的公司数据都是有效的*/
             sysDeptInfo.setDeptIntDate(LocalDateTime.now());
             sysDeptInfo.setDeptIntUser(sysUserInfo.getUserId());
             sysDeptInfoMapper.insert(sysDeptInfo);

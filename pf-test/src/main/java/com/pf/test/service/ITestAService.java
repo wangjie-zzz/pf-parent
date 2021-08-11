@@ -1,6 +1,7 @@
 package com.pf.test.service;
 
 import com.pf.base.CommonResult;
+import com.pf.system.model.UserDto;
 
 /**
  * @ClassName : ITestAService
@@ -10,7 +11,7 @@ import com.pf.base.CommonResult;
  */
 public interface ITestAService {
 
-    public CommonResult<String> testA1();
+    public CommonResult<UserDto> testA1();
 
     public String testA1p(String p1);
 

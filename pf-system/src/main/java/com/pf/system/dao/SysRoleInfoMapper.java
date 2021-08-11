@@ -25,5 +25,5 @@ public interface SysRoleInfoMapper extends BaseMapper<SysRoleInfo> {
     * @return:
     * @throws:
     */
-    public List<SysRoleInfo> selectRoleByUserAndPost(List<String> list);
+    List<SysRoleInfo> selectRoleByUserAndPost(List<Long> list);
 }

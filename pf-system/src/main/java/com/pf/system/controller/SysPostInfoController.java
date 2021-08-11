@@ -36,12 +36,12 @@ public class SysPostInfoController {
     }
     @ApiOperation(value="岗位关系新增", notes="岗位关系新增")
     @PostMapping(value = "/addUser")
-    public CommonResult<Object> addUser(String postId, @RequestBody List<String> userIds) {
+    public CommonResult<Object> addUser(Long postId, @RequestBody List<Long> userIds) {
         return iSysPostInfoService.addUser(postId, userIds);
     }
     @ApiOperation(value="岗位关系新增", notes="岗位关系新增")
     @GetMapping(value = "/listUser")
-    public CommonResult<List<SysUpostRel>> listUser(@RequestParam("postId") String postId) {
+    public CommonResult<List<SysUpostRel>> listUser(@RequestParam("postId") Long postId) {
         return iSysPostInfoService.listUser(postId);
     }
 }

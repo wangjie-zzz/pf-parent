@@ -51,7 +51,7 @@ public class SysTenantInfoService implements ISysTenantInfoService {
         sysTenantInfo.setTenUpdDate(LocalDateTime.now());
         sysTenantInfo.setTenUpdUser(sysUserInfo.getUserId());
         if(StringUtils.isEmpty(sysTenantInfo.getTenId())) {
-            sysTenantInfo.setTenId(SnowflakeIdWorker.getInstance().nextIdString());
+            sysTenantInfo.setTenId(SnowflakeIdWorker.getNextId());
             sysTenantInfo.setTenIntDate(LocalDateTime.now());
             sysTenantInfo.setTenIntUser(sysUserInfo.getUserId());
             sysTenantInfoMapper.insert(sysTenantInfo);

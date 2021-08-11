@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * @ClassName : ReconnectHandler
+ * 指定泛型class，channelRead0方法接受的消息类型必须与泛型class相同
  * @Description : 
  * @Author : wangjie
  * @Date: 2020/10/16-9:48

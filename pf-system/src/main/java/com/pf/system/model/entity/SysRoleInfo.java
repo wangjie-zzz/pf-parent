@@ -1,24 +1,19 @@
 package com.pf.system.model.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.pf.bean.SnowflakeIdWorker;
-import com.pf.enums.UseStateEnum;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
- * @author
- * @since 2020-09-15
+ * @author pf
+ * @since 2021-08-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -27,27 +22,23 @@ public class SysRoleInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId
-    private String roleId;
-
-    private String roleTenId;
+    private Long roleId;
 
     private String roleName;
 
-    private String roleType;
+    private Long roleTenId;
 
-    private String roleUseState;
+    private Integer roleType;
 
-    private String roleIntUser;
+    private Integer roleUseState;
+
+    private Long roleIntUser;
 
     private LocalDateTime roleIntDate;
 
-    private String roleUpdUser;
+    private Long roleUpdUser;
 
     private LocalDateTime roleUpdDate;
 
-    @TableField(exist = false)
-    private List<SysRoleAuth> authList;
-    @TableField(exist = false)
-    private List<SysRoleRel> relList;
+
 }

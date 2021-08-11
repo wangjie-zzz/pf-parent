@@ -2,9 +2,9 @@ package com.pf.auth.config;
 
 import com.pf.auth.component.DefaultUserDetailsService;
 import com.pf.auth.component.MobileUserDetailsService;
-import com.pf.auth.component.exception.CustomAccessDeniedHandler;
-import com.pf.auth.component.exception.CustomAuthenticationEntryPoint;
 import com.pf.auth.component.granter.MobileAuthenticationProvider;
+import com.pf.auth.component.handler.DefaultLoginFailureHandler;
+import com.pf.auth.component.handler.DefaultLogoutSuccessHandler;
 import com.pf.auth.constant.AuthConstants;
 import com.pf.constant.CommonConstants;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsUtils;
@@ -88,20 +87,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.headers().frameOptions().disable();
-        http.cors().and().csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // 匿名用户访问无权限资源时的异常
-                .accessDeniedHandler(new CustomAccessDeniedHandler()) // 认证过的用户访问无权限资源时的异常
-                .and()
+        http.httpBasic()// 客户端凭证校验 Basic
+                .and().cors().disable().csrf().disable()
                 .authorizeRequests()
-//                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
                 .antMatchers(CommonConstants.COMMON_PERMIT_ENDPOINT).permitAll()
                 .antMatchers(AuthConstants.PERMIT_ENDPOINTS).permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and().formLogin().loginPage(AuthConstants.LOGIN_PAGE).loginProcessingUrl("/login").permitAll().failureHandler(new DefaultLoginFailureHandler())
+                .and().logout().permitAll().logoutSuccessHandler(new DefaultLogoutSuccessHandler());
         log.info("HttpSecurity is complete!");
     }
+
 }

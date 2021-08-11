@@ -24,25 +24,24 @@ public class CodeGenerator {
     static {
 //        MODULE_NAME = "pf"; // test
         TABLES_NAME = Arrays.asList(
-                "test_a",
-                "test_b"
-//                "sys_app_info",
-//                "sys_company_info",
-//                "sys_dept_info",
-//                "sys_dict_info",
-//                "sys_interface_info",
-//                "sys_menu_info",
-//                "sys_post_info",
-//                "sys_role_auth",
-//                "sys_role_info",
-//                "sys_role_rel",
-//                "sys_tenant_app",
-//                "sys_tenant_info",
-//                "sys_trade_info",
-//                "sys_treedict_info",
-//                "sys_udept_rel",
-//                "sys_upost_rel",
-//                "sys_user_info"
+//                "test_a",
+//                "test_b"
+                "sys_app_info",
+                "sys_company_info",
+                "sys_dept_info",
+                "sys_dict_info",
+                "sys_interface_info",
+                "sys_menu_info",
+                "sys_post_info",
+                "sys_role_auth",
+                "sys_role_info",
+                "sys_role_rel",
+                "sys_tenant_app",
+                "sys_tenant_info",
+                "sys_treedict_info",
+                "sys_udept_rel",
+                "sys_upost_rel",
+                "sys_user_info"
         );
     }
 
@@ -65,19 +64,19 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://172.16.3.184:3306/mall?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC");
+        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/dcms?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("test");
-        dsc.setPassword("test123");
-//        dsc.setUsername("root");
-//        dsc.setPassword("123456");
+//        dsc.setUsername("test");
+//        dsc.setPassword("test123");
+        dsc.setUsername("root");
+        dsc.setPassword("123456");
         mpg.setDataSource(dsc);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
         /*pc.setModuleName(MODULE_NAME);*/
-        pc.setParent("com.pf.test");
+        pc.setParent("com.pf.system");
         pc.setMapper("dao");
         pc.setEntity("model.entity");
         mpg.setPackageInfo(pc);

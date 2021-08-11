@@ -14,7 +14,7 @@ spring:
           nacos:
             namespace: ${spring.cloud.nacos.config.namespace}
   datasource:
-    url: 'jdbc:mysql://172.16.3.184:3306/mall?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai'
+    url: 'jdbc:mysql://172.16.3.184:3306/dcms?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai'
     username: test
     password: test123
     driver-class-name: com.mysql.cj.jdbc.Driver

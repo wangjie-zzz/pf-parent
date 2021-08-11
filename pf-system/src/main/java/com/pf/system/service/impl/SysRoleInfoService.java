@@ -5,12 +5,10 @@ import com.pf.base.CommonResult;
 import com.pf.bean.SnowflakeIdWorker;
 import com.pf.enums.SysStatusCode;
 import com.pf.enums.UseStateEnum;
-import com.pf.system.dao.SysMenuInfoMapper;
 import com.pf.system.dao.SysRoleAuthMapper;
 import com.pf.system.dao.SysRoleInfoMapper;
 import com.pf.system.dao.SysRoleRelMapper;
 import com.pf.system.model.entity.*;
-import com.pf.system.service.ISysMenuInfoService;
 import com.pf.system.service.ISysRoleInfoService;
 import com.pf.util.Asserts;
 import com.pf.util.CacheDataUtil;
@@ -60,10 +58,10 @@ public class SysRoleInfoService implements ISysRoleInfoService {
         if((sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate)) == null) {
             Asserts.fail(SysStatusCode.UNAUTHORIZED);
         }
-        sysRoleInfo.setRoleId(SnowflakeIdWorker.getInstance().nextIdString());
+        sysRoleInfo.setRoleId(SnowflakeIdWorker.getNextId());
         sysRoleInfo.setRoleTenId(sysUserInfo.getUserTenId());
-        sysRoleInfo.setRoleType("-");
-        sysRoleInfo.setRoleUseState(UseStateEnum.EFFECTIVE.getCodeToStr());
+        sysRoleInfo.setRoleType(0); // TODO 角色类型
+        sysRoleInfo.setRoleUseState(UseStateEnum.EFFECTIVE.getCode());
         sysRoleInfo.setRoleIntDate(LocalDateTime.now());
         sysRoleInfo.setRoleUpdDate(LocalDateTime.now());
         sysRoleInfo.setRoleIntUser(sysUserInfo.getUserId());

@@ -16,5 +16,5 @@ import java.util.List;
  */
 public interface SysUpostRelMapper extends BaseMapper<SysUpostRel> {
 
-    List<SysUpostRel> selectListAndUserName(@Param("postId") String postId);
+    List<SysUpostRel> selectListAndUserName(@Param("postId") Long postId);
 }

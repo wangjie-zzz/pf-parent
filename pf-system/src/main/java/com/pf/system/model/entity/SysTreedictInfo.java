@@ -1,6 +1,5 @@
 package com.pf.system.model.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,11 +9,11 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
- * @author
- * @since 2020-09-15
+ * @author pf
+ * @since 2021-08-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -23,8 +22,7 @@ public class SysTreedictInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId
-    private String treedictId;
+    private Long treedictId;
 
     private String appId;
 
@@ -36,21 +34,21 @@ public class SysTreedictInfo implements Serializable {
 
     private String treedictValue;
 
-    private String treedictSupId;
+    private Long treedictSupId;
 
-    private String treedictLevel;
+    private Integer treedictLevel;
 
-    private String treedictIsLeaf;
+    private Integer treedictIsLeaf;
 
     private Integer treedictSortNo;
 
-    private String treedictUseState;
+    private Integer treedictUseState;
 
-    private String treedictIntUser;
+    private Long treedictIntUser;
 
     private LocalDateTime treedictIntDate;
 
-    private String treedictUpdUser;
+    private Long treedictUpdUser;
 
     private LocalDateTime treedictUpdDate;
 

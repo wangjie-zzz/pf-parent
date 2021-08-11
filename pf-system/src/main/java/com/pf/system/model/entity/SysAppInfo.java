@@ -1,7 +1,6 @@
 package com.pf.system.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,11 +11,11 @@ import java.util.List;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
- * @author
- * @since 2020-09-15
+ * @author pf
+ * @since 2021-08-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -25,12 +24,11 @@ public class SysAppInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId
     private String appId;
 
     private String appName;
 
-    private String appType;
+    private Integer appType;
 
     private String appUrl;
 
@@ -40,19 +38,19 @@ public class SysAppInfo implements Serializable {
 
     private String appState;
 
-    private String appUseState;
+    private Integer appUseState;
 
-    private String appIntUser;
+    private Long appIntUser;
 
     private LocalDateTime appIntDate;
 
-    private String appUpdUser;
+    private Long appUpdUser;
 
     private LocalDateTime appUpdDate;
 
     @TableField(exist = false)
     private String appActiveRule;
-
     @TableField(exist = false)
     private List<SysMenuInfo> sysMenuInfos;
+
 }

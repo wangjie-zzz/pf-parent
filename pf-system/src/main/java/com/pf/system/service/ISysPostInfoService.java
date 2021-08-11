@@ -9,7 +9,7 @@ public interface ISysPostInfoService {
 
     CommonResult<List<SysPostInfo>> list();
     CommonResult<Object> add(SysPostInfo sysPostInfo);
-    CommonResult<Object> addUser(String postId, List<String> userIds);
+    CommonResult<Object> addUser(Long postId, List<Long> userIds);
 
-    CommonResult<List<SysUpostRel>> listUser(String postId);
+    CommonResult<List<SysUpostRel>> listUser(Long postId);
 }

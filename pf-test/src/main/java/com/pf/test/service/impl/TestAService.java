@@ -1,6 +1,8 @@
 package com.pf.test.service.impl;
 
 import com.pf.base.CommonResult;
+import com.pf.enums.LoginTypeEnum;
+import com.pf.system.model.UserDto;
 import com.pf.system.service.ISysUserInfoProvider;
 import com.pf.test.service.ITestAService;
 import org.apache.dubbo.config.annotation.DubboReference;
@@ -19,8 +21,8 @@ public class TestAService implements ITestAService {
     private ISysUserInfoProvider iSysUserInfoProvider;
 
     @Override
-    public CommonResult<String> testA1() {
-        CommonResult<String> res = iSysUserInfoProvider.selectUserAndRoleInfo("sadmin");
+    public CommonResult<UserDto> testA1() {
+        CommonResult<UserDto> res = iSysUserInfoProvider.selectUserAndRoleInfo(842109738912055297l, LoginTypeEnum.USER_CODE.getCode());
         return res;
     }
 

@@ -9,11 +9,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
- * @author
- * @since 2020-09-15
+ * @author pf
+ * @since 2021-08-11
  */
 @Data
 @AllArgsConstructor
@@ -23,11 +23,11 @@ public class SysUdeptRel implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    private String userId;
+    private Long userId;
 
-    private String deptId;
+    private Long deptId;
 
-    private String isMain;
+    private Integer isMain;
 
 
 }

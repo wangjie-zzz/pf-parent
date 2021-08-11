@@ -52,10 +52,10 @@ public class SysPostInfoService implements ISysPostInfoService {
         SysUserInfo sysUserInfo;
         if((sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate)) == null)
             Asserts.fail(SysStatusCode.UNAUTHORIZED);
-        sysPostInfo.setPostId(SnowflakeIdWorker.getInstance().nextIdString());
-        sysPostInfo.setPostType("-");
+        sysPostInfo.setPostId(SnowflakeIdWorker.getNextId());
+        sysPostInfo.setPostType(0); // TODO 岗位类型
         sysPostInfo.setPostTenId(sysUserInfo.getUserTenId());
-        sysPostInfo.setPostUseState(UseStateEnum.EFFECTIVE.getCodeToStr());
+        sysPostInfo.setPostUseState(UseStateEnum.EFFECTIVE.getCode());
         sysPostInfo.setPostUpdDate(LocalDateTime.now());
         sysPostInfo.setPostIntDate(LocalDateTime.now());
         sysPostInfo.setPostIntUser(sysUserInfo.getUserId());
@@ -66,11 +66,11 @@ public class SysPostInfoService implements ISysPostInfoService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public CommonResult<Object> addUser(String postId, List<String> userIds) {
+    public CommonResult<Object> addUser(Long postId, List<Long> userIds) {
         if(!StringUtils.isEmpty(postId) && !CollectionUtils.isEmpty(userIds)) {
             sysUpostRelMapper.delete(Wrappers.lambdaQuery(SysUpostRel.class).eq(SysUpostRel::getPostId, postId));
             userIds.forEach(rel -> {
-                sysUpostRelMapper.insert(new SysUpostRel(rel, postId, ""));
+                sysUpostRelMapper.insert(new SysUpostRel(rel, postId));
             });
         }
         return CommonResult.success();
@@ -78,7 +78,7 @@ public class SysPostInfoService implements ISysPostInfoService {
 
     @Override
     @Transactional(readOnly = true)
-    public CommonResult<List<SysUpostRel>> listUser(String postId) {
+    public CommonResult<List<SysUpostRel>> listUser(Long postId) {
         List<SysUpostRel> list = sysUpostRelMapper.selectListAndUserName(postId);
         return CommonResult.success(list);
     }

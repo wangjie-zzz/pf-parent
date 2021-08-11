@@ -1,6 +1,5 @@
 package com.pf.system.model.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,11 +9,11 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
- * @author
- * @since 2020-09-15
+ * @author pf
+ * @since 2021-08-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -23,18 +22,17 @@ public class SysTenantInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId
-    private String tenId;
+    private Long tenId;
 
     private String tenName;
 
-    private String tenUseState;
+    private Integer tenUseState;
 
-    private String tenIntUser;
+    private Long tenIntUser;
 
     private LocalDateTime tenIntDate;
 
-    private String tenUpdUser;
+    private Long tenUpdUser;
 
     private LocalDateTime tenUpdDate;
 

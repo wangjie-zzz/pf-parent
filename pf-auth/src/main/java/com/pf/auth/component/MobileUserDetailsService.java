@@ -22,15 +22,15 @@ public class MobileUserDetailsService extends DefaultUserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String uniqueId) {
 
-        CommonResult<String> commonResult = iSysUserInfoProvider.selectUserAndRoleInfo(uniqueId);
+        //TODO 短信验证码登录
+        CommonResult<UserDto> commonResult = iSysUserInfoProvider.selectUserAndRoleInfo(Long.parseLong(uniqueId), null);
         if(commonResult.getCode() != SysStatusCode.SUCCESS.getCode()) {
             Asserts.fail(commonResult.getMessage());
         }
-        String userDtoStr = commonResult.getData();
+        UserDto userDto = commonResult.getData();
         // 如果为mobile模式，从短信服务中获取验证码（动态密码）
 //        RestfulResponse<String, GeneralMeta>  credentialsRes = authService.getSmsCode(uniqueId, "LOGIN");
 //        String credentials = credentialsRes.getData();
-        UserDto userDto = JacksonsUtils.readValue(userDtoStr ,UserDto.class);
         log.info("\r\nload user by username :{}", userDto);
 
         return checkUserInfo(userDto);

@@ -2,7 +2,6 @@ package com.pf.system.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.pf.base.CommonResult;
-import com.pf.bean.SnowflakeIdWorker;
 import com.pf.enums.SysStatusCode;
 import com.pf.enums.UseStateEnum;
 import com.pf.system.dao.SysAppInfoMapper;
@@ -17,10 +16,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -101,7 +97,7 @@ public class SysAppInfoService implements ISysAppInfoService {
         sysAppInfo.setAppIntUser(sysUserInfo.getUserId());
         sysAppInfo.setAppUpdDate(LocalDateTime.now());
         sysAppInfo.setAppUpdUser(sysUserInfo.getUserId());
-        sysAppInfo.setAppUseState(UseStateEnum.EFFECTIVE.getCodeToStr());
+        sysAppInfo.setAppUseState(UseStateEnum.EFFECTIVE.getCode());
         sysAppInfoMapper.insert(sysAppInfo);
         return CommonResult.success();
     }

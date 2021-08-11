@@ -50,8 +50,8 @@ spring:
           uri: lb://pf-auth                 #匹配后提供服务的路由地址（http://ip:port），lb后跟提供服务的微服务的名，不要写错
           predicates:
             - Path=/pf-auth/**                    #断言，路径相匹配的进行路由
-#          filters:
-#            - StripPrefix=1                      # 切割路径个数 ex：/a/b ==> /b
+          filters:
+            - StripPrefix=1                      # 切割路径个数 ex：/a/b ==> /b
         - id: pf-system
           uri: lb://pf-system
           predicates:
@@ -79,21 +79,15 @@ ribbon:
     clients: pf-auth, pf-system
 secure:
   ignore:
-    ignoreds: #配置白名单路径            #      /**/oauth/**,
-      /doc.html,
-      /swagger-resources/**,
-      /swagger/**,
-      /**/**/v2/api-docs,
-      /**/*.js,
-      /**/*.css,
-      /**/*.png,
-      /**/*.ico,
-      /webjars/**,
-      /actuator/**,
-
+    ignoreds: #配置白名单路径
       /pf-system/api/v1/**/permitAll/**,
       /pf-system/api/v1/sysUserInfo/permitAll/refreshToken,
+      
       /pf-auth/rsa/publicKey,
+      /pf-auth/oauth/authorize,
+      /pf-auth/oauth/callback,
+      /pf-auth/logout,
+      
       /pf-test/**,
 #客户端版本号，在监控中心显示
 info:

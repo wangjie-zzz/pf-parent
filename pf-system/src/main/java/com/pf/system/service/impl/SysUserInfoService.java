@@ -7,9 +7,9 @@ import com.pf.constant.CommonConstants;
 import com.pf.enums.*;
 import com.pf.system.constants.SystemConstants;
 import com.pf.system.dao.SysUdeptRelMapper;
+import com.pf.system.dao.SysUserInfoMapper;
 import com.pf.system.model.entity.SysUdeptRel;
 import com.pf.util.Asserts;
-import com.pf.system.dao.SysUserInfoMapper;
 import com.pf.system.model.Token;
 import com.pf.system.model.entity.SysUserInfo;
 import com.pf.system.model.request.LoginRequest;
@@ -60,7 +60,7 @@ public class SysUserInfoService implements ISysUserInfoService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public CommonResult<Object> registerGuest(SysUserInfo sysUserInfo) {
-        String userId = SnowflakeIdWorker.getInstance().nextIdString();
+        Long userId = SnowflakeIdWorker.getNextId();
         sysUserInfo.setUserId(userId);
         sysUserInfo.setUserCode(sysUserInfo.getUserPhone());
         sysUserInfo.setUserIntUser(userId);
@@ -69,8 +69,8 @@ public class SysUserInfoService implements ISysUserInfoService {
         sysUserInfo.setUserIntDate(LocalDateTime.now());
         /*TODO 待添加默认公司部门等数据, sysUDeptRel待插入*/
         sysUserInfo.setUserPasswd(SystemConstants.DEFAULT_PWD);
-        sysUserInfo.setUserUseState(UseStateEnum.EFFECTIVE.getCodeToStr());
-        sysUserInfo.setUserDataSource(UserDataSourceEnum.WEB_REGISTER.getCodeToStr());
+        sysUserInfo.setUserUseState(UseStateEnum.EFFECTIVE.getCode());
+        sysUserInfo.setUserDataSource(UserDataSourceEnum.WEB_REGISTER.getCode());
         sysUserInfoMapper.insert(sysUserInfo);
         return CommonResult.success();
     }
@@ -87,17 +87,17 @@ public class SysUserInfoService implements ISysUserInfoService {
     @Transactional(rollbackFor = Exception.class)
     public CommonResult<Object> adminCreate(SysUserInfo sysUserInfo) {
         SysUserInfo authUser = CacheDataUtil.getUserCacheBean(redisTemplate);
-        sysUserInfo.setUserId(SnowflakeIdWorker.getInstance().nextIdString());
+        sysUserInfo.setUserId(SnowflakeIdWorker.getNextId());
         sysUserInfo.setUserCode(sysUserInfo.getUserPhone());
         sysUserInfo.setUserPasswd(SystemConstants.DEFAULT_PWD);
         sysUserInfo.setUserIntUser(authUser.getUserId());
         sysUserInfo.setUserUpdUser(authUser.getUserId());
         sysUserInfo.setUserUpdDate(LocalDateTime.now());
         sysUserInfo.setUserIntDate(LocalDateTime.now());
-        sysUserInfo.setUserUseState(UseStateEnum.EFFECTIVE.getCodeToStr());
-        sysUserInfo.setUserDataSource(UserDataSourceEnum.ADMIN_CREATE.getCodeToStr());
+        sysUserInfo.setUserUseState(UseStateEnum.EFFECTIVE.getCode());
+        sysUserInfo.setUserDataSource(UserDataSourceEnum.ADMIN_CREATE.getCode());
         sysUserInfoMapper.insert(sysUserInfo);
-        SysUdeptRel sysUdeptRel = new SysUdeptRel(sysUserInfo.getUserId(), sysUserInfo.getUserDeptId(), BoolEnum.TRUE.getCodeToStr());
+        SysUdeptRel sysUdeptRel = new SysUdeptRel(sysUserInfo.getUserId(), sysUserInfo.getUserDeptId(), BoolEnum.TRUE.getCode());
         sysUdeptRelMapper.insert(sysUdeptRel);
         return CommonResult.success();
     }

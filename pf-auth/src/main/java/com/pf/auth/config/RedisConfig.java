@@ -1,4 +1,4 @@
-package com.pf.test.config;
+package com.pf.auth.config;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -125,5 +125,6 @@ public class RedisConfig extends CachingConfigurerSupport {
     public RedisDistributionLock redisDistributionLock() {
         return new RedisDistributionLock(stringRedisTemplate());
     }
+
 }
 

@@ -1,4 +1,8 @@
 spring:
+  application:
+    name: pf-gateway
+  profiles:
+    active: @spring.profiles.active@
   cloud:
     nacos:
       discovery:

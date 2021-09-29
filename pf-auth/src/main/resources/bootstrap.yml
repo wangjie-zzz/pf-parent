@@ -1,4 +1,8 @@
 spring:
+  profiles:
+    active: @spring.profiles.active@
+  application:
+    name: pf-auth
   cloud:
     nacos:
       discovery:

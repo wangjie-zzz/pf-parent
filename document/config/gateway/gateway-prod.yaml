@@ -1,0 +1,67 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          #          enabled: true              #uri后面追加服务名称-默认false
+          lower-case-service-id: true #使用小写service-id
+      routes: #配置路由路径
+        - id: pf-auth
+          #          uri: http://localhost:8001         #匹配后提供服务的路由地址
+          uri: lb://pf-auth                 #匹配后提供服务的路由地址（http://ip:port），lb后跟提供服务的微服务的名，不要写错
+          predicates:
+            - Path=/pf-auth/**                    #断言，路径相匹配的进行路由
+          filters:
+            - StripPrefix=1                      # 切割路径个数 ex：/a/b ==> /b
+        - id: pf-system
+          uri: lb://pf-system
+          predicates:
+            - Path=/pf-system/**
+        - id: pf-test
+          uri: lb://pf-test
+          predicates:
+            - Path=/pf-test/**
+    #      globalcors: # 全局设置跨域
+    #        corsConfigurations:
+    #          '[/**]':
+    #            allowCredentials: true # 允许cookies跨域
+    #            allowedOrigins: "*" # 允许向该服务器提交请求的URI，*表示全部允许
+    #            allowedHeaders: "*" # 允许访问的头信息,*表示全部
+    #            allowedMethods: "*" # 允许提交请求的方法，*表示全部允许
+    #            maxAge: 18000 # 预检请求的缓存时间（秒），即在这个时间段里，对于相同的跨域请求不会再预检了
+    sentinel:
+      eager: true # 是否提前触发 Sentinel 初始化
+      filter:
+        enabled: false # 启用实例CommonFilter
+      datasource: # 动态数据源支持
+        ds1: # ds1, ds2, ds3, ds4 是ReadableDataSource的名字，可随意编写。后面的 file ，zk ，nacos , apollo 就是对应具体的数据源，它们后面的配置就是这些具体数据源各自的配置。
+          nacos:
+            namespace: ${spring.cloud.nacos.config.namespace}
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            username: ${spring.cloud.nacos.config.username}
+            password: ${spring.cloud.nacos.config.password}
+            data-id: ${spring.application.name}-flow-rules # 配置的 data-id
+            group: DEFAULT_GROUP # 配置分组
+            data-type: json # 表示 Converter 类型，Spring Cloud Alibaba Sentinel 默认提供两种内置的值，分别是 json 和 xml (不填默认是json)
+            rule-type: gw-flow # 配置表示该数据源中的规则属于哪种类型的规则(flow，degrade，authority，system, param-flow, gw-flow, gw-api-group)
+      transport:
+        # port: 9002 # 应用与Sentinel控制台交互的端口，应用本地会起一个该端口占用的HttpServer,可不提供，默认为 8719，若端口冲突会自动向下探测可用的端口。
+        dashboard: 172.16.3.184:8849 # Sentinel 控制台地址
+  redis:
+    database: 0
+    port: 6379
+    host: 172.16.3.184
+    password: redis123
+    timeout: 10000 # 连接超时时间（毫秒）
+    lettuce:
+      pool:
+        max-active: 100 # 连接池最大连接数（使用负值表示没有限制） 默认 8
+        max-wait: -1 # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+        max-idle: 35 # 连接池中的最大空闲连接 默认 8
+        min-idle: 5 # 连接池中的最小空闲连接 默认 0
+secure:
+  ignore:
+    ignoreds: #配置白名单路径
+      - /pf-system/api/v1/**/permitAll/**
+      - /pf-auth/rsa/publicKey
+      - /pf-test/**

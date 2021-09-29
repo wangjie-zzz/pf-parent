@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        namespace: 70662fd1-d325-41ce-9c81-41c3e269a50b
+      config:
+        namespace: 70662fd1-d325-41ce-9c81-41c3e269a50b

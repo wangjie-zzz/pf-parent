@@ -18,7 +18,7 @@
         <result column="app_upd_date" property="appUpdDate" />
     </resultMap>
     <resultMap id="ResultMapWithMenus" type="com.pf.system.model.entity.SysAppInfo" extends="BaseResultMap">
-        <collection property="sysMenuInfoList" resultMap="com.pf.system.dao.SysMenuInfoMapper.BaseResultMap">
+        <collection property="sysMenuInfos" resultMap="com.pf.system.dao.SysMenuInfoMapper.BaseResultMap">
         </collection>
     </resultMap>
     <!-- 通用查询结果列 -->
@@ -33,6 +33,6 @@
         select <include refid="Alias_Column_List"/>,
         <include refid="com.pf.system.dao.SysMenuInfoMapper.Alias_Column_List"/>
         from sys_app_info sai
-        left join sys_menu_info smi on sai.app_id = smi.app_id
+        left join sys_menu_info smi on sai.app_id = smi.menu_app_id
     </select>
 </mapper>

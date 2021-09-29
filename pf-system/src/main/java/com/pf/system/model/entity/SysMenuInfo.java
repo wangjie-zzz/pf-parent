@@ -1,11 +1,13 @@
 package com.pf.system.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,8 +15,8 @@ import java.util.List;
  * 
  * </p>
  *
- * @author
- * @since 2020-09-15
+ * @author pf
+ * @since 2021-08-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -23,11 +25,11 @@ public class SysMenuInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    private String menuId;
+    private Long menuId;
 
     private String menuName;
 
-    private String appId;
+    private String menuAppId;
 
     private String menuUrl;
 
@@ -37,9 +39,9 @@ public class SysMenuInfo implements Serializable {
 
     private String menuBgColor;
 
-    private String menuSupMenuId;
+    private Long menuSupMenuId;
 
-    private String menuLevel;
+    private Integer menuLevel;
 
     private Boolean menuIsLeaf;
 
@@ -49,15 +51,29 @@ public class SysMenuInfo implements Serializable {
 
     private Integer menuSortNo;
 
-    private String menuUserState;
+    private Integer menuUseState;
 
-    private String menuIntUser;
+    private Long menuIntUser;
 
     private LocalDateTime menuIntDate;
 
-    private String menuUpdUser;
+    private Long menuUpdUser;
 
     private LocalDateTime menuUpdDate;
-
+    
+    @TableField(exist = false)
     private List<SysMenuInfo> children;
+
+    public void addChildren(List<SysMenuInfo> roots) {
+        for (SysMenuInfo root : roots) {
+            if(root.getMenuId().equals(this.getMenuSupMenuId())) {
+                if(root.getChildren() == null)
+                    root.setChildren(new ArrayList<>());
+                root.getChildren().add(this);
+                return;
+            } else if(root.getChildren() != null && root.getChildren().size() > 0) {
+                this.addChildren(root.getChildren());
+            }
+        }
+    }
 }

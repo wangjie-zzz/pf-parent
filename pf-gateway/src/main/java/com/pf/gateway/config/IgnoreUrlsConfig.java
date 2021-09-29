@@ -11,10 +11,16 @@ import java.util.List;
  * 网关白名单配置
  * Created by  on 2020/6/17.
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
 @Component
 @ConfigurationProperties(prefix="secure.ignore")
 public class IgnoreUrlsConfig {
+    public String[] getIgnoreds() {
+        return ignoreds;
+    }
+
+    public void setIgnoreds(String[] ignoreds) {
+        this.ignoreds = ignoreds;
+    }
+
     private String[] ignoreds;
 }

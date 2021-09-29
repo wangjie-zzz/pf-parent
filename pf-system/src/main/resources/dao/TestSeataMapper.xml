@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.TestSeataMapper">
+    <update id="updateTestA">
+        update test_a set test2 = #{obj.test2, jdbcType=VARCHAR} where test1 = #{obj.test1}
+    </update>
+</mapper>

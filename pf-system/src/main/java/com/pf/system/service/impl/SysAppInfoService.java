@@ -2,22 +2,22 @@ package com.pf.system.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.pf.base.CommonResult;
-import com.pf.enums.SysStatusCode;
+import com.pf.aop.context.UserContext;
+import com.pf.enums.UseStateEnum;
 import com.pf.system.dao.SysAppInfoMapper;
+import com.pf.model.UserDto;
 import com.pf.system.model.entity.SysAppInfo;
 import com.pf.system.model.entity.SysMenuInfo;
-import com.pf.system.model.entity.SysUserInfo;
 import com.pf.system.service.ISysAppInfoService;
-import com.pf.util.Asserts;
-import com.pf.util.CacheDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -46,51 +46,49 @@ public class SysAppInfoService implements ISysAppInfoService {
     @Override
     @Transactional(readOnly = true)
     public CommonResult<List<SysAppInfo>> selectAppAndMenuList() {
-        SysUserInfo sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate);
-        if(sysUserInfo == null) {
-            Asserts.fail(SysStatusCode.UNAUTHORIZED);
-        }
+        UserDto sysUserInfo = UserContext.getSysUserHolder(true);
         List<SysAppInfo> appInfos = sysAppInfoMapper.selectListWithMenus();
         appInfos.forEach(e -> {
-            e.setAppActiveRule("/".concat(e.getAppName()));
-            if(!CollectionUtils.isEmpty(e.getSysMenuInfoList())) {
-                List<SysMenuInfo> root = new ArrayList<>();
-                List<SysMenuInfo> children = new ArrayList<>();
-                for (SysMenuInfo menuInfo : e.getSysMenuInfoList()) {
-                    if(!menuInfo.getMenuSupMenuId().equals(menuInfo.getMenuId())) {
-                        children.add(menuInfo);
-                    } else {
-                        root.add(menuInfo);
+            e.setAppActiveRule("/".concat(e.getAppId()));
+            if(!CollectionUtils.isEmpty(e.getSysMenuInfos())) {
+                List<SysMenuInfo> roots = new ArrayList<>();
+                Iterator<SysMenuInfo> it = e.getSysMenuInfos().iterator();
+                while (it.hasNext()) {
+                    SysMenuInfo menuInfo = it.next();
+                    if(menuInfo.getMenuId().equals(menuInfo.getMenuSupMenuId())) {
+                        roots.add(menuInfo);
+                        it.remove();
                     }
                 }
-                for (SysMenuInfo child : children) {
-                    addChildren(root, child);
+                for (SysMenuInfo child : e.getSysMenuInfos()) {
+                    child.addChildren(roots);
                 }
-                e.setSysMenuInfoList(root);
+                e.setSysMenuInfos(roots);
             }
         });
         return CommonResult.success(appInfos);
     }
 
-    /**
-    * @Title: 追加子菜单
-    * @Param:
-    * @description:
-    * @author: wangjie
-    * @date: 2020/11/3 21:01
-    * @return:
-    * @throws:
-    */
-    private void addChildren(List<SysMenuInfo> roots, SysMenuInfo sysMenuInfo) {
-        for (SysMenuInfo root : roots) {
-            if(root.getMenuId().equals(sysMenuInfo.getMenuSupMenuId())) {
-                if(root.getChildren() == null)
-                    root.setChildren(new ArrayList<>());
-                root.getChildren().add(sysMenuInfo);
-                return;
-            } else if(root.getChildren() != null && root.getChildren().size() > 0) {
-                addChildren(root.getChildren(), sysMenuInfo);
-            }
-        }
+    @Override
+    @Transactional(readOnly = true)
+    public CommonResult<List<SysAppInfo>> selectAppList() {
+        UserDto sysUserInfo = UserContext.getSysUserHolder(true);
+        List<SysAppInfo> list = sysAppInfoMapper.selectList(Wrappers.emptyWrapper());
+        return CommonResult.success(list);
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public CommonResult<String> addApp(SysAppInfo sysAppInfo) {
+        UserDto sysUserInfo = UserContext.getSysUserHolder(true);
+        sysAppInfo.setAppState(UseStateEnum.EFFECTIVE.getCodeToStr());
+        sysAppInfo.setAppIntDate(LocalDateTime.now());
+        sysAppInfo.setAppIntUser(sysUserInfo.getUserId());
+        sysAppInfo.setAppUpdDate(LocalDateTime.now());
+        sysAppInfo.setAppUpdUser(sysUserInfo.getUserId());
+        sysAppInfo.setAppUseState(UseStateEnum.EFFECTIVE.getCode());
+        sysAppInfoMapper.insert(sysAppInfo);
+        return CommonResult.success();
+    }
+
 }

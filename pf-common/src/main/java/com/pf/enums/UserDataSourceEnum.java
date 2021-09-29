@@ -9,7 +9,7 @@ import com.pf.base.BaseErrCode;
 public enum UserDataSourceEnum implements BaseErrCode {
     WEB_REGISTER( 0, "网络注册" ) ,
     OUT_IMPORT( 1, "外部导入" ) ,
-    INSERT( 2, "人工插入" ) ,
+    ADMIN_CREATE( 2, "后台插入" ) ,
     ;
 
     private final int code;

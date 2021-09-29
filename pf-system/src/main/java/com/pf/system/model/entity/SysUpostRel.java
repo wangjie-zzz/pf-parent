@@ -1,6 +1,7 @@
 package com.pf.system.model.entity;
 
 import io.swagger.annotations.ApiModel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,19 +12,20 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author
- * @since 2020-09-15
+ * @author pf
+ * @since 2021-08-11
  */
 @Data
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value="SysUpostRel对象", description="")
 public class SysUpostRel implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    private String userId;
+    private Long userId;
 
-    private String postId;
+    private Long postId;
 
 
 }

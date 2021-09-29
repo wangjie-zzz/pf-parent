@@ -6,7 +6,7 @@ import com.pf.auth.component.exception.CustomAccessDeniedHandler;
 import com.pf.auth.component.exception.CustomAuthenticationEntryPoint;
 import com.pf.auth.component.exception.CustomWebResponseExceptionTranslator;
 import com.pf.auth.component.granter.MobileTokenGranter;
-import com.pf.auth.constant.JwtConsts;
+import com.pf.auth.constant.AuthConstants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -150,8 +150,8 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
         oauthServer
                 .allowFormAuthenticationForClients() // 允许客户表单认证,不加的话/oauth/token无法访问
-                .checkTokenAccess("permitAll()") // 开启/oauth/check_token验证端口认证权限访问
-                .tokenKeyAccess("permitAll()") // 开启/oauth/token_key验证端口无权限访问
+                .checkTokenAccess("isAuthenticated()") // 开启/oauth/check_token验证端口认证权限访问
+                .tokenKeyAccess("isAuthenticated()") // 开启/oauth/token_key验证端口无权限访问
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .accessDeniedHandler(new CustomAccessDeniedHandler());
         log.info("AuthorizationServerSecurityConfigurer is complete");
@@ -197,7 +197,7 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
      *
      * @Title: authorizationJwtAccessTokenConverter
      * @Description: 授权服务器JwtAccessToken转换器
-     * - 生成密钥库：keytool -genkeypair -alias dhcc-platform-jwt -keyalg RSA -keypass dhcc-platform-pass -validity 36500 -keystore jwt-keystore.jks -storepass dhcc-platform-pass -dname CN=dhcc,OU=东华软件,O=东华软件,L=北京,ST=北京市,C=中国
+     * - 生成密钥库：keytool -genkeypair -alias jwt -keyalg RSA -keypass 123456 -validity 36500 -keystore jwt.jks -storepass 123456 -dname CN=j,OU=jj,O=jj,L=北京,ST=北京市,C=中国
      * - -genkeypair: 生成密钥对
      * - -alias: 产生别名,每个keystore都关联这一个独一无二的alias
      * - -keyalg: 指定密钥的算法（非对称加密）
@@ -208,15 +208,15 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
      * - -dname: 指定证书拥有者信息,例如：  "CN=名字与姓氏,OU=组织单位名称,O=组织名称,L=城市或区域名称,ST=州或省份名称,C=单位的两字母国家代码"
      * - 生成公钥：keytool -list -rfc --keystore jwt-keystore.jks | openssl x509 -inform pem -pubkey
      * -- 需要安装openSSL,新建jwt-publickey.cer,将公钥信息复制到jwt-publickey.cer文件中并保存,公钥放在资源服务器中
-     * - 导出公钥(可忽略该行)： keytool -export -alias dhcc-platform-jwt -keystore jwt-keystore.jks -file jwt-publickey.cer
+     * - 导出公钥(可忽略该行)： keytool -export -alias jwt -keystore jwt.jks -file jwt-publickey.cer
      * @return JwtAccessTokenConverter
      * @modifyLog：
      */
     @Bean
     protected JwtAccessTokenConverter jwtAccessTokenConverter() {
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource(JwtConsts.KEYSTORE), JwtConsts.KEYPASS.toCharArray());
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource(AuthConstants.Jwt.KEYSTORE), AuthConstants.Jwt.KEYPASS.toCharArray());
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-        jwtAccessTokenConverter.setKeyPair(keyStoreKeyFactory.getKeyPair(JwtConsts.ALIAS));
+        jwtAccessTokenConverter.setKeyPair(keyStoreKeyFactory.getKeyPair(AuthConstants.Jwt.ALIAS));
         return jwtAccessTokenConverter;
     }
 

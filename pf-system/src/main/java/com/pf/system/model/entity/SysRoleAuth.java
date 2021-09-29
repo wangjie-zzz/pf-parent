@@ -11,8 +11,8 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author
- * @since 2020-09-15
+ * @author pf
+ * @since 2021-08-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -21,11 +21,11 @@ public class SysRoleAuth implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    private String roleId;
+    private Long roleId;
 
-    private String authId;
+    private Long authId;
 
-    private String authType;
+    private Integer authType;
 
 
 }

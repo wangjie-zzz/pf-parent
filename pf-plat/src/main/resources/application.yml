@@ -31,19 +31,6 @@ spring:
       max-file-size: 10MB # 最大文件大小。值可以使用后缀“MB”或“KB”分别表示兆字节或千字节。
       max-request-size: 250MB # 最大请求大小。值可以使用后缀“MB”或“KB”分别表示兆字节或千字节。
   cloud:
-    nacos:
-      discovery:
-        server-addr: 172.16.3.184:8848 # Nacos 注册中心服务端地址
-        group: DEFAULT_GROUP # 设置服务所处的分组
-        weight: 1 # 权重-取值范围 1 到 100，数值越大，权重越大
-        cluster-name: DEFAULT # 配置成Nacos集群名称
-        username: nacos
-        password: nacos
-      config:
-        server-addr: 172.16.3.184:8848 # Nacos 配置中心服务端地址
-        username: nacos
-        password: nacos
-        # 事务分组-Seata-server1和seata-server2是两个集群，taobao和jd是可以映射到同一集群的两个事务组， 例如seata-server1。发生故障时，您需要通过配置中心更改事务分组映射的集群名称，以完成集群的快速切换。
     sentinel:
       eager: true # 是否提前触发 Sentinel 初始化
       filter:
@@ -59,6 +46,7 @@ spring:
             data-type: json # 表示 Converter 类型，Spring Cloud Alibaba Sentinel 默认提供两种内置的值，分别是 json 和 xml (不填默认是json)
             rule-type: flow # 配置表示该数据源中的规则属于哪种类型的规则(flow，degrade，authority，system, param-flow, gw-flow, gw-api-group)
 seata:
+  # 事务分组-Seata-server1和seata-server2是两个集群，taobao和jd是可以映射到同一集群的两个事务组， 例如seata-server1。发生故障时，您需要通过配置中心更改事务分组映射的集群名称，以完成集群的快速切换。
   tx-service-group: mall-seata
   transport:
     compressor: gzip # client和server通信数据压缩方式
@@ -69,8 +57,8 @@ seata:
   registry:
     type: nacos # 注册中心类型，默认file，支持file 、nacos 、eureka、redis、zk、consul、etcd3、sofa、custom
     nacos:
-      username: nacos
-      password: nacos
+      username: ${spring.cloud.nacos.config.username}
+      password: ${spring.cloud.nacos.config.password}
       server-addr: ${spring.cloud.nacos.discovery.server-addr} # 注册中心服务端地址
       cluster: default # 集群名称
       application: serverAddr
@@ -78,8 +66,8 @@ seata:
   config:
     type: nacos
     nacos:
-      username: nacos
-      password: nacos
+      username: ${spring.cloud.nacos.config.username}
+      password: ${spring.cloud.nacos.config.password}
       server-addr: ${spring.cloud.nacos.config.server-addr}
       group: SEATA_GROUP # 配置分组
 mybatis-plus:
@@ -101,7 +89,9 @@ dubbo:
     timeout: 10000 # 服务方法调用超时时间(毫秒)
   registry:
     check: false # 注册中心不存在时，是否报错
-    address: spring-cloud://localhost # Dubbo 服务注册中心配置，其中子属性 address 的值 "spring-cloud://localhost"，说明挂载到 Spring Cloud 注册中心
+    use-as-config-center: false
+    use-as-metadata-center: false
+    address: nacos://${spring.cloud.nacos.discovery.server-addr} # Dubbo 服务注册中心配置，其中子属性 address 的值 "spring-cloud://localhost"，说明挂载到 Spring Cloud 注册中心
 #  cloud:
 #    subscribed-services: mall-auth # 用于服务消费方订阅服务提供方的应用名称的列表，若需订阅多应用，使用 "," 分割。 不推荐使用默认值为 "*"，它将订阅所有应用。
 #客户端版本号，在监控中心显示

@@ -1,7 +1,7 @@
 server:
   port: 8401
-  servlet:
-    context-path: '/pf-auth'
+#  servlet:
+#    context-path: '/pf-auth'
   compression:
     enabled: true #数据压缩
     mime-types: application/json,text/html,text/xml,text/plain,text/css,text/javascript,application/javascript #支持压缩的MIME类型列表，以逗号分隔
@@ -18,28 +18,14 @@ management:
         include: '*' #health,info,hystrix.stream # Endpoint IDs that should be included or '*' for all.
         #exclude: # Endpoint IDs that should be excluded or '*' for all.
 spring:
-  profiles:
-    active: "@spring.profiles.active@"
-  application:
-    name: pf-auth
+  session:
+    store-type: redis
   servlet:
     multipart:
       enabled: true # 是否启用分段上传支持。
       max-file-size: 10MB # 最大文件大小。值可以使用后缀“MB”或“KB”分别表示兆字节或千字节。
       max-request-size: 250MB # 最大请求大小。值可以使用后缀“MB”或“KB”分别表示兆字节或千字节。
   cloud:
-    nacos:
-      discovery:
-        server-addr: 172.16.3.184:8848 # Nacos 注册中心服务端地址
-        username: nacos
-        password: nacos
-        group: DEFAULT_GROUP # 设置服务所处的分组
-        weight: 1 # 权重-取值范围 1 到 100，数值越大，权重越大
-        cluster-name: DEFAULT # 配置成Nacos集群名称
-      config:
-        server-addr: 172.16.3.184:8848 # Nacos 配置中心服务端地址
-        username: nacos
-        password: nacos
     sentinel:
       eager: true # 是否提前触发 Sentinel 初始化
       filter:
@@ -47,6 +33,7 @@ spring:
       datasource: # 动态数据源支持
         ds1: # ds1, ds2, ds3, ds4 是ReadableDataSource的名字，可随意编写。后面的 file ，zk ，nacos , apollo 就是对应具体的数据源，它们后面的配置就是这些具体数据源各自的配置。
           nacos:
+            namespace: ${spring.cloud.nacos.config.namespace}
             server-addr: ${spring.cloud.nacos.config.server-addr}
             username: ${spring.cloud.nacos.config.username}
             password: ${spring.cloud.nacos.config.password}
@@ -79,7 +66,11 @@ dubbo:
     timeout: 10000 # 服务方法调用超时时间(毫秒)
   registry:
     check: false # 注册中心不存在时，是否报错
-    address: spring-cloud://localhost # Dubbo 服务注册中心配置，其中子属性 address 的值 "spring-cloud://localhost"，说明挂载到 Spring Cloud 注册中心
+    use-as-config-center: false
+    use-as-metadata-center: false
+    address: nacos://${spring.cloud.nacos.discovery.server-addr} # Dubbo 服务注册中心配置，其中子属性 address 的值 "spring-cloud://localhost"，说明挂载到 Spring Cloud 注册中心
+    parameters: 
+      namespace: ${spring.cloud.nacos.discovery.namespace}
   cloud:
     subscribed-services: pf-system # 用于服务消费方订阅服务提供方的应用名称的列表，若需订阅多应用，使用 "," 分割。 不推荐使用默认值为 "*"，它将订阅所有应用。
 #客户端版本号，在监控中心显示
@@ -91,10 +82,3 @@ info:
   spring-boot-version: "@project.parent.version@"
 logging:
   config: classpath:logback-spring/logback-spring-${spring.profiles.active}.xml
-# 日志配置
-#logging:
-#  level:
-#    root: debug
-#    com..mall: debug
-#logstash:
-#  host: localhost

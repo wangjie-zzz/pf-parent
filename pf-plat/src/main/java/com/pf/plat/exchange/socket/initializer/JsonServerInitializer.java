@@ -28,7 +28,9 @@ public class JsonServerInitializer extends ChannelInitializer<SocketChannel> {
         	channelPipeline.addLast(sslContext.newHandler(socketChannel.alloc()));
         }
         //p.addLast(new LoggingHandler(LogLevel.INFO));
-     
+        // 注册OutboundHandler，执行顺序为注册顺序的逆序，所以应该是2 ->1
+        // 注册InboundHandler，执行顺序为注册顺序，所以应该是1 ->2
+
         channelPipeline.addLast(
                 new IdleStateHandler(20, 0, 0, TimeUnit.SECONDS),
                 new ServeIdleStateTrigger(),

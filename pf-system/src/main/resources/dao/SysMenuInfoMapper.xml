@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysMenuInfo">
         <id column="menu_id" property="menuId" />
         <result column="menu_name" property="menuName" />
-        <result column="app_id" property="appId" />
+        <result column="menu_app_id" property="menuAppId" />
         <result column="menu_url" property="menuUrl" />
         <result column="menu_icon" property="menuIcon" />
         <result column="menu_bg_img" property="menuBgImg" />
@@ -17,7 +17,7 @@
         <result column="menu_row_span" property="menuRowSpan" />
         <result column="menu_col_span" property="menuColSpan" />
         <result column="menu_sort_no" property="menuSortNo" />
-        <result column="menu_user_state" property="menuUserState" />
+        <result column="menu_use_state" property="menuUseState" />
         <result column="menu_int_user" property="menuIntUser" />
         <result column="menu_int_date" property="menuIntDate" />
         <result column="menu_upd_user" property="menuUpdUser" />
@@ -26,12 +26,12 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        menu_id, menu_name, app_id, menu_url, menu_icon, menu_bg_img, menu_bg_color, menu_sup_menu_id, menu_level, menu_is_leaf, menu_row_span, menu_col_span, menu_sort_no, menu_user_state, menu_int_user, menu_int_date, menu_upd_user, menu_upd_date
+        menu_id, menu_name, menu_app_id, menu_url, menu_icon, menu_bg_img, menu_bg_color, menu_sup_menu_id, menu_level, menu_is_leaf, menu_row_span, menu_col_span, menu_sort_no, menu_use_state, menu_int_user, menu_int_date, menu_upd_user, menu_upd_date
     </sql>
     <sql id="Alias_Column_List">
-        smi.menu_id, smi.menu_name, smi.app_id, smi.menu_url, smi.menu_icon, smi.menu_bg_img, smi.menu_bg_color,
+        smi.menu_id, smi.menu_name, smi.menu_app_id, smi.menu_url, smi.menu_icon, smi.menu_bg_img, smi.menu_bg_color,
         smi.menu_sup_menu_id, smi.menu_level, smi.menu_is_leaf, smi.menu_row_span, smi.menu_col_span, smi.menu_sort_no,
-        smi.menu_user_state, smi.menu_int_user, smi.menu_int_date, smi.menu_upd_user, smi.menu_upd_date
+        smi.menu_use_state, smi.menu_int_user, smi.menu_int_date, smi.menu_upd_user, smi.menu_upd_date
     </sql>
 
 </mapper>

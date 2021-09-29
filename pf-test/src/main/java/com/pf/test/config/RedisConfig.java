@@ -68,7 +68,8 @@ public class RedisConfig extends CachingConfigurerSupport {
         redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
 
         // hash数据结构序列化方式,必须这样否则存hash 就是基于jdk序列化的
-        redisTemplate.setHashKeySerializer(StringRedisSerializer.UTF_8);
+//        redisTemplate.setHashKeySerializer(StringRedisSerializer.UTF_8);
+        redisTemplate.setHashKeySerializer(jackson2JsonRedisSerializer);
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
 
         // 启用默认序列化方式

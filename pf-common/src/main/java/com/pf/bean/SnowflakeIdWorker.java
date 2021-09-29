@@ -156,6 +156,10 @@ public class SnowflakeIdWorker {
         }
         return INSTANCE;
     }
+
+    public static Long getNextId() {
+        return getInstance().nextId();
+    }
     //==============================Test=============================================
     /** 测试 */
     public static void main(String[] args) {

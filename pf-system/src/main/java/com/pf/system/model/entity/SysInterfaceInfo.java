@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
  * 
  * </p>
  *
- * @author
- * @since 2020-09-15
+ * @author pf
+ * @since 2021-08-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -22,7 +22,7 @@ public class SysInterfaceInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    private String interfaceId;
+    private Long interfaceId;
 
     private String interfaceCode;
 
@@ -34,13 +34,13 @@ public class SysInterfaceInfo implements Serializable {
 
     private Integer interfaceSortNo;
 
-    private String interfaceUserState;
+    private Integer interfaceUseState;
 
-    private String interfaceIntUser;
+    private Long interfaceIntUser;
 
     private LocalDateTime interfaceIntDate;
 
-    private String interfaceUpdUser;
+    private Long interfaceUpdUser;
 
     private LocalDateTime interfaceUpdDate;
 

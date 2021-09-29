@@ -10,7 +10,7 @@
         <result column="interface_url" property="interfaceUrl" />
         <result column="interface_name" property="interfaceName" />
         <result column="interface_sort_no" property="interfaceSortNo" />
-        <result column="interface_user_state" property="interfaceUserState" />
+        <result column="interface_use_state" property="interfaceUseState" />
         <result column="interface_int_user" property="interfaceIntUser" />
         <result column="interface_int_date" property="interfaceIntDate" />
         <result column="interface_upd_user" property="interfaceUpdUser" />
@@ -19,7 +19,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        interface_id, interface_code, app_id, interface_url, interface_name, interface_sort_no, interface_user_state, interface_int_user, interface_int_date, interface_upd_user, interface_upd_date
+        interface_id, interface_code, app_id, interface_url, interface_name, interface_sort_no, interface_use_state, interface_int_user, interface_int_date, interface_upd_user, interface_upd_date
     </sql>
 
 </mapper>

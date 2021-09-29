@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
  * 
  * </p>
  *
- * @author
- * @since 2020-09-15
+ * @author pf
+ * @since 2021-08-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -22,41 +22,29 @@ public class SysCompanyInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    private String comId;
+    private Long comId;
 
     private Integer comLevel;
 
     private String comName;
 
-    private String tenId;
+    private Long comTenId;
 
-    private String comSupComId;
+    private Long comSupComId;
 
-    private String comTelMan;
+    private Long comTelMan;
 
     private String comOrgPhone;
 
-    private String comProviceNo;
-
-    private String comCityNo;
-
-    private String comCutNo;
-
     private String comAddress;
 
-    private String comDiIngo;
+    private Integer comUseState;
 
-    private String comOngInfo;
-
-    private Integer comSortNo;
-
-    private String comUserState;
-
-    private String comIntUser;
+    private Long comIntUser;
 
     private LocalDateTime comIntDate;
 
-    private String comUpdUser;
+    private Long comUpdUser;
 
     private LocalDateTime comUpdDate;
 

@@ -1,7 +1,6 @@
 package com.pf.system.component;
 
 import com.pf.base.CommonResult;
-import com.pf.constant.SysGeneralConsts;
 import com.pf.enums.SysStatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.AfterReturning;

@@ -5,6 +5,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 
 /**
  * @ClassName : TestBeanConfig
@@ -12,7 +13,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
  * @Author : wangjie
  * @Date: 2020/10/23-16:01
  */
-public class TestBeanProcessor implements BeanPostProcessor, BeanFactoryPostProcessor {
+public class TestBeanProcessor implements InstantiationAwareBeanPostProcessor, BeanPostProcessor, BeanFactoryPostProcessor {
 //    @Nullable
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {

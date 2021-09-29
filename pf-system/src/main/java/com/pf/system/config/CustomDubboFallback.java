@@ -1,9 +1,7 @@
 package com.pf.system.config;
 
 import com.alibaba.csp.sentinel.adapter.dubbo.config.DubboAdapterGlobalConfig;
-import com.alibaba.csp.sentinel.adapter.dubbo.fallback.DefaultDubboFallback;
 import com.alibaba.csp.sentinel.adapter.dubbo.fallback.DubboFallback;
-import com.alibaba.csp.sentinel.adapter.dubbo.fallback.DubboFallbackRegistry;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.pf.base.CommonResult;
 import com.pf.enums.SysStatusCode;
@@ -12,7 +10,6 @@ import org.apache.dubbo.rpc.AsyncRpcResult;
 import org.apache.dubbo.rpc.Invocation;
 import org.apache.dubbo.rpc.Invoker;
 import org.apache.dubbo.rpc.Result;
-import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;

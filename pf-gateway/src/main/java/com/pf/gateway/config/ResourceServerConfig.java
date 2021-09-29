@@ -1,5 +1,6 @@
 package com.pf.gateway.config;
 
+import com.pf.constant.CommonConstants;
 import com.pf.gateway.exception.RestAuthenticationEntryPoint;
 import com.pf.gateway.exception.RestfulAccessDeniedHandler;
 import com.pf.gateway.authorization.CustomReactiveAuthorizationManager;
@@ -30,9 +31,10 @@ public class ResourceServerConfig {
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        http.cors().and().csrf().disable()
+        http
+                .cors().disable().csrf().disable()
                 .authorizeExchange()
-                .pathMatchers(HttpMethod.OPTIONS).permitAll()
+                .pathMatchers(CommonConstants.COMMON_PERMIT_ENDPOINT).permitAll()//白名单配置
                 .pathMatchers(ignoreUrlsConfig.getIgnoreds()).permitAll()//白名单配置
                 .anyExchange().access(reactiveAuthorizationManager())
                 .and()

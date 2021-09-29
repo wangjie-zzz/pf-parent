@@ -1,11 +1,13 @@
 package com.pf.system.provider;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.pf.util.Asserts;
+import com.pf.enums.LoginTypeEnum;
 import com.pf.system.dao.SysRoleInfoMapper;
+import com.pf.system.dao.SysUserInfoMapper;
+import com.pf.model.UserDto;
+import com.pf.util.Asserts;
 import com.pf.system.service.ISysUserInfoProvider;
 import com.pf.base.CommonResult;
-import com.pf.system.dao.SysUserInfoMapper;
 import com.pf.system.model.entity.SysRoleInfo;
 import com.pf.system.model.entity.SysUpostRel;
 import com.pf.system.model.entity.SysUserInfo;
@@ -43,17 +45,17 @@ public class SysUserInfoProvider implements ISysUserInfoProvider {
      */
     @Override
     @Transactional(readOnly = true)
-    public CommonResult<String> selectUserAndRoleInfo(String userId) {
-        SysUserInfo sysUserInfo = sysUserInfoMapper.selectById(userId);
-//        long l = 200000;
-//        try {
-//            Thread.sleep(l);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+    public CommonResult<UserDto> selectUserAndRoleInfo(Long userId, Integer loginType) {
+        SysUserInfo sysUserInfo = null;
+        if(LoginTypeEnum.USER_CODE.getCode() == loginType) {
+             sysUserInfo = sysUserInfoMapper.selectByUserCode(userId);
+        } else if (LoginTypeEnum.PHONE.getCode() == loginType) {
+            Asserts.fail("不支持的登录类型！");
+        } else {
+            Asserts.fail("登录类型错误！");
+        }
         if(sysUserInfo == null) Asserts.fail("该用户不存在！");
-        sysUserInfo.checkUserUseState();
-        List<String> ids = new ArrayList<>();
+        List<Long> ids = new ArrayList<>();
         List<SysUpostRel> upostRels = sysUserInfo.getUposts();
         if(!CollectionUtils.isEmpty(upostRels)) {
             ids = upostRels.stream().map(SysUpostRel::getPostId).collect(Collectors.toList());
@@ -63,6 +65,7 @@ public class SysUserInfoProvider implements ISysUserInfoProvider {
         }
         List<SysRoleInfo> roles = sysRoleInfoMapper.selectRoleByUserAndPost(ids);
         sysUserInfo.setRoles(roles);
-        return CommonResult.success(JacksonsUtils.writeValueAsString(sysUserInfo));
+        UserDto userDto = JacksonsUtils.readValue(JacksonsUtils.writeValueAsString(sysUserInfo) ,UserDto.class);
+        return CommonResult.success(userDto);
     }
 }

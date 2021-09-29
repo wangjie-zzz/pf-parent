@@ -2,6 +2,9 @@ package com.pf.system.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pf.system.model.entity.SysUpostRel;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.pf.system.model.entity.SysUpostRel;
  */
 public interface SysUpostRelMapper extends BaseMapper<SysUpostRel> {
 
+    List<SysUpostRel> selectListAndUserName(@Param("postId") Long postId);
 }

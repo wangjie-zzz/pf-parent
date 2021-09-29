@@ -1,7 +1,5 @@
 package com.pf.system.model.entity;
 
-import com.pf.bean.SnowflakeIdWorker;
-import com.pf.enums.UseStateEnum;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,8 +12,8 @@ import java.time.LocalDateTime;
  * 
  * </p>
  *
- * @author
- * @since 2020-09-15
+ * @author pf
+ * @since 2021-08-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -24,36 +22,23 @@ public class SysRoleInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    private String roleId;
-
-    private String tenId;
-
-    private String deptId;
+    private Long roleId;
 
     private String roleName;
 
-    private String roleType;
+    private Long roleTenId;
 
-    private String roleUserState;
+    private Integer roleType;
 
-    private String roleIntUser;
+    private Integer roleUseState;
+
+    private Long roleIntUser;
 
     private LocalDateTime roleIntDate;
 
-    private String roleUpdUser;
+    private Long roleUpdUser;
 
     private LocalDateTime roleUpdDate;
 
-    public SysRoleInfo updateDefaultInfo(String userId, SysRoleInfo sysRoleInfo) {
-        if(sysRoleInfo == null) sysRoleInfo = new SysRoleInfo();
-        String roleId = SnowflakeIdWorker.getInstance().nextIdString();
-        LocalDateTime now = LocalDateTime.now();
-        sysRoleInfo.setRoleId(roleId);
-        sysRoleInfo.setRoleIntDate(now);
-        sysRoleInfo.setRoleUpdDate(now);
-        sysRoleInfo.setRoleIntUser(userId);
-        sysRoleInfo.setRoleUpdUser(userId);
-        sysRoleInfo.setRoleUserState(UseStateEnum.EFFECTIVE.getCodeToStr());
-        return sysRoleInfo;
-    }
+
 }

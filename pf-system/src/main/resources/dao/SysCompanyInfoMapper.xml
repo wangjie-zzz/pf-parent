@@ -7,27 +7,35 @@
         <id column="com_id" property="comId" />
         <result column="com_level" property="comLevel" />
         <result column="com_name" property="comName" />
-        <result column="ten_id" property="tenId" />
+        <result column="com_ten_id" property="comTenId" />
         <result column="com_sup_com_id" property="comSupComId" />
         <result column="com_tel_man" property="comTelMan" />
         <result column="com_org_phone" property="comOrgPhone" />
-        <result column="com_provice_no" property="comProviceNo" />
-        <result column="com_city_no" property="comCityNo" />
-        <result column="com_cut_no" property="comCutNo" />
         <result column="com_address" property="comAddress" />
-        <result column="com_di_ingo" property="comDiIngo" />
-        <result column="com_ong_info" property="comOngInfo" />
-        <result column="com_sort_no" property="comSortNo" />
-        <result column="com_user_state" property="comUserState" />
+        <result column="com_use_state" property="comUseState" />
         <result column="com_int_user" property="comIntUser" />
         <result column="com_int_date" property="comIntDate" />
         <result column="com_upd_user" property="comUpdUser" />
         <result column="com_upd_date" property="comUpdDate" />
     </resultMap>
-
+    <resultMap id="ComAndDeptMap" type="com.pf.system.model.entity.SysCompanyInfo" extends="BaseResultMap">
+        <collection property="sysDeptInfos" resultMap="com.pf.system.dao.SysDeptInfoMapper.BaseResultMap"></collection>
+    </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        com_id, com_level, com_name, ten_id, com_sup_com_id, com_tel_man, com_org_phone, com_provice_no, com_city_no, com_cut_no, com_address, com_di_ingo, com_ong_info, com_sort_no, com_user_state, com_int_user, com_int_date, com_upd_user, com_upd_date
+        com_id, com_level, com_name, com_ten_id, com_sup_com_id, com_tel_man, com_org_phone, com_address, com_use_state, com_int_user, com_int_date, com_upd_user, com_upd_date
     </sql>
-
+    <sql id="Alias_Column_List">
+        sci.com_id, sci.com_level, sci.com_name, sci.com_ten_id, sci.com_sup_com_id, sci.com_tel_man,
+        sci.com_org_phone, sci.com_address, sci.com_use_state, sci.com_int_user, sci.com_int_date, sci.com_upd_user,
+        sci.com_upd_date
+    </sql>
+    <select id="selectListWithDept" resultMap="ComAndDeptMap">
+        select <include refid="Alias_Column_List"/>,
+        <include refid="com.pf.system.dao.SysDeptInfoMapper.Alias_Column_List"/>
+        from
+        sys_company_info sci
+        left join sys_dept_info sdi on sci.com_id = sdi.dept_com_id and sdi.dept_use_state = 1
+        where sci.com_use_state = 1
+    </select>
 </mapper>

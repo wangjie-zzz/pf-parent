@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
  * 
  * </p>
  *
- * @author
- * @since 2020-09-15
+ * @author pf
+ * @since 2021-08-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -22,31 +22,27 @@ public class SysDeptInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    private String deptId;
+    private Long deptId;
 
     private String deptName;
 
-    private String comId;
+    private Long deptTenId;
 
-    private String tenId;
+    private Long deptComId;
 
     private Integer deptLevel;
 
-    private String deptSupDeptId;
+    private Long deptSupDeptId;
 
-    private String deptType;
+    private Long deptManager;
 
-    private String deptManager;
+    private Integer deptUseState;
 
-    private Integer deptSortNo;
-
-    private String deptUserState;
-
-    private String deptIntUser;
+    private Long deptIntUser;
 
     private LocalDateTime deptIntDate;
 
-    private String deptUpdUser;
+    private Long deptUpdUser;
 
     private LocalDateTime deptUpdDate;
 

@@ -11,8 +11,8 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author
- * @since 2020-09-15
+ * @author pf
+ * @since 2021-08-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -23,7 +23,7 @@ public class SysTenantApp implements Serializable {
 
     private String appId;
 
-    private String tenId;
+    private Long tenId;
 
 
 }

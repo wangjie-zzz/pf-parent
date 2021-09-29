@@ -1,6 +1,6 @@
 package com.pf.system.service;
 import com.pf.base.CommonResult;
-import org.springframework.beans.factory.config.BeanPostProcessor;
+import com.pf.model.UserDto;
 
 import java.io.Serializable;
 
@@ -21,6 +21,6 @@ public interface ISysUserInfoProvider extends Serializable {
      * @return:
      * @throws:
      */
-    public CommonResult<String> selectUserAndRoleInfo(String userId);
+    CommonResult<UserDto> selectUserAndRoleInfo(Long userId, Integer loginType);
 
 }

@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
  * 
  * </p>
  *
- * @author
- * @since 2020-09-15
+ * @author pf
+ * @since 2021-08-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -22,21 +22,21 @@ public class SysPostInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    private String postId;
+    private Long postId;
 
     private String postName;
 
-    private String postType;
+    private Long postTenId;
 
-    private String tenId;
+    private Integer postType;
 
-    private String postUserState;
+    private Integer postUseState;
 
-    private String postIntUser;
+    private Long postIntUser;
 
     private LocalDateTime postIntDate;
 
-    private String postUpdUser;
+    private Long postUpdUser;
 
     private LocalDateTime postUpdDate;
 

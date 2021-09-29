@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pf.system.model.entity.SysUserInfo;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -23,5 +25,9 @@ public interface SysUserInfoMapper extends BaseMapper<SysUserInfo> {
     * @return:
     * @throws:
     */
-    public SysUserInfo selectUserAndPostInfo (@Param("type") String type,@Param("code") String code);
+    SysUserInfo selectUserAndPostInfo (@Param("type") Integer type,@Param("code") Long code);
+
+    List<SysUserInfo> selectByDeptId(@Param("deptId") Long deptId);
+
+    SysUserInfo selectByUserCode(@Param("userCode") Long userCode);
 }

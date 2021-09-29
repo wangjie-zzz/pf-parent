@@ -24,15 +24,22 @@
         <module>mall-monitor</module>-->
     </modules>
     <profiles>
-        <!-- 开发环境 -->
+        <!-- 本地windows环境 -->
         <profile>
-            <id>dev</id>
+            <id>win</id>
             <properties>
                 <spring.profiles.active>win</spring.profiles.active>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+        </profile>
+        <!-- 开发环境 -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <spring.profiles.active>dev</spring.profiles.active>
+            </properties>
         </profile>
         <!-- 生产环境 -->
         <profile>
@@ -252,6 +259,24 @@
     </dependencyManagement>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/*.jks</exclude>
+                </excludes>
+                <!--开启yml中使用@xx@取值-->
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <!--解析失败问题-->
+                <filtering>false</filtering>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.jks</include>
+                </includes>
+            </resource>
+        </resources>
         <pluginManagement>
             <plugins>
                 <plugin>

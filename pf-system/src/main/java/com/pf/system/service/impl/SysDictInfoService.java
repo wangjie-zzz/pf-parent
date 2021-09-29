@@ -3,13 +3,11 @@ package com.pf.system.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.pf.base.CommonResult;
 import com.pf.bean.SnowflakeIdWorker;
-import com.pf.enums.SysStatusCode;
+import com.pf.aop.context.UserContext;
 import com.pf.system.dao.SysDictInfoMapper;
+import com.pf.model.UserDto;
 import com.pf.system.model.entity.SysDictInfo;
-import com.pf.system.model.entity.SysUserInfo;
 import com.pf.system.service.ISysDictInfoService;
-import com.pf.util.Asserts;
-import com.pf.util.CacheDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -40,11 +38,7 @@ public class SysDictInfoService implements ISysDictInfoService {
 
     @Override
     public CommonResult<Object> update(SysDictInfo sysDictInfo) {
-        SysUserInfo sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate);
-        if(sysUserInfo == null) {
-            Asserts.fail(SysStatusCode.UNAUTHORIZED);
-            return null;
-        }
+        UserDto sysUserInfo = UserContext.getSysUserHolder(true);
         sysDictInfo.setDictUpdDate(LocalDateTime.now());
         sysDictInfo.setDictUpdUser(sysUserInfo.getUserId());
         if(StringUtils.isEmpty(sysDictInfo.getDictId())) {

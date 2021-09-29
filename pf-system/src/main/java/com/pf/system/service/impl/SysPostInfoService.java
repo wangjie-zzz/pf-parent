@@ -3,13 +3,12 @@ package com.pf.system.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.pf.base.CommonResult;
 import com.pf.bean.SnowflakeIdWorker;
-import com.pf.enums.SysStatusCode;
+import com.pf.aop.context.UserContext;
 import com.pf.enums.UseStateEnum;
 import com.pf.system.dao.*;
+import com.pf.model.UserDto;
 import com.pf.system.model.entity.*;
 import com.pf.system.service.ISysPostInfoService;
-import com.pf.util.Asserts;
-import com.pf.util.CacheDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -39,9 +38,7 @@ public class SysPostInfoService implements ISysPostInfoService {
     @Override
     @Transactional(readOnly = true)
     public CommonResult<List<SysPostInfo>> list() {
-        SysUserInfo sysUserInfo;
-        if((sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate)) == null)
-            Asserts.fail(SysStatusCode.UNAUTHORIZED);
+        UserDto sysUserInfo = UserContext.getSysUserHolder(true);
         List<SysPostInfo> list = sysPostInfoMapper.selectList(Wrappers.lambdaQuery(SysPostInfo.class).eq(SysPostInfo::getPostTenId, sysUserInfo.getUserTenId()));
         return CommonResult.success(list);
     }
@@ -49,9 +46,7 @@ public class SysPostInfoService implements ISysPostInfoService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public CommonResult<Object> add(SysPostInfo sysPostInfo) {
-        SysUserInfo sysUserInfo;
-        if((sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate)) == null)
-            Asserts.fail(SysStatusCode.UNAUTHORIZED);
+        UserDto sysUserInfo = UserContext.getSysUserHolder(true);
         sysPostInfo.setPostId(SnowflakeIdWorker.getNextId());
         sysPostInfo.setPostType(0); // TODO 岗位类型
         sysPostInfo.setPostTenId(sysUserInfo.getUserTenId());

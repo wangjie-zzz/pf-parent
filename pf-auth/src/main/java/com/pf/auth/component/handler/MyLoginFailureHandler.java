@@ -16,7 +16,7 @@ import java.io.IOException;
  * @author: wj
  * @create: 2021-04-13 15:39
  **/
-public class DefaultLoginFailureHandler implements AuthenticationFailureHandler {
+public class MyLoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         CommonResult restfulResponse = CommonResult.failed(e.getMessage());

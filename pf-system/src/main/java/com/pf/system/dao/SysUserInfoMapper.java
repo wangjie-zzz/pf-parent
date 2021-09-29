@@ -25,7 +25,9 @@ public interface SysUserInfoMapper extends BaseMapper<SysUserInfo> {
     * @return:
     * @throws:
     */
-    public SysUserInfo selectUserAndPostInfo (@Param("type") String type,@Param("code") String code);
+    SysUserInfo selectUserAndPostInfo (@Param("type") Integer type,@Param("code") Long code);
 
-    public List<SysUserInfo> selectByDeptId(@Param("deptId") String deptId);
+    List<SysUserInfo> selectByDeptId(@Param("deptId") Long deptId);
+
+    SysUserInfo selectByUserCode(@Param("userCode") Long userCode);
 }

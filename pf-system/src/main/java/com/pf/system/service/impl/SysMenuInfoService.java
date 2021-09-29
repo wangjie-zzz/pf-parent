@@ -1,9 +1,12 @@
 package com.pf.system.service.impl;
 
 import com.pf.base.CommonResult;
+import com.pf.aop.context.UserContext;
+import com.pf.model.UserDto;
 import com.pf.system.dao.SysMenuInfoMapper;
 import com.pf.system.model.entity.SysMenuInfo;
 import com.pf.system.service.ISysMenuInfoService;
+import com.pf.util.JacksonsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -29,6 +32,8 @@ public class SysMenuInfoService implements ISysMenuInfoService {
     @Override
     @Transactional(readOnly = true)
     public CommonResult<List<SysMenuInfo>> list() {
+        UserDto userDto = UserContext.getSysUserHolder(true);
+        System.out.println(JacksonsUtils.writeValueAsString(userDto));
         return CommonResult.success();
     }
 

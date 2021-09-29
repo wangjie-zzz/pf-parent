@@ -35,7 +35,7 @@
         <include refid="com.pf.system.dao.SysDeptInfoMapper.Alias_Column_List"/>
         from
         sys_company_info sci
-        left join sys_dept_info sdi on sci.com_id = sdi.dept_com_id and sdi.dept_use_state = '1'
-        where sci.com_use_state = '1'
+        left join sys_dept_info sdi on sci.com_id = sdi.dept_com_id and sdi.dept_use_state = 1
+        where sci.com_use_state = 1
     </select>
 </mapper>

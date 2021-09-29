@@ -1,7 +1,7 @@
 package com.pf.auth.component.enhancer;
 
 import com.google.common.collect.Maps;
-import com.pf.auth.domain.SecurityUser;
+import com.pf.model.SecurityUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;

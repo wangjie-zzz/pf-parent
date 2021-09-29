@@ -24,9 +24,9 @@ public class CodeGenerator {
     static {
 //        MODULE_NAME = "pf"; // test
         TABLES_NAME = Arrays.asList(
-//                "test_a",
-//                "test_b"
-                "sys_app_info",
+                "test_a",
+                "test_b"
+                /*"sys_app_info",
                 "sys_company_info",
                 "sys_dept_info",
                 "sys_dict_info",
@@ -41,7 +41,7 @@ public class CodeGenerator {
                 "sys_treedict_info",
                 "sys_udept_rel",
                 "sys_upost_rel",
-                "sys_user_info"
+                "sys_user_info"*/
         );
     }
 

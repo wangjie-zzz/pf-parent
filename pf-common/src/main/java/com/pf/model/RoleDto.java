@@ -1,4 +1,4 @@
-package com.pf.system.model;
+package com.pf.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 public class RoleDto {
-    private String roleId;
+    private Long roleId;
 
-    private String tenId;
+    private Long tenId;
 
-    private String deptId;
+    private Long deptId;
 
     private String roleName;
 
-    private String roleType;
+    private Integer roleType;
 
 }

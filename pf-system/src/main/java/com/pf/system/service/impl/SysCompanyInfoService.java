@@ -4,17 +4,16 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.pf.base.CommonResult;
 import com.pf.bean.SnowflakeIdWorker;
-import com.pf.enums.SysStatusCode;
+import com.pf.aop.context.UserContext;
 import com.pf.enums.UseStateEnum;
 import com.pf.system.dao.SysCompanyInfoMapper;
 import com.pf.system.dao.SysDeptInfoMapper;
 import com.pf.system.dao.SysUserInfoMapper;
+import com.pf.model.UserDto;
 import com.pf.system.model.entity.SysCompanyInfo;
 import com.pf.system.model.entity.SysDeptInfo;
 import com.pf.system.model.entity.SysUserInfo;
 import com.pf.system.service.ISysCompanyInfoService;
-import com.pf.util.Asserts;
-import com.pf.util.CacheDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -45,7 +44,7 @@ public class SysCompanyInfoService implements ISysCompanyInfoService {
 
     @Override
     @Transactional(readOnly = true)
-    public CommonResult<List<SysUserInfo>> userList(String id , boolean isCom) {
+    public CommonResult<List<SysUserInfo>> userList(Long id , boolean isCom) {
         List<SysUserInfo> list;
         if(isCom) {
             list = sysUserInfoMapper.selectList(Wrappers.lambdaQuery(SysUserInfo.class).eq(SysUserInfo::getUserComId, id));
@@ -67,17 +66,13 @@ public class SysCompanyInfoService implements ISysCompanyInfoService {
     @Override
     @Transactional(readOnly = true)
     public CommonResult<List<SysCompanyInfo>> selectComTree() {
-        SysUserInfo sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate);
-        if(sysUserInfo == null) {
-            Asserts.fail(SysStatusCode.UNAUTHORIZED);
-            return null;
-        }
+        UserContext.getSysUserHolder(true);
         List<SysCompanyInfo> list = sysCompanyInfoMapper.selectListWithDept();
         return CommonResult.success(list);
     }
     @Override
     @Transactional(readOnly = true)
-    public CommonResult<List<SysDeptInfo>> deptList(String id, boolean isCom) {
+    public CommonResult<List<SysDeptInfo>> deptList(Long id, boolean isCom) {
         LambdaQueryWrapper<SysDeptInfo> wrapper = Wrappers.lambdaQuery(SysDeptInfo.class);
         if(isCom) {
             wrapper.eq(SysDeptInfo::getDeptComId, id);
@@ -90,10 +85,7 @@ public class SysCompanyInfoService implements ISysCompanyInfoService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public CommonResult<String> addCompany(SysCompanyInfo sysCompanyInfo) {
-        SysUserInfo sysUserInfo;
-        if((sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate)) == null) {
-            Asserts.fail(SysStatusCode.UNAUTHORIZED);
-        }
+        UserDto sysUserInfo = UserContext.getSysUserHolder(true);
         sysCompanyInfo.setComUpdDate(LocalDateTime.now());
         sysCompanyInfo.setComUpdUser(sysUserInfo.getUserId());
         if(StringUtils.isEmpty(sysCompanyInfo.getComId())) {
@@ -116,10 +108,7 @@ public class SysCompanyInfoService implements ISysCompanyInfoService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public CommonResult<String> addDept(SysDeptInfo sysDeptInfo) {
-        SysUserInfo sysUserInfo;
-        if((sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate)) == null) {
-            Asserts.fail(SysStatusCode.UNAUTHORIZED);
-        }
+        UserDto sysUserInfo = UserContext.getSysUserHolder(true);
         sysDeptInfo.setDeptUpdDate(LocalDateTime.now());
         sysDeptInfo.setDeptUpdUser(sysUserInfo.getUserId());
         if(StringUtils.isEmpty(sysDeptInfo.getDeptId())) {

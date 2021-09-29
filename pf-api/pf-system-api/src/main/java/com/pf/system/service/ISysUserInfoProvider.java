@@ -1,7 +1,6 @@
 package com.pf.system.service;
 import com.pf.base.CommonResult;
-import com.pf.system.model.UserDto;
-import org.springframework.beans.factory.config.BeanPostProcessor;
+import com.pf.model.UserDto;
 
 import java.io.Serializable;
 

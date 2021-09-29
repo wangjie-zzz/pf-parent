@@ -40,13 +40,4 @@ public interface AuthConstants {
         public final static String KEYPASS = "123456";
 
     }
-
-    class Cookies {
-        public final static String tokenKey = "access_token";
-        public final static String refreshTokenKey = "refresh_token";
-        public final static String userKey = HttpHeaderUtil.USER_IDENTITY;
-        public final static int refreshTokenInvalidTime = 3600 * 24 * 7;
-        public final static String domain = "localhost";
-        public final static String path = "/";
-    }
 }

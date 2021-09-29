@@ -30,10 +30,7 @@ public class HttpHeaderUtil {
      * @throws:
      */
     public static String getAuthorization(){
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = requestAttributes.getRequest();
-        String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
-        return authorization;
+        return getHeader(HttpHeaders.AUTHORIZATION);
     }
 
     /***
@@ -59,7 +56,6 @@ public class HttpHeaderUtil {
     public static String getUserIdentity(){
         return getHeader(USER_IDENTITY);
     }
-
 
     /***
      * @Title: getHeader

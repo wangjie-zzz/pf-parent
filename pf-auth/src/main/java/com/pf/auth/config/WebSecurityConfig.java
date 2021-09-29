@@ -3,23 +3,37 @@ package com.pf.auth.config;
 import com.pf.auth.component.DefaultUserDetailsService;
 import com.pf.auth.component.MobileUserDetailsService;
 import com.pf.auth.component.granter.MobileAuthenticationProvider;
-import com.pf.auth.component.handler.DefaultLoginFailureHandler;
-import com.pf.auth.component.handler.DefaultLogoutSuccessHandler;
+import com.pf.auth.component.handler.MyLoginFailureHandler;
+import com.pf.auth.component.handler.MyLogoutSuccessHandler;
+import com.pf.auth.component.handler.MySavedRequestAwareAuthenticationSuccessHandler;
+import com.pf.auth.component.handler.UserCacheClearHandler;
+import com.pf.auth.component.session.exception.MyInvalidSessionStrategy;
+import com.pf.auth.component.session.exception.MySessionInformationExpiredStrategy;
 import com.pf.auth.constant.AuthConstants;
 import com.pf.constant.CommonConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.session.FindByIndexNameSessionRepository;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.session.security.SpringSessionBackedSessionRegistry;
+import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
+import org.springframework.session.web.http.CookieSerializer;
+import org.springframework.session.web.http.DefaultCookieSerializer;
 import org.springframework.web.cors.CorsUtils;
+
 
 @Slf4j
 @Configuration
@@ -31,6 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private MobileUserDetailsService mobileUserDetailsService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /*
      * (非 Javadoc)
@@ -85,17 +101,65 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
+    /*@Bean
+    public RedisIndexedSessionRepository sessionRepository() {
+        return new RedisIndexedSessionRepository(sessionRedisTemplate);
+    }*/
+
+    /*@Bean
+    public MyFindByIndexNameSessionRepository sessionRepository() {
+        return new MyFindByIndexNameSessionRepository(sessionRedisTemplate);
+    }*/
+    /*@Bean
+    public SessionRepository sessionRepository() {
+        return new MapSessionRepository(new HashMap<>());
+    }*/
+    @Autowired
+    private FindByIndexNameSessionRepository sessionRepository;
+    @Bean
+    public SessionRegistry sessionRegistry() {
+//        return new MySessionRegistryImpl(sessionRepository());
+//        return new DefaultSessionRegistryImpl();
+        return new SpringSessionBackedSessionRegistry(sessionRepository);
+    }
+
+    /*@Bean
+    public CookieSerializer httpSessionIdResolver() {
+        DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
+        cookieSerializer.setSameSite(null);
+        cookieSerializer.setCookieMaxAge(100000);
+        return cookieSerializer;
+    }*/
+    
     @Override
     public void configure(HttpSecurity http) throws Exception {
+        /*http接口保护*/
         http.httpBasic()// 客户端凭证校验 Basic
                 .and().cors().disable().csrf().disable()
                 .authorizeRequests()
                 .antMatchers(CommonConstants.COMMON_PERMIT_ENDPOINT).permitAll()
                 .antMatchers(AuthConstants.PERMIT_ENDPOINTS).permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .anyRequest().authenticated()
-                .and().formLogin().loginPage(AuthConstants.LOGIN_PAGE).loginProcessingUrl("/login").permitAll().failureHandler(new DefaultLoginFailureHandler())
-                .and().logout().permitAll().logoutSuccessHandler(new DefaultLogoutSuccessHandler());
+                .anyRequest().authenticated();
+        /*http登录处理*/
+        http.formLogin().loginPage(AuthConstants.LOGIN_PAGE).loginProcessingUrl("/login").permitAll()
+                .successHandler(new MySavedRequestAwareAuthenticationSuccessHandler(redisTemplate))
+                .failureHandler(new MyLoginFailureHandler())
+                .and().logout().permitAll()
+                .addLogoutHandler(new UserCacheClearHandler(redisTemplate))
+                .logoutSuccessHandler(new MyLogoutSuccessHandler());
+        /*Session*/
+        /* TODO 需要确认的是：@EnableWebFluxSecurity资源服务器对业务接口api的校验：
+            是否只校验(springsecurity-oauth的校验)token，
+            还会校验(springsecurity的校验)session状态(过期或失效)吗？ */
+        http.sessionManagement()
+                // TODO 问题：前端使用token访问资源，那么cookies的session信息将不会得到实时的校验
+                // session非法
+                .invalidSessionStrategy(new MyInvalidSessionStrategy(AuthConstants.LOGIN_PAGE))
+                // session并发控制：session过期，最大数，及超出最大数的处理策略等
+                .maximumSessions(1).maxSessionsPreventsLogin(false).sessionRegistry(sessionRegistry())
+                .expiredSessionStrategy(new MySessionInformationExpiredStrategy(redisTemplate));
+        
         log.info("HttpSecurity is complete!");
     }
 

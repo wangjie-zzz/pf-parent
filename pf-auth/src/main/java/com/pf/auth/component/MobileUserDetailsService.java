@@ -2,10 +2,9 @@ package com.pf.auth.component;
 
 
 import com.pf.util.Asserts;
-import com.pf.system.model.UserDto;
+import com.pf.model.UserDto;
 import com.pf.base.CommonResult;
 import com.pf.enums.SysStatusCode;
-import com.pf.util.JacksonsUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;

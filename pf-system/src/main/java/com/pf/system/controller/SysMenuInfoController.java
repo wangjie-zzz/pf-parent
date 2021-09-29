@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Base64;
 import java.util.List;
 
 @Api(value = "菜单", tags = {"菜单"})

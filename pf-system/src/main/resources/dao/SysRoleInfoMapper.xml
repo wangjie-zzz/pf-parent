@@ -29,7 +29,7 @@
         inner join sys_role_rel srr on sri.role_id = srr.role_id
         where srr.rel_id in
         <foreach collection="list" item="id" index="index" separator="," close=")" open="(" >
-            #{id, jdbcType=VARCHAR}
+            #{id, jdbcType=BIGINT}
         </foreach>
     </select>
 </mapper>

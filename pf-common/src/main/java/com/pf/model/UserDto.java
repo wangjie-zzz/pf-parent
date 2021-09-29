@@ -1,9 +1,10 @@
-package com.pf.system.model;
+package com.pf.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,11 +14,13 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
-public class UserDto {
-    private String userId;
+public class UserDto implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private Long userTenId;
+    private Long userId;
     private String userName;
     private String userPasswd;
-    private String userUseState;
+    private Integer userUseState;
     private List<RoleDto> roles;
 
 }

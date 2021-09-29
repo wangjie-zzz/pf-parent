@@ -2,6 +2,7 @@ package com.pf.test.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,6 +17,7 @@ import java.io.Serializable;
  * @since 2020-11-06
  */
 @Data
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value="TestA对象", description="")
 public class TestA implements Serializable {

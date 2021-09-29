@@ -3,9 +3,7 @@ package com.pf.system.controller;
 import com.pf.base.CommonResult;
 import com.pf.constant.CommonConstants;
 import com.pf.system.constants.SystemConstants;
-import com.pf.system.model.Token;
 import com.pf.system.model.entity.SysUserInfo;
-import com.pf.system.model.request.LoginRequest;
 import com.pf.system.service.ISysUserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,34 +38,5 @@ public class SysUserInfoController {
     @PostMapping(value = "/adminCreate")
     public CommonResult<Object> adminCreate(@RequestBody SysUserInfo sysUserInfo) {
         return iSysUserInfoService.adminCreate(sysUserInfo);
-    }
-
-    /**
-    * @Title: 用户登录
-    * @Param:
-    * @description:
-    * @author: wangjie
-    * @date: 2020/9/17 14:30
-    * @return:
-    * @throws:
-    */
-    @ApiOperation(value="用户登录", notes="用户登录")
-    @PostMapping(value = CommonConstants.PERMIT_ENDPOINT + "/login")
-    public CommonResult<Token> login(@RequestBody LoginRequest loginRequest) {
-        return iSysUserInfoService.login(loginRequest);
-    }
-    /**
-    * @Title: token刷新
-    * @Param:
-    * @description:
-    * @author: wangjie
-    * @date: 2020/9/17 14:30
-    * @return:
-    * @throws:
-    */
-    @ApiOperation(value="token刷新", notes="token刷新")
-    @GetMapping(value = CommonConstants.PERMIT_ENDPOINT + "/refreshToken")
-    public CommonResult<String> refreshToken(@RequestParam("refreshToken") String refreshToken) {
-        return iSysUserInfoService.refreshToken(refreshToken);
     }
 }

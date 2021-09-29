@@ -18,6 +18,8 @@ management:
         include: '*' #health,info,hystrix.stream # Endpoint IDs that should be included or '*' for all.
         #exclude: # Endpoint IDs that should be excluded or '*' for all.
 spring:
+  session:
+    store-type: redis
   profiles:
     active: "@spring.profiles.active@"
   application:

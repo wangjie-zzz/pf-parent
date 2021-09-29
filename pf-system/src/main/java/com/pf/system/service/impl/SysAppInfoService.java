@@ -2,15 +2,13 @@ package com.pf.system.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.pf.base.CommonResult;
-import com.pf.enums.SysStatusCode;
+import com.pf.aop.context.UserContext;
 import com.pf.enums.UseStateEnum;
 import com.pf.system.dao.SysAppInfoMapper;
+import com.pf.model.UserDto;
 import com.pf.system.model.entity.SysAppInfo;
 import com.pf.system.model.entity.SysMenuInfo;
-import com.pf.system.model.entity.SysUserInfo;
 import com.pf.system.service.ISysAppInfoService;
-import com.pf.util.Asserts;
-import com.pf.util.CacheDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -48,10 +46,7 @@ public class SysAppInfoService implements ISysAppInfoService {
     @Override
     @Transactional(readOnly = true)
     public CommonResult<List<SysAppInfo>> selectAppAndMenuList() {
-        SysUserInfo sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate);
-        if(sysUserInfo == null) {
-            Asserts.fail(SysStatusCode.UNAUTHORIZED);
-        }
+        UserDto sysUserInfo = UserContext.getSysUserHolder(true);
         List<SysAppInfo> appInfos = sysAppInfoMapper.selectListWithMenus();
         appInfos.forEach(e -> {
             e.setAppActiveRule("/".concat(e.getAppId()));
@@ -77,10 +72,7 @@ public class SysAppInfoService implements ISysAppInfoService {
     @Override
     @Transactional(readOnly = true)
     public CommonResult<List<SysAppInfo>> selectAppList() {
-        SysUserInfo sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate);
-        if(sysUserInfo == null) {
-            Asserts.fail(SysStatusCode.UNAUTHORIZED);
-        }
+        UserDto sysUserInfo = UserContext.getSysUserHolder(true);
         List<SysAppInfo> list = sysAppInfoMapper.selectList(Wrappers.emptyWrapper());
         return CommonResult.success(list);
     }
@@ -88,10 +80,7 @@ public class SysAppInfoService implements ISysAppInfoService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public CommonResult<String> addApp(SysAppInfo sysAppInfo) {
-        SysUserInfo sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate);
-        if(sysUserInfo == null) {
-            Asserts.fail(SysStatusCode.UNAUTHORIZED);
-        }
+        UserDto sysUserInfo = UserContext.getSysUserHolder(true);
         sysAppInfo.setAppState(UseStateEnum.EFFECTIVE.getCodeToStr());
         sysAppInfo.setAppIntDate(LocalDateTime.now());
         sysAppInfo.setAppIntUser(sysUserInfo.getUserId());

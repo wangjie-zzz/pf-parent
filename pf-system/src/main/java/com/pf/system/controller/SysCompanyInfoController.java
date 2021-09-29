@@ -56,7 +56,7 @@ public class SysCompanyInfoController {
     */
     @ApiOperation(value="人员查询", notes="人员查询")
     @GetMapping(value = "/userList", consumes = MediaType.ALL_VALUE)
-    public CommonResult<List<SysUserInfo>> userList(@RequestParam("id") String id, @RequestParam("isCom") boolean isCom) {
+    public CommonResult<List<SysUserInfo>> userList(@RequestParam("id") Long id, @RequestParam("isCom") boolean isCom) {
         return iSysCompanyInfoService.userList(id, isCom);
     }
     /**
@@ -70,7 +70,7 @@ public class SysCompanyInfoController {
     */
     @ApiOperation(value="部门查询", notes="部门查询")
     @GetMapping(value = "/deptList", consumes = MediaType.ALL_VALUE)
-    public CommonResult<List<SysDeptInfo>> deptList(@RequestParam("id") String id, @RequestParam("isCom") boolean isCom) {
+    public CommonResult<List<SysDeptInfo>> deptList(@RequestParam("id") Long id, @RequestParam("isCom") boolean isCom) {
         return iSysCompanyInfoService.deptList(id, isCom);
     }
     /**

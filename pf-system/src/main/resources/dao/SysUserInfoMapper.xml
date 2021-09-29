@@ -51,13 +51,17 @@
                 sui.user_phone = #{code, jdbcType=VARCHAR}
             </if>
             <if test="type == 1">/*用户账号*/
-                sui.user_code = #{code, jdbcType=VARCHAR}
+                sui.user_code = #{code, jdbcType=BIGINT}
             </if>
         </where>
     </select>
     <select id="selectByDeptId" resultMap="BaseResultMap">
         select <include refid="Base_Column_List_Sui"/>
         from sys_user_info sui
-        inner join sys_udept_rel sudr on sui.user_id = sudr.user_id and sudr.dept_id = #{deptId, jdbcType=VARCHAR}
+        inner join sys_udept_rel sudr on sui.user_id = sudr.user_id and sudr.dept_id = #{deptId, jdbcType=BIGINT}
+    </select>
+    <select id="selectByUserCode" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List_Sui"/>
+        from sys_user_info sui where sui.user_code = #{userCode, jdbcType=BIGINT}
     </select>
 </mapper>

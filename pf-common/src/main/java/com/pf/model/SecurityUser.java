@@ -1,7 +1,6 @@
-package com.pf.auth.domain;
+package com.pf.model;
 
 import com.pf.enums.UseStateEnum;
-import com.pf.system.model.UserDto;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * 登录用户信息
@@ -20,19 +20,22 @@ public class SecurityUser implements UserDetails {
     /**
      * ID
      */
-    private String id;
+    private Long id = 111l;
+    
+    private Long userTenId;
+    private Integer userUseState;
     /**
      * 用户名
      */
-    private String username;
+    private String username = "";
     /**
      * 用户密码
      */
-    private String password;
+    private String password = "41234";
     /**
      * 用户状态
      */
-    private Boolean enabled;
+    private Boolean enabled = false;
 //    /**
 //     * 登录客户端ID
 //     */
@@ -40,7 +43,7 @@ public class SecurityUser implements UserDetails {
     /**
      * 权限数据
      */
-    private Collection<SimpleGrantedAuthority> authorities;
+    private Collection<SecurityGrantedAuthority> authorities;
 
     public SecurityUser() {
 
@@ -50,10 +53,12 @@ public class SecurityUser implements UserDetails {
         this.setId(userDto.getUserId());
         this.setUsername(userDto.getUserName());
         this.setPassword(userDto.getUserPasswd());
-        this.setEnabled(UseStateEnum.EFFECTIVE.getCodeToStr().equals(userDto.getUserUseState()));
+        this.setUserTenId(userDto.getUserTenId());
+        this.setUserUseState(userDto.getUserUseState());
+        this.setEnabled(UseStateEnum.EFFECTIVE.getCode() == userDto.getUserUseState());
         if (userDto.getRoles() != null) {
             authorities = new ArrayList<>();
-            userDto.getRoles().forEach(item -> authorities.add(new SimpleGrantedAuthority(item.getRoleId())));
+            userDto.getRoles().forEach(item -> authorities.add(new SecurityGrantedAuthority(item)));
         }
     }
 
@@ -92,4 +97,14 @@ public class SecurityUser implements UserDetails {
         return this.enabled;
     }
 
+    public UserDto convertUserDto() {
+        UserDto userDto = new UserDto();
+        userDto.setUserId(this.id);
+        userDto.setUserPasswd(this.password);
+        userDto.setUserName(this.username);
+        userDto.setUserTenId(this.userTenId);
+        userDto.setUserUseState(this.userUseState);
+        userDto.setRoles(this.authorities.stream().map(authoritie -> authoritie.convertRoleDto()).collect(Collectors.toList()));
+        return userDto;
+    }
 }

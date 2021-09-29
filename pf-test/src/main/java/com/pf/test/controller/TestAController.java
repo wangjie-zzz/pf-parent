@@ -1,7 +1,7 @@
 package com.pf.test.controller;
 
 import com.pf.base.CommonResult;
-import com.pf.system.model.UserDto;
+import com.pf.model.UserDto;
 import com.pf.test.service.ITestAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

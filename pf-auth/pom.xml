@@ -24,6 +24,14 @@
             <groupId>com.wj.pf</groupId>
             <artifactId>pf-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.wj.pf</groupId>
+            <artifactId>pf-system-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <!-- redis 数据库 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -34,19 +42,20 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
+        <!--session 存储-->
+        <!--<dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-core</artifactId>
+        </dependency>-->
         <dependency>
-            <groupId>com.wj.pf</groupId>
-            <artifactId>pf-system-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
         </dependency>
         <!--权限控制-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>

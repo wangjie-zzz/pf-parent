@@ -3,15 +3,14 @@ package com.pf.system.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.pf.base.CommonResult;
 import com.pf.bean.SnowflakeIdWorker;
-import com.pf.enums.SysStatusCode;
+import com.pf.aop.context.UserContext;
 import com.pf.enums.UseStateEnum;
 import com.pf.system.dao.SysRoleAuthMapper;
 import com.pf.system.dao.SysRoleInfoMapper;
 import com.pf.system.dao.SysRoleRelMapper;
+import com.pf.model.UserDto;
 import com.pf.system.model.entity.*;
 import com.pf.system.service.ISysRoleInfoService;
-import com.pf.util.Asserts;
-import com.pf.util.CacheDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -42,10 +41,7 @@ public class SysRoleInfoService implements ISysRoleInfoService {
     @Override
     @Transactional(readOnly = true)
     public CommonResult<List<SysRoleInfo>> list() {
-        SysUserInfo sysUserInfo;
-        if((sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate)) == null) {
-            Asserts.fail(SysStatusCode.UNAUTHORIZED);
-        }
+        UserDto sysUserInfo = UserContext.getSysUserHolder(true);
         List<SysRoleInfo> list = sysRoleInfoMapper.selectList(Wrappers.lambdaQuery(SysRoleInfo.class)
                 .eq(SysRoleInfo::getRoleTenId, sysUserInfo.getUserTenId()));
         return CommonResult.success(list);
@@ -54,10 +50,7 @@ public class SysRoleInfoService implements ISysRoleInfoService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public CommonResult<Object> add(SysRoleInfo sysRoleInfo) {
-        SysUserInfo sysUserInfo;
-        if((sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate)) == null) {
-            Asserts.fail(SysStatusCode.UNAUTHORIZED);
-        }
+        UserDto sysUserInfo = UserContext.getSysUserHolder(true);
         sysRoleInfo.setRoleId(SnowflakeIdWorker.getNextId());
         sysRoleInfo.setRoleTenId(sysUserInfo.getUserTenId());
         sysRoleInfo.setRoleType(0); // TODO 角色类型

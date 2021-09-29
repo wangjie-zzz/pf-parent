@@ -1,9 +1,12 @@
 package com.pf.test.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pf.base.CommonResult;
 import com.pf.enums.LoginTypeEnum;
-import com.pf.system.model.UserDto;
+import com.pf.model.UserDto;
 import com.pf.system.service.ISysUserInfoProvider;
+import com.pf.test.dao.TestAMapper;
+import com.pf.test.model.entity.TestA;
 import com.pf.test.service.ITestAService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
@@ -15,7 +18,7 @@ import org.springframework.stereotype.Service;
  * @Date: 2020/11/5-15:04
  */
 @Service
-public class TestAService implements ITestAService {
+public class TestAService  extends ServiceImpl<TestAMapper, TestA> implements ITestAService {
 
     @DubboReference
     private ISysUserInfoProvider iSysUserInfoProvider;

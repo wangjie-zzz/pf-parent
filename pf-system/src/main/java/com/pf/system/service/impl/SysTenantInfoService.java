@@ -3,16 +3,11 @@ package com.pf.system.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.pf.base.CommonResult;
 import com.pf.bean.SnowflakeIdWorker;
-import com.pf.enums.SysStatusCode;
+import com.pf.aop.context.UserContext;
 import com.pf.system.dao.SysTenantInfoMapper;
-import com.pf.system.dao.SysTenantInfoMapper;
+import com.pf.model.UserDto;
 import com.pf.system.model.entity.SysTenantInfo;
-import com.pf.system.model.entity.SysTenantInfo;
-import com.pf.system.model.entity.SysUserInfo;
 import com.pf.system.service.ISysTenantInfoService;
-import com.pf.system.service.ISysTenantInfoService;
-import com.pf.util.Asserts;
-import com.pf.util.CacheDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -43,11 +38,7 @@ public class SysTenantInfoService implements ISysTenantInfoService {
 
     @Override
     public CommonResult<Object> update(SysTenantInfo sysTenantInfo) {
-        SysUserInfo sysUserInfo = CacheDataUtil.getUserCacheBean(redisTemplate);
-        if(sysUserInfo == null) {
-            Asserts.fail(SysStatusCode.UNAUTHORIZED);
-            return null;
-        }
+        UserDto sysUserInfo = UserContext.getSysUserHolder(true);
         sysTenantInfo.setTenUpdDate(LocalDateTime.now());
         sysTenantInfo.setTenUpdUser(sysUserInfo.getUserId());
         if(StringUtils.isEmpty(sysTenantInfo.getTenId())) {

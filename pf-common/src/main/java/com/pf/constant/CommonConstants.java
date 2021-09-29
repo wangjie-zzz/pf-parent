@@ -1,5 +1,7 @@
 package com.pf.constant;
 
+import com.pf.util.HttpHeaderUtil;
+
 /**
  * @ClassName : CommonConstants
  * @Description : CommonConstants
@@ -28,10 +30,8 @@ public interface CommonConstants {
         "/**/img/**",
         "/**/fonts/**"
     };
-
-    class CACHE_KEY {
-
-        public static  final String SYS_USER_INFO_KEY_PREFIX = "sysUserInfo-";
-        public static  final Integer EXPIRATION_TIME = 2 * 60 * 60;
+    interface CACHE_KEY {
+        String USER = "pf:user";
+        String SESSION = "pf:session";
     }
 }

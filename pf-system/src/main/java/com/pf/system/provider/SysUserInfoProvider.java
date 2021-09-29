@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.pf.enums.LoginTypeEnum;
 import com.pf.system.dao.SysRoleInfoMapper;
 import com.pf.system.dao.SysUserInfoMapper;
-import com.pf.system.model.UserDto;
+import com.pf.model.UserDto;
 import com.pf.util.Asserts;
 import com.pf.system.service.ISysUserInfoProvider;
 import com.pf.base.CommonResult;
@@ -48,7 +48,7 @@ public class SysUserInfoProvider implements ISysUserInfoProvider {
     public CommonResult<UserDto> selectUserAndRoleInfo(Long userId, Integer loginType) {
         SysUserInfo sysUserInfo = null;
         if(LoginTypeEnum.USER_CODE.getCode() == loginType) {
-             sysUserInfo = sysUserInfoMapper.selectById(userId);
+             sysUserInfo = sysUserInfoMapper.selectByUserCode(userId);
         } else if (LoginTypeEnum.PHONE.getCode() == loginType) {
             Asserts.fail("不支持的登录类型！");
         } else {

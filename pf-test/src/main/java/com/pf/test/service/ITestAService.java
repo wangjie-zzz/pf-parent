@@ -1,7 +1,9 @@
 package com.pf.test.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.pf.base.CommonResult;
-import com.pf.system.model.UserDto;
+import com.pf.model.UserDto;
+import com.pf.test.model.entity.TestA;
 
 /**
  * @ClassName : ITestAService
@@ -9,7 +11,7 @@ import com.pf.system.model.UserDto;
  * @Author : wangjie
  * @Date: 2020/11/5-15:04
  */
-public interface ITestAService {
+public interface ITestAService extends IService<TestA> {
 
     public CommonResult<UserDto> testA1();
 

@@ -20,9 +20,11 @@ public class CookiesUtils {
 
     public static String getSessionId(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        Optional<Cookie> optional = Arrays.stream(cookies).filter(cookie -> SESSION_KEY.equals(cookie.getName())).findFirst();
-        if(optional.isPresent()){
-            return optional.get().getValue();
+        if(cookies != null) {
+            Optional<Cookie> optional = Arrays.stream(cookies).filter(cookie -> SESSION_KEY.equals(cookie.getName())).findFirst();
+            if(optional.isPresent()){
+                return optional.get().getValue();
+            }
         }
         return "";
     }

@@ -41,7 +41,7 @@ public class LoginController {
 
     @ResponseBody
     @PostMapping(value = "/oauth/callback")
-    public CommonResult callback(@RequestBody Map<String, String> body, HttpServletRequest request, HttpServletResponse response) {
+    public CommonResult callback(@RequestBody Map<String, String> body) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();

@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -122,14 +123,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        return new DefaultSessionRegistryImpl();
         return new SpringSessionBackedSessionRegistry(sessionRepository);
     }
-
-    /*@Bean
-    public CookieSerializer httpSessionIdResolver() {
-        DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
-        cookieSerializer.setSameSite(null);
-        cookieSerializer.setCookieMaxAge(100000);
-        return cookieSerializer;
-    }*/
     
     @Override
     public void configure(HttpSecurity http) throws Exception {

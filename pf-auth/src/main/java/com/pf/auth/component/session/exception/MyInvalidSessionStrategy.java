@@ -32,7 +32,7 @@ public class MyInvalidSessionStrategy implements InvalidSessionStrategy {
 //        this.destinationUrl = invalidSessionUrl;
     }
     /*
-     * sessionid不存在进入
+     * sessionid在redis中不存在进入
      */
     @Override
     public void onInvalidSessionDetected(HttpServletRequest request, HttpServletResponse response) throws IOException {

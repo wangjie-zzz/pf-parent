@@ -30,6 +30,7 @@ public class MyCookieSerializer implements CookieSerializer {
     private static final Log logger = LogFactory.getLog(DefaultCookieSerializer.class);
     private static final BitSet domainValid = new BitSet(128);
     private Clock clock = Clock.systemUTC();
+    // TODO 不修改名称，经过gateway会被清空，不晓得为什么
     private String cookieName = "J_SESSION_ID";
     private Boolean useSecureCookie;
     private boolean useHttpOnlyCookie = true;

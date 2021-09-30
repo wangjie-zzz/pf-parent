@@ -2,7 +2,7 @@ package com.pf.auth.controller;
 
 import com.pf.auth.constant.AuthConstants;
 import com.pf.aop.context.UserContext;
-import com.pf.model.Oauth2Token;
+import com.pf.auth.model.vo.Oauth2TokenVo;
 import com.pf.base.CommonResult;
 import com.pf.enums.DataFormatsEnum;
 import com.pf.util.HttpHeaderUtil;
@@ -18,8 +18,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -55,7 +53,7 @@ public class LoginController {
         ResponseEntity<Map> responseEntity = restTemplate.exchange(AuthConstants.TOKEN_URL, HttpMethod.POST, httpEntity, Map.class);
         log.info("\r\ntokenInfo : {}", responseEntity.getBody());
         assert responseEntity == null || responseEntity.getBody() == null;
-        Oauth2Token token = new Oauth2Token(responseEntity.getBody());
+        Oauth2TokenVo token = new Oauth2TokenVo(responseEntity.getBody());
         return CommonResult.success(token);
     }
 
@@ -88,7 +86,7 @@ public class LoginController {
                 HttpMethod.POST,
                 request,
                 Map.class);
-        Oauth2Token token = new Oauth2Token(response.getBody());
+        Oauth2TokenVo token = new Oauth2TokenVo(response.getBody());
         
         return CommonResult.success(token);
     }

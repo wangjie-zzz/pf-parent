@@ -1,5 +1,7 @@
 package com.pf.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -8,6 +10,8 @@ import org.springframework.security.core.GrantedAuthority;
  * @Author : wangjie
  * @Date: 2021/8/17-17:06
  */
+@Data
+@NoArgsConstructor
 public class SecurityGrantedAuthority implements GrantedAuthority {
     private static final long serialVersionUID = 530L;
     private Long roleId;

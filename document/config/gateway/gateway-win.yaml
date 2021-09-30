@@ -62,7 +62,7 @@ spring:
 secure:
   ignore:
     ignoreds: #配置白名单路径
-      - /pf-system/api/v1/**/permitAll/**
+      - /**/api/v1/permitAll/**
       - /pf-auth/rsa/publicKey
       - /pf-auth/oauth/authorize
       - /pf-auth/oauth/callback

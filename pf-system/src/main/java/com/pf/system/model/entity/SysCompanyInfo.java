@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -48,5 +49,5 @@ public class SysCompanyInfo implements Serializable {
 
     private LocalDateTime comUpdDate;
 
-
+    private List<SysDeptInfo> sysDeptInfos;
 }

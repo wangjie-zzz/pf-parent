@@ -62,8 +62,8 @@ public class SysPostInfoService implements ISysPostInfoService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public CommonResult<Object> addUser(Long postId, List<Long> userIds) {
+        sysUpostRelMapper.delete(Wrappers.lambdaQuery(SysUpostRel.class).eq(SysUpostRel::getPostId, postId));
         if(!StringUtils.isEmpty(postId) && !CollectionUtils.isEmpty(userIds)) {
-            sysUpostRelMapper.delete(Wrappers.lambdaQuery(SysUpostRel.class).eq(SysUpostRel::getPostId, postId));
             userIds.forEach(rel -> {
                 sysUpostRelMapper.insert(new SysUpostRel(rel, postId));
             });

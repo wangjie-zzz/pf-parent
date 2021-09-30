@@ -1,9 +1,8 @@
 package com.pf.auth.config;
 
-import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
+import com.pf.auth.component.session.MyCookieSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.session.web.http.CookieSerializer;
 
 /**

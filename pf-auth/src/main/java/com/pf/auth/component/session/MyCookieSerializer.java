@@ -1,4 +1,4 @@
-package com.pf.auth.config;
+package com.pf.auth.component.session;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

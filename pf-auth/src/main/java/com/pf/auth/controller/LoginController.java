@@ -34,7 +34,7 @@ public class LoginController {
     
     private RestTemplate restTemplate = new RestTemplate();
 
-    @GetMapping("/sso/login")
+    @GetMapping(AuthConstants.LOGIN_PAGE)
     public ModelAndView login() {
         return new ModelAndView("login");
     }

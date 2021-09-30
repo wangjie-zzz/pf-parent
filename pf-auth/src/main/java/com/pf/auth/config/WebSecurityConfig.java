@@ -135,7 +135,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .anyRequest().authenticated();
         /*http登录处理*/
-        http.formLogin().loginPage(AuthConstants.LOGIN_PAGE).loginProcessingUrl("/login").permitAll()
+        http.formLogin().loginPage(AuthConstants.LOGIN_PAGE).loginProcessingUrl(AuthConstants.LOGIN_PROCESS_URL).permitAll()
                 .successHandler(new MySavedRequestAwareAuthenticationSuccessHandler(redisTemplate))
                 .failureHandler(new MyLoginFailureHandler())
                 .and().logout()
@@ -148,7 +148,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement()
                 // TODO 问题：前端使用token访问资源，那么cookies的session信息将不会得到实时的校验
                 // session非法
-                .invalidSessionStrategy(new MyInvalidSessionStrategy(AuthConstants.LOGIN_PAGE))
+                .invalidSessionStrategy(new MyInvalidSessionStrategy())
                 // session并发控制：session过期，最大数，及超出最大数的处理策略等
                 .maximumSessions(1).maxSessionsPreventsLogin(false).sessionRegistry(sessionRegistry())
                 .expiredSessionStrategy(new MySessionInformationExpiredStrategy(redisTemplate));

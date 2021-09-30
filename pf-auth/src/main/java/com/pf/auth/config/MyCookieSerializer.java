@@ -43,6 +43,7 @@ public class MyCookieSerializer implements CookieSerializer {
     private String sameSite = "Lax";
 
     public MyCookieSerializer() {
+        this.cookiePath = "/";
     }
 
     public List<String> readCookieValues(HttpServletRequest request) {

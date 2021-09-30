@@ -138,7 +138,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin().loginPage(AuthConstants.LOGIN_PAGE).loginProcessingUrl("/login").permitAll()
                 .successHandler(new MySavedRequestAwareAuthenticationSuccessHandler(redisTemplate))
                 .failureHandler(new MyLoginFailureHandler())
-                .and().logout().permitAll()
+                .and().logout()
                 .addLogoutHandler(new UserCacheClearHandler(redisTemplate))
                 .logoutSuccessHandler(new MyLogoutSuccessHandler());
         /*Session*/

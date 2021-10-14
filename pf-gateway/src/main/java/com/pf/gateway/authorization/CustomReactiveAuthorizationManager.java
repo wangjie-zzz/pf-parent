@@ -1,5 +1,7 @@
 package com.pf.gateway.authorization;
 
+import com.pf.enums.SysStatusCode;
+import com.pf.util.Asserts;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONArray;
@@ -59,8 +61,11 @@ public class CustomReactiveAuthorizationManager implements ReactiveAuthorization
                         //转换成Flux
                         .flatMapIterable(a -> {
                             Jwt jwtValue = null;
-                            if(a.getPrincipal() instanceof Jwt){
+                            if(a.getPrincipal() instanceof Jwt) {
                                 jwtValue = (Jwt)a.getPrincipal();
+                            } else {
+                                log.error("gateway getPrincipal： {}, {}",a, a.getPrincipal());
+                                Asserts.fail(SysStatusCode.UNAUTHORIZED);
                             }
                             log.info("\r\nHeader头部:{}", jwtValue.getHeaders());
                             log.info("\r\nPayload负载:{}", jwtValue.getClaims());

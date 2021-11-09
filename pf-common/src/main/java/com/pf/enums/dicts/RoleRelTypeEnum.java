@@ -1,4 +1,4 @@
-package com.pf.enums;
+package com.pf.enums.dicts;
 
 
 import com.pf.base.BaseErrCode;
@@ -6,16 +6,15 @@ import com.pf.base.BaseErrCode;
 /**
  * 登录类型
  */
-public enum UserDataSourceEnum implements BaseErrCode {
-    WEB_REGISTER( 0, "网络注册" ) ,
-    OUT_IMPORT( 1, "外部导入" ) ,
-    ADMIN_CREATE( 2, "后台插入" ) ,
+public enum RoleRelTypeEnum implements BaseErrCode {
+    USER( 0, "用户角色" ) ,
+    POST( 1, "岗位角色" ) ,
     ;
 
     private final int code;
     private final String info;
 
-    UserDataSourceEnum(int code, String info) {
+    RoleRelTypeEnum(int code, String info) {
         this.code = code;
         this.info = info;
     }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.SysFormInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysFormInfo">
+        <id column="form_id" property="formId" />
+        <result column="app_id" property="appId" />
+        <result column="name" property="name" />
+        <result column="label_position" property="labelPosition" />
+        <result column="label_width" property="labelWidth" />
+        <result column="disabled" property="disabled" />
+        <result column="validate_on_rule_change" property="validateOnRuleChange" />
+        <result column="hide_required_asterisk" property="hideRequiredAsterisk" />
+        <result column="show_message" property="showMessage" />
+        <result column="inline_message" property="inlineMessage" />
+        <result column="status_icon" property="statusIcon" />
+        <result column="use_state" property="useState" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        form_id, app_id, name, label_position, label_width, disabled, validate_on_rule_change, hide_required_asterisk, show_message, inline_message, status_icon, use_state, update_user, update_time, create_user, create_time
+    </sql>
+
+</mapper>

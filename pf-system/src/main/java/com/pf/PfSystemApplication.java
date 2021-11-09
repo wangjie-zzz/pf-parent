@@ -14,7 +14,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 //@EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = "com.pf")
-@MapperScan({"com.pf.system.dao"})
 public class PfSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(PfSystemApplication.class);

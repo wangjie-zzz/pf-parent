@@ -1,7 +1,7 @@
 package com.pf.system.provider;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.pf.enums.LoginTypeEnum;
+import com.pf.enums.dicts.LoginTypeEnum;
 import com.pf.system.dao.SysRoleInfoMapper;
 import com.pf.system.dao.SysUserInfoMapper;
 import com.pf.model.UserDto;

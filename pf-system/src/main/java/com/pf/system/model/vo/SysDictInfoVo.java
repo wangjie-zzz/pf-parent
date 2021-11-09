@@ -1,12 +1,10 @@
-package com.pf.system.model.entity;
+package com.pf.system.model.vo;
 
 import com.pf.base.BaseEntity;
+import com.pf.base.BaseVo;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -19,7 +17,7 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value="SysDictInfo对象", description="")
-public class SysDictInfo extends BaseEntity<SysDictInfo> {
+public class SysDictInfoVo extends BaseVo<SysDictInfoVo> {
 
     private Long dictId;
 

@@ -80,6 +80,20 @@ public final class JacksonsUtils {
     * @return: T
     * @throws:
     */
+    public static <T> T copy(Object obj, Class<T> valueType) {
+    	try {
+			return mapper.readValue(writeValueAsString(obj), valueType);
+		} catch (IOException e) {
+			throw new ApiException(e);
+		}
+    }
+    /**
+    * @Title: readValue
+    * @Param: [content, valueType]
+    * @description: JSON转对象
+    * @return: T
+    * @throws:
+    */
     public static <T> T readValue(String content, Class<T> valueType) {
     	try {
 			return mapper.readValue(content, valueType);

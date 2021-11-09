@@ -1,4 +1,4 @@
-package com.pf.enums;
+package com.pf.enums.dicts;
 
 
 import com.pf.base.BaseErrCode;

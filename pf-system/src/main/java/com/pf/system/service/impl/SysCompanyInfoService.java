@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.pf.base.CommonResult;
 import com.pf.bean.SnowflakeIdWorker;
 import com.pf.aop.context.UserContext;
-import com.pf.enums.UseStateEnum;
+import com.pf.enums.dicts.UseStateEnum;
 import com.pf.system.dao.SysCompanyInfoMapper;
 import com.pf.system.dao.SysDeptInfoMapper;
 import com.pf.system.dao.SysUserInfoMapper;

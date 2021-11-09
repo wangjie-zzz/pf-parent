@@ -1,4 +1,4 @@
-package com.pf.enums;
+package com.pf.enums.dicts;
 
 
 import com.pf.base.BaseErrCode;
@@ -6,15 +6,15 @@ import com.pf.base.BaseErrCode;
 /**
  * 登录类型
  */
-public enum RoleRelTypeEnum implements BaseErrCode {
-    USER( 0, "用户角色" ) ,
-    POST( 1, "岗位角色" ) ,
+public enum RoleAuthTypeEnum implements BaseErrCode {
+    MENU( 0, "菜单权限" ) ,
+    INTERFACE( 1, "接口权限" ) ,
     ;
 
     private final int code;
     private final String info;
 
-    RoleRelTypeEnum(int code, String info) {
+    RoleAuthTypeEnum(int code, String info) {
         this.code = code;
         this.info = info;
     }

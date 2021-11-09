@@ -1,7 +1,10 @@
-package com.pf.system.model.entity;
+package com.pf.system.model.dto;
 
-import com.pf.base.BaseEntity;
+import com.pf.base.BaseDto;
+import com.pf.system.model.entity.SysDictInfo;
+import com.pf.util.JacksonsUtils;
 import io.swagger.annotations.ApiModel;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,8 +22,8 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value="SysDictInfo对象", description="")
-public class SysDictInfo extends BaseEntity<SysDictInfo> {
-
+public class DictInfoDto extends BaseDto<DictInfoDto> {
+    
     private Long dictId;
 
     private String appId;
@@ -34,5 +37,4 @@ public class SysDictInfo extends BaseEntity<SysDictInfo> {
     private String dictValue;
 
     private Integer dictSortNo;
-
 }

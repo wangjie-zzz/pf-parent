@@ -2,7 +2,7 @@ package com.pf.test.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pf.base.CommonResult;
-import com.pf.enums.LoginTypeEnum;
+import com.pf.enums.dicts.LoginTypeEnum;
 import com.pf.model.UserDto;
 import com.pf.system.service.ISysUserInfoProvider;
 import com.pf.test.dao.TestAMapper;

@@ -2,9 +2,7 @@ package com.pf.system.controller;
 
 import com.pf.base.CommonResult;
 import com.pf.system.constants.SystemConstants;
-import com.pf.system.model.entity.SysDictInfo;
 import com.pf.system.model.entity.SysTenantInfo;
-import com.pf.system.service.ISysDictInfoService;
 import com.pf.system.service.ISysTenantInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

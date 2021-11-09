@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.SysTableInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysTableInfo">
+        <id column="table_id" property="tableId" />
+        <result column="app_id" property="appId" />
+        <result column="name" property="name" />
+        <result column="show_page" property="showPage" />
+        <result column="height" property="height" />
+        <result column="max_height" property="maxHeight" />
+        <result column="stripe" property="stripe" />
+        <result column="border" property="border" />
+        <result column="size" property="size" />
+        <result column="fit" property="fit" />
+        <result column="show_header" property="showHeader" />
+        <result column="highlight_current_row" property="highlightCurrentRow" />
+        <result column="row_key" property="rowKey" />
+        <result column="empty_text" property="emptyText" />
+        <result column="show_summary" property="showSummary" />
+        <result column="sum_text" property="sumText" />
+        <result column="select_on_indeterminate" property="selectOnIndeterminate" />
+        <result column="use_state" property="useState" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        table_id, app_id, name, show_page, height, max_height, stripe, border, size, fit, show_header, highlight_current_row, row_key, empty_text, show_summary, sum_text, select_on_indeterminate, use_state, update_user, update_time, create_user, create_time
+    </sql>
+
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.SysTableFieldMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysTableField">
+        <id column="field_id" property="fieldId" />
+        <result column="app_id" property="appId" />
+        <result column="table_id" property="tableId" />
+        <result column="prop" property="prop" />
+        <result column="label" property="label" />
+        <result column="dict" property="dict" />
+        <result column="type" property="type" />
+        <result column="reserve_selection" property="reserveSelection" />
+        <result column="width" property="width" />
+        <result column="min_width" property="minWidth" />
+        <result column="fixed" property="fixed" />
+        <result column="column_key" property="columnKey" />
+        <result column="sortable" property="sortable" />
+        <result column="sort_by" property="sortBy" />
+        <result column="sort_orders" property="sortOrders" />
+        <result column="resizable" property="resizable" />
+        <result column="show_overflow_tooltip" property="showOverflowTooltip" />
+        <result column="align" property="align" />
+        <result column="header_align" property="headerAlign" />
+        <result column="use_state" property="useState" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        field_id, app_id, table_id, prop, label, dict, type, reserve_selection, width, min_width, fixed, column_key, sortable, sort_by, sort_orders, resizable, show_overflow_tooltip, align, header_align, use_state, update_user, update_time, create_user, create_time
+    </sql>
+
+</mapper>

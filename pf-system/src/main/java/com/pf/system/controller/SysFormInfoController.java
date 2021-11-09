@@ -21,6 +21,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -161,8 +162,17 @@ public class SysFormInfoController {
     @ApiOperation(value="修改", notes="修改")
     @PostMapping(value = "/updateFormField")
     public CommonResult<Object> updateFormField(@RequestBody SysFormFieldVo vo) {
-        SysFormField sysFormField = BaseEntity.buildByVo(vo, SysFormField.class, true);
-        sysFormInfoService.updateFormField(sysFormField);
+        boolean update = true;
+        if(StringUtils.isEmpty(vo.getFieldId())) {
+            update = false;
+            vo.setFieldId(SnowflakeIdWorker.getNextId());
+        }
+        SysFormField sysFormField = BaseEntity.buildByVo(vo, SysFormField.class, update);
+        if(update) {
+            sysFormInfoService.updateFormField(sysFormField);
+        } else {
+            sysFormInfoService.createFormField(Arrays.asList(sysFormField));
+        }
         removeCache(sysFormField.getFormId());
         return CommonResult.success();
     }
@@ -172,6 +182,6 @@ public class SysFormInfoController {
         // 清除cache
         SysFormInfo sysFormInfo = sysFormInfoMapper.selectById(formId);
         Long res = formHandler.removeByNames(sysFormInfo.getName());
-        return res > 0;
+        return res == null ? false : res > 0;
     }
 }

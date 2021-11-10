@@ -1,5 +1,7 @@
 package com.pf.system.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.pf.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,10 +20,9 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value="SysTableField对象", description="")
-public class SysTableField implements Serializable {
+public class SysTableField extends BaseEntity<SysTableField> {
 
-    private static final long serialVersionUID=1L;
-
+    @TableId
     private Long fieldId;
 
     private String appId;
@@ -58,16 +59,5 @@ public class SysTableField implements Serializable {
     private Integer align;
 
     private Integer headerAlign;
-
-    private Integer useState;
-
-    private Long updateUser;
-
-    private LocalDateTime updateTime;
-
-    private Long createUser;
-
-    private LocalDateTime createTime;
-
 
 }

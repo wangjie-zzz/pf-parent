@@ -1,5 +1,6 @@
 package com.pf.system.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.pf.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 @ApiModel(value="SysDictInfo对象", description="")
 public class SysDictInfo extends BaseEntity<SysDictInfo> {
 
+    @TableId
     private Long dictId;
 
     private String appId;

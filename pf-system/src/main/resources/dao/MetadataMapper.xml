@@ -15,11 +15,11 @@
         <result column="column_comment" property="columnComment" />
     </resultMap>
 
-    <select id="getDbNames" parameterType="java.lang.String">
-        select table_name from information_schema.tables where table_schema = #{dbName}; -- dbName
-    </select>
-    <select id="getTableNamesByDbName">
+    <select id="getDbNames" parameterType="java.lang.String" resultType="java.lang.String">
         select table_schema from information_schema.tables GROUP BY table_schema;
+    </select>
+    <select id="getTableNamesByDbName" resultType="java.lang.String">
+        select table_name from information_schema.tables where table_schema = #{dbName}; -- dbName
     </select>
     <select id="getColumnsByTableAndDb" resultMap="TableColumnMap" parameterType="java.lang.String">
         select table_schema, table_name, is_nullable, data_type,

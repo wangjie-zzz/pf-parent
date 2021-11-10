@@ -16,6 +16,7 @@ import com.pf.system.model.entity.SysFormField;
 import com.pf.system.model.entity.SysFormInfo;
 import com.pf.system.model.vo.SysFormFieldVo;
 import com.pf.system.model.vo.SysFormInfoVo;
+import com.pf.system.model.vo.TableColumnVo;
 import com.pf.system.service.impl.SysFormInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,6 +30,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName : 表单配置Controller
@@ -140,7 +142,7 @@ public class SysFormInfoController {
     * @return:
     * @throws:
     */
-    @ApiOperation(value="创建", notes="创建")
+    /*@ApiOperation(value="创建", notes="创建")
     @PostMapping(value = "/createFormField")
     public CommonResult<Object> createFormField(@RequestBody List<SysFormFieldVo> vos) {
         List<SysFormField> sysFormFields = SysFormField.buildsByVo(vos, SysFormField.class);
@@ -148,6 +150,19 @@ public class SysFormInfoController {
         
         sysFormInfoService.createFormField(sysFormFields);
         removeCache(sysFormFields.get(0).getFormId());
+        return CommonResult.success();
+    }*/
+    @ApiOperation(value="创建", notes="创建")
+    @PostMapping(value = "/createByTable")
+    public CommonResult<Object> createByTable(
+            @RequestParam("formId") Long formId,
+            @RequestParam("appId") String appId,
+            @RequestBody List<TableColumnVo> vos) {
+        List<SysFormField> sysFormFields = vos.stream()
+                .map(vo -> TableColumnVo.toSysFormField(vo, formId, appId)).collect(Collectors.toList());
+
+        sysFormInfoService.createFormField(sysFormFields);
+        removeCache(formId);
         return CommonResult.success();
     }
     /**

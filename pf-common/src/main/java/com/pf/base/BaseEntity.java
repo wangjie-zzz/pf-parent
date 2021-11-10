@@ -32,48 +32,62 @@ public class BaseEntity<T extends BaseEntity<T>> implements Serializable {
 
     private LocalDateTime createTime;
     
+    public T build() {
+        return build(UserContext.getSysUserHolder(true), false);
+    }
+    public T build(UserDto userDto) {
+        return build(userDto, false);
+    }
+    public T build(UserDto userDto, boolean update) {
+        this.setUpdateUser(userDto.getUserId());
+        this.setUpdateTime(LocalDateTime.now());
+        this.setUseState(UseStateEnum.EFFECTIVE.getCode());
+        if(update) {
+            this.setCreateUser(null);
+            this.setCreateTime(null);
+        } else {
+            this.setCreateUser(userDto.getUserId());
+            this.setCreateTime(LocalDateTime.now());
+        }
+        return (T) this;
+    }
+    
     public static <P extends BaseVo<P>,T extends BaseEntity<T>> T buildByVo (P vo, Class<T> clazz) {
-        return buildsByVo(Arrays.asList(vo), clazz, false).get(0);
+        return buildByVo(vo, clazz, false);
     }
     public static <P extends BaseVo<P>,T extends BaseEntity<T>> T buildByVo (P vo, Class<T> clazz, boolean update) {
-        return buildsByVo(Arrays.asList(vo), clazz, update).get(0);
+        UserDto userDto = UserContext.getSysUserHolder(true);
+        T t = JacksonsUtils.copy(vo, clazz);
+        return t.build(userDto, update);
     }
     public static <P extends BaseVo<P>,T extends BaseEntity<T>> List<T> buildsByVo (List<P> vos, Class<T> clazz) {
         return buildsByVo(vos, clazz, false);
     }
     public static <P extends BaseVo<P>,T extends BaseEntity<T>> List<T> buildsByVo (List<P> vos, Class<T> clazz, boolean update) {
-        return build(vos, clazz, update);
+        UserDto userDto = UserContext.getSysUserHolder(true);
+        return vos.stream().map(obj -> {
+            T t = JacksonsUtils.copy(obj, clazz);
+            return t.build(userDto, update);
+        }).collect(Collectors.toList());
     }
 
 
     public static <P extends BaseDto<P>,T extends BaseEntity<T>> T buildByDto (P vo, Class<T> clazz) {
-        return buildsByDto(Arrays.asList(vo), clazz, false).get(0);
+        return buildByDto(vo, clazz, false);
     }
     public static <P extends BaseDto<P>,T extends BaseEntity<T>> T buildByDto (P vo, Class<T> clazz, boolean update) {
-        return buildsByDto(Arrays.asList(vo), clazz, update).get(0);
+        UserDto userDto = UserContext.getSysUserHolder(true);
+        T t = JacksonsUtils.copy(vo, clazz);
+        return t.build(userDto, update);
     }
     public static <P extends BaseDto<P>,T extends BaseEntity<T>> List<T> buildsByDto (List<P> vos, Class<T> clazz) {
         return buildsByDto(vos, clazz, false);
     }
     public static <P extends BaseDto<P>,T extends BaseEntity<T>> List<T> buildsByDto (List<P> vos, Class<T> clazz, boolean update) {
-        return build(vos, clazz, update);
-    }
-    
-    private static <Obj,T extends BaseEntity<T>> List<T> build (List<Obj> objs, Class<T> clazz, boolean update) {
         UserDto userDto = UserContext.getSysUserHolder(true);
-        return objs.stream().map(obj -> {
+        return vos.stream().map(obj -> {
             T t = JacksonsUtils.copy(obj, clazz);
-            t.setUpdateUser(userDto.getUserId());
-            t.setUpdateTime(LocalDateTime.now());
-            t.setUseState(UseStateEnum.EFFECTIVE.getCode());
-            if(update) {
-                t.setCreateUser(null);
-                t.setCreateTime(null);
-            } else {
-                t.setCreateUser(userDto.getUserId());
-                t.setCreateTime(LocalDateTime.now());
-            }
-            return t;
+            return t.build(userDto, update);
         }).collect(Collectors.toList());
     }
 

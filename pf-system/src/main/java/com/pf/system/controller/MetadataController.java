@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Api(value = "元数据controller", tags = {"元数据接口"})
 @RestController
-@RequestMapping(value = SystemConstants.MS_API_PREFIX + MetadataController.API_PREFIX, produces = {MediaType.MULTIPART_FORM_DATA_VALUE}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+@RequestMapping(value = SystemConstants.MS_API_PREFIX + MetadataController.API_PREFIX, produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
 public class MetadataController {
 
     public final static String API_PREFIX = "/metadata";

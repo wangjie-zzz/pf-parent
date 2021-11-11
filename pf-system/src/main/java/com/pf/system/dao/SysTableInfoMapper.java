@@ -1,6 +1,7 @@
 package com.pf.system.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pf.system.config.mybatisplus.ExtendMapper;
 import com.pf.system.model.entity.SysTableInfo;
 
 /**
@@ -11,6 +12,6 @@ import com.pf.system.model.entity.SysTableInfo;
  * @author pf
  * @since 2021-10-14
  */
-public interface SysTableInfoMapper extends BaseMapper<SysTableInfo> {
+public interface SysTableInfoMapper extends ExtendMapper<SysTableInfo> {
 
 }

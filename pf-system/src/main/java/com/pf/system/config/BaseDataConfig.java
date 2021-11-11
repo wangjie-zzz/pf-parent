@@ -7,7 +7,6 @@ import com.pf.enums.dicts.UseStateEnum;
 import com.pf.system.component.DictHandler;
 import com.pf.system.component.FormHandler;
 import com.pf.system.component.TableHandler;
-import com.pf.system.constants.enums.TableNameEnum;
 import com.pf.system.dao.*;
 import com.pf.system.model.dto.*;
 import com.pf.system.model.entity.*;
@@ -104,26 +103,25 @@ public class BaseDataConfig {
             }
 
             @Override
-            public List<TableInfoDto> getByNamesInDb(List<TableNameEnum> tableNameEnums) {
-                return getTableInDb(tableNameEnums);
+            public List<TableInfoDto> getByNamesInDb(List<String> tableNames) {
+                return getTableInDb(tableNames);
             }
         };
     }
 
-    private List<TableInfoDto> getTableInDb(List<TableNameEnum> enums) {
+    private List<TableInfoDto> getTableInDb(List<String> tableNames) {
         LambdaQueryWrapper<SysTableInfo> tableWrapper = Wrappers.lambdaQuery(SysTableInfo.class)
                 .eq(SysTableInfo::getUseState, UseStateEnum.EFFECTIVE.getCode());
-        if(!CollectionUtils.isEmpty(enums)) {
-            tableWrapper.in(SysTableInfo::getName, enums.stream()
-                    .map(tableNameEnum -> tableNameEnum.getName()).collect(Collectors.toList()));
+        if(!CollectionUtils.isEmpty(tableNames)) {
+            tableWrapper.in(SysTableInfo::getName, tableNames);
         }
         List<TableInfoDto> tableInfoDtos = sysTableInfoMapper.selectList(tableWrapper)
-                .stream().map(tableInfo -> TableInfoDto.buildBy(tableInfo)).collect(Collectors.toList());
+                .stream().map(tableInfo -> TableInfoDto.buildBy(tableInfo, TableInfoDto.class)).collect(Collectors.toList());
         Map<Long, List<TableFieldDto>> fieldMap =
                 sysTableFieldMapper.selectList(Wrappers.lambdaQuery(SysTableField.class)
                         .eq(SysTableField::getUseState, UseStateEnum.EFFECTIVE.getCode())
                 ).stream()
-                        .map(sysTableField -> TableFieldDto.buildBy(sysTableField))
+                        .map(sysTableField -> TableFieldDto.buildBy(sysTableField, TableFieldDto.class))
                         .collect(Collectors.groupingBy(TableFieldDto::getTableId));
         tableInfoDtos.forEach(tableInfoDto -> {
             tableInfoDto.setFieldDtos(fieldMap.computeIfAbsent(tableInfoDto.getTableId(), k -> new ArrayList<>()));

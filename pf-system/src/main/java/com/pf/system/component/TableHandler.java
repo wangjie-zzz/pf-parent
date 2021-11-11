@@ -1,11 +1,6 @@
 package com.pf.system.component;
 
 import com.pf.system.constants.SystemConstants;
-import com.pf.system.constants.enums.TableNameEnum;
-import com.pf.system.constants.enums.TableNameEnum;
-import com.pf.system.model.dto.FormFieldDto;
-import com.pf.system.model.dto.TableInfoDto;
-import com.pf.system.model.dto.TableFieldDto;
 import com.pf.system.model.dto.TableInfoDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,20 +36,20 @@ public abstract class TableHandler {
     }
     
     public abstract List<TableInfoDto> init();
-    public abstract List<TableInfoDto> getByNamesInDb(List<TableNameEnum> tableNameEnums);
+    public abstract List<TableInfoDto> getByNamesInDb(List<String> tableNameEnums);
 
     /*
      * TODO 线程安全问题
      * */
-    public List<TableInfoDto> getByNames(List<TableNameEnum> tableNames) {
+    public List<TableInfoDto> getByNames(List<String> tableNames) {
         if(!CollectionUtils.isEmpty(tableNames)) {
             List<TableInfoDto> dtos = new ArrayList<>();
-            List<TableNameEnum> nullDtos = new ArrayList<>();
-            for (TableNameEnum tableNameEnum : tableNames) {
-                if(this.boundHashOperations.hasKey(tableNameEnum.getName())) {
-                    dtos.add(this.boundHashOperations.get(tableNameEnum.getName()));
+            List<String> nullDtos = new ArrayList<>();
+            for (String tableName : tableNames) {
+                if(this.boundHashOperations.hasKey(tableName)) {
+                    dtos.add(this.boundHashOperations.get(tableName));
                 } else {
-                    nullDtos.add(tableNameEnum);
+                    nullDtos.add(tableName);
                 }
             }
             if(!nullDtos.isEmpty()) {
@@ -68,9 +63,9 @@ public abstract class TableHandler {
         return null;
     }
     /*返回：被成功删除字段的数量，不包括被忽略的字段。*/
-    public Long removeByNames(List<TableNameEnum> tableNameEnums) {
-        if(!CollectionUtils.isEmpty(tableNameEnums)) {
-            return this.boundHashOperations.delete(tableNameEnums.stream().map(tableNameEnum -> tableNameEnum.getName()).collect(Collectors.toList()));
+    public Long removeByNames(String... tableNames) {
+        if(tableNames.length > 0) {
+            return this.boundHashOperations.delete(tableNames);
         }
         return 0l;
     }

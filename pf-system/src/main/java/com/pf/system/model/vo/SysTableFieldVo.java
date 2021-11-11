@@ -1,13 +1,10 @@
-package com.pf.system.model.dto;
+package com.pf.system.model.vo;
 
-import com.pf.base.BaseDto;
-import com.pf.system.model.entity.SysTableField;
-import com.pf.util.JacksonsUtils;
+import com.pf.base.BaseVo;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
 
 /**
  * <p>
@@ -19,13 +16,13 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="SysTableField对象", description="")
-public class TableFieldDto extends BaseDto<TableFieldDto> {
-
+@ApiModel(value="SysFormField对象", description="")
+public class SysTableFieldVo extends BaseVo<SysTableFieldVo> {
     private Long fieldId;
 
     private String appId;
     private Long tableId;
+
     private String prop;
 
     private String label;
@@ -57,5 +54,4 @@ public class TableFieldDto extends BaseDto<TableFieldDto> {
     private Integer align;
 
     private Integer headerAlign;
-
 }

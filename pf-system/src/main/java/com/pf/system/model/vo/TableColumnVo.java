@@ -4,6 +4,7 @@ import com.pf.bean.SnowflakeIdWorker;
 import com.pf.enums.dicts.BoolEnum;
 import com.pf.system.constants.enums.FormFieldTypeEnum;
 import com.pf.system.model.entity.SysFormField;
+import com.pf.system.model.entity.SysTableField;
 import com.pf.util.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -60,5 +61,9 @@ public class TableColumnVo {
                 .prepend(StringUtils.EMPTY)
                 .suffix(StringUtils.EMPTY)
                 .build().build();
+    }
+
+    public static SysTableField toSysTableField(TableColumnVo vo, Long formId, String appId) {
+        throw new RuntimeException();
     }
 }

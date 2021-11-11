@@ -1,15 +1,10 @@
-package com.pf.system.model.dto;
+package com.pf.system.model.vo;
 
-import com.pf.base.BaseDto;
-import com.pf.system.model.entity.SysTableInfo;
-import com.pf.util.JacksonsUtils;
+import com.pf.base.BaseVo;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * <p>
@@ -21,11 +16,11 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="SysTableInfo对象", description="")
-public class TableInfoDto extends BaseDto<TableInfoDto> {
-
+@ApiModel(value="SysFormInfo对象", description="")
+public class SysTableInfoVo extends BaseVo<SysTableInfoVo> {
     private Long tableId;
     private String appId;
+
     private String name;
 
     private Integer showPage;
@@ -55,6 +50,4 @@ public class TableInfoDto extends BaseDto<TableInfoDto> {
     private String sumText;
 
     private Integer selectOnIndeterminate;
-    private List<TableFieldDto> fieldDtos;
-
 }

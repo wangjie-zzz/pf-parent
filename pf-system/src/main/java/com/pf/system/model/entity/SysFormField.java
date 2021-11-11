@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.pf.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,6 +19,8 @@ import java.time.LocalDateTime;
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value="SysFormField对象", description="")
 public class SysFormField extends BaseEntity<SysFormField> {

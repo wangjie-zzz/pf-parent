@@ -133,25 +133,6 @@ public class SysFormInfoController {
         sysFormInfoService.createForm(sysFormInfo);
         return CommonResult.success(sysFormInfo.getFormId());
     }
-    /**
-    * @Title: tables查询
-    * @Param:
-    * @description:
-    * @author: wangjie
-    * @date: 2020/9/17 14:30
-    * @return:
-    * @throws:
-    */
-    /*@ApiOperation(value="创建", notes="创建")
-    @PostMapping(value = "/createFormField")
-    public CommonResult<Object> createFormField(@RequestBody List<SysFormFieldVo> vos) {
-        List<SysFormField> sysFormFields = SysFormField.buildsByVo(vos, SysFormField.class);
-        sysFormFields.forEach(sysFormField -> sysFormField.setFieldId(SnowflakeIdWorker.getNextId()));
-        
-        sysFormInfoService.createFormField(sysFormFields);
-        removeCache(sysFormFields.get(0).getFormId());
-        return CommonResult.success();
-    }*/
     @ApiOperation(value="创建", notes="创建")
     @PostMapping(value = "/createByTable")
     public CommonResult<Object> createByTable(
@@ -165,6 +146,26 @@ public class SysFormInfoController {
         removeCache(formId);
         return CommonResult.success();
     }
+
+    /**
+     * @Title: tables查询
+     * @Param:
+     * @description:
+     * @author: wangjie
+     * @date: 2020/9/17 14:30
+     * @return:
+     * @throws:
+     */
+    /*@ApiOperation(value="创建", notes="创建")
+    @PostMapping(value = "/createFormField")
+    public CommonResult<Object> createFormField(@RequestBody List<SysFormFieldVo> vos) {
+        List<SysFormField> sysFormFields = SysFormField.buildsByVo(vos, SysFormField.class);
+        sysFormFields.forEach(sysFormField -> sysFormField.setFieldId(SnowflakeIdWorker.getNextId()));
+        
+        sysFormInfoService.createFormField(sysFormFields);
+        removeCache(sysFormFields.get(0).getFormId());
+        return CommonResult.success();
+    }*/
     /**
     * @Title: tables查询
     * @Param:

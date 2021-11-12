@@ -1,12 +1,9 @@
 package com.pf.enums.dicts;
 
-
-import com.pf.base.BaseErrCode;
-
 /**
  * 登录类型
  */
-public enum RoleAuthTypeEnum implements BaseErrCode {
+public enum RoleAuthTypeEnum {
     MENU( 0 ) ,
     INTERFACE( 1) ,
     ;

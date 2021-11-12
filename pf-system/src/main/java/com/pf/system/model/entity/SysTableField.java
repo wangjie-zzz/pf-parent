@@ -3,8 +3,7 @@ package com.pf.system.model.entity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.pf.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -18,6 +17,9 @@ import java.time.LocalDateTime;
  * @since 2021-10-14
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value="SysTableField对象", description="")
 public class SysTableField extends BaseEntity<SysTableField> {

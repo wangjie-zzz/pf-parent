@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * @Date: 2021/11/9-9:54
  */
 public enum DictFieldEnum {
-    BOOL("BOOL"),
+    BOOLEAN("BOOLEAN"),
     USE_STATE("USE_STATE"),
     ;
     String field;

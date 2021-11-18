@@ -22,10 +22,6 @@
     <dependencies>
         <dependency>
             <groupId>com.wj.pf</groupId>
-            <artifactId>pf-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.wj.pf</groupId>
             <artifactId>pf-system-api</artifactId>
         </dependency>
         <dependency>

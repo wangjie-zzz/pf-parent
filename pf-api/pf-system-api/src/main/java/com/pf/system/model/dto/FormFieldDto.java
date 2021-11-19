@@ -1,16 +1,10 @@
 package com.pf.system.model.dto;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.pf.base.BaseDto;
-import com.pf.system.model.entity.SysFormField;
-import com.pf.util.JacksonsUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>

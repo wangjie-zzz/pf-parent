@@ -1,15 +1,9 @@
 package com.pf.system.model.dto;
 
 import com.pf.base.BaseDto;
-import com.pf.system.model.entity.SysDictInfo;
-import com.pf.util.JacksonsUtils;
 import io.swagger.annotations.ApiModel;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>

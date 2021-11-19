@@ -1,14 +1,10 @@
 package com.pf.system.model.dto;
 
 import com.pf.base.BaseDto;
-import com.pf.system.model.entity.SysTableInfo;
-import com.pf.util.JacksonsUtils;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**

@@ -17,6 +17,7 @@
         <module>pf-system</module>
         <module>pf-plat</module>
         <module>pf-test</module>
+        <module>pf-system-provider</module>
         <!--<module>mall-demo</module>
         <module>mall-admin</module>
         <module>mall-search</module>

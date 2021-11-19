@@ -14,4 +14,10 @@ public interface SystemConstants {
     String MS_API_PREFIX = "/api/v1";
 
     String DEFAULT_PWD = new BCryptPasswordEncoder().encode("123456");
+    
+    interface REDIS_KEY {
+        String dict = "BASE:DICT";
+        String form = "BASE:FORM";
+        String table = "BASE:TABLE";
+    }
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.SysFormFieldMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pf.system.model.entity.SysFormField">
+        <id column="field_id" property="fieldId" />
+        <result column="app_id" property="appId" />
+        <result column="form_id" property="formId" />
+        <result column="prop" property="prop" />
+        <result column="type" property="type" />
+        <result column="value" property="value" />
+        <result column="dict" property="dict" />
+        <result column="clearable" property="clearable" />
+        <result column="multiple" property="multiple" />
+        <result column="allow_create" property="allowCreate" />
+        <result column="filterable" property="filterable" />
+        <result column="remote" property="remote" />
+        <result column="collapse_tags" property="collapseTags" />
+        <result column="show_all_levels" property="showAllLevels" />
+        <result column="label" property="label" />
+        <result column="label_width" property="labelWidth" />
+        <result column="span_col" property="spanCol" />
+        <result column="disable" property="disable" />
+        <result column="hidden" property="hidden" />
+        <result column="placeholder" property="placeholder" />
+        <result column="required" property="required" />
+        <result column="show_message" property="showMessage" />
+        <result column="inline_message" property="inlineMessage" />
+        <result column="show_password" property="showPassword" />
+        <result column="prefix" property="prefix" />
+        <result column="suffix" property="suffix" />
+        <result column="prepend" property="prepend" />
+        <result column="append" property="append" />
+        <result column="use_state" property="useState" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        field_id, app_id, form_id, prop, type, value, dict, clearable, multiple, allow_create, filterable, remote, collapse_tags, show_all_levels, label, label_width, span_col, disable, hidden, placeholder, required, show_message, inline_message, show_password, prefix, suffix, prepend, append, use_state, update_user, update_time, create_user, create_time
+    </sql>
+
+</mapper>

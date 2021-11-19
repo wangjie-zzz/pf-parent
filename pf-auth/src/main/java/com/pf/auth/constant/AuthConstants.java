@@ -19,6 +19,7 @@ public interface AuthConstants {
     String ACCOUNT_EXPIRED = "该账号已过期，请联系管理员!";
     
     String LOGIN_PAGE = "/sso/login";
+    String LOGIN_PROCESS_URL = "/login";
 
     String[] PERMIT_ENDPOINTS = {
             /*内置端点*/
@@ -26,7 +27,7 @@ public interface AuthConstants {
             /*"/oauth/**",*/
             "/rsa/publicKey",
     };
-    String TOKEN_URL = "http://localhost:8401/oauth/token";
+    String TOKEN_URL = "http://localhost:8401/pf-auth/oauth/token";
 
     class Jwt {
 

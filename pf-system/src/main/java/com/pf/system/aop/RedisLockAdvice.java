@@ -43,14 +43,10 @@ public class RedisLockAdvice {
         //执行分布式锁的逻辑
         if (redisLockAnnoation.isSpin()) {
             //阻塞锁
-            int lockRetryTime = 0;
             try {
-                while (!redisDistributionLock.lock(redisKey, redisLockAnnoation.expireTime())) {
-                    if (lockRetryTime++ > redisLockAnnoation.retryTimes()) {
-                        log.error("lock exception. key:{}, lockRetryTime:{}", redisKey, lockRetryTime);
-                        Asserts.fail("请勿重复提交!");
-                    }
-                    Thread.currentThread().sleep(redisLockAnnoation.waitTime());
+                if (!redisDistributionLock.lock(redisKey, redisLockAnnoation.expireTime(), redisLockAnnoation.retryTimes(), redisLockAnnoation.waitTime())) {
+                    log.error("lock exception. key:{}, lockRetryTime:{}", redisKey, redisLockAnnoation.retryTimes());
+                    Asserts.fail("请勿重复提交!");
                 }
                 return pjp.proceed();
             } finally {
@@ -61,7 +57,7 @@ public class RedisLockAdvice {
             try {
                 if (!redisDistributionLock.lock(redisKey)) {
                 	log.error("lock exception. key:{}", redisKey);
-                    Asserts.fail("分布式锁异常!");
+                    Asserts.fail("请勿重复提交!");
                 }
                 return pjp.proceed();
             } finally {

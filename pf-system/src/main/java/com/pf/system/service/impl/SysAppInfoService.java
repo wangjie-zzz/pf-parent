@@ -3,7 +3,7 @@ package com.pf.system.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.pf.base.CommonResult;
 import com.pf.aop.context.UserContext;
-import com.pf.enums.UseStateEnum;
+import com.pf.enums.dicts.UseStateEnum;
 import com.pf.system.dao.SysAppInfoMapper;
 import com.pf.model.UserDto;
 import com.pf.system.model.entity.SysAppInfo;

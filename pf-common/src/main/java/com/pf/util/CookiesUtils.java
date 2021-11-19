@@ -1,11 +1,7 @@
 package com.pf.util;
 
-import com.pf.constant.CommonConstants;
-import com.pf.model.Oauth2Token;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -16,7 +12,7 @@ import java.util.Optional;
  * @Date: 2021/8/11-13:34
  */
 public class CookiesUtils {
-    private static final String SESSION_KEY = "SESSION";
+    private static final String SESSION_KEY = "J_SESSION_ID";
 
     public static String getSessionId(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();

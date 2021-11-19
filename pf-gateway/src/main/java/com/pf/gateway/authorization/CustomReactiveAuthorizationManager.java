@@ -1,7 +1,10 @@
 package com.pf.gateway.authorization;
 
+import com.pf.enums.SysStatusCode;
+import com.pf.util.Asserts;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import net.minidev.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
@@ -15,7 +18,9 @@ import org.springframework.util.AntPathMatcher;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /***
 * @Title:
@@ -51,63 +56,43 @@ public class CustomReactiveAuthorizationManager implements ReactiveAuthorization
             return Mono.just(new AuthorizationDecision(true));
         }
         return authentication
-                        //过滤验证成功的
+                        //过滤TOKEN解析验证成功的
                         .filter(a ->  a.isAuthenticated())
                         //转换成Flux
                         .flatMapIterable(a -> {
                             Jwt jwtValue = null;
-                            if(a.getPrincipal() instanceof Jwt){
+                            if(a.getPrincipal() instanceof Jwt) {
                                 jwtValue = (Jwt)a.getPrincipal();
+                            } else {
+                                log.error("gateway getPrincipal： {}, {}",a, a.getPrincipal());
+                                Asserts.fail(SysStatusCode.UNAUTHORIZED);
                             }
                             log.info("\r\nHeader头部:{}", jwtValue.getHeaders());
                             log.info("\r\nPayload负载:{}", jwtValue.getClaims());
                             log.info("\r\nSignature 签名:{}", jwtValue.getTokenValue());
                             log.info("\r\ngetAuthorities:{}", a.getAuthorities());
                             log.info("\r\n((Jwt)a.getDetails()):{}", a.getDetails());
-                            //存储当前数据
                             List<Object> authUsers = new ArrayList<>();
-                            /*TODO token不存储附加信息
-                            *  当refreshToken刷新后，附加信息同时会清空
-                            *  先将权限等控制放入自定义逻辑中*/
-//                            authUsers.add(jwtValue.getClaims().get("roles"));
-                            authUsers.add(new ArrayList<>());
+                            Optional.ofNullable(jwtValue.getClaims().get("authorities")).ifPresent(authorities -> {
+                                authUsers.addAll(Arrays.asList(((JSONArray) authorities).toArray()));
+                            });
                             return authUsers;
                         })
                         //转成成权限名称
-                        .any(c-> {
+                        .any(roleId-> {
                             // 检测权限是否匹配
-                            log.info("\r\n权限过滤:{}:", c);
-                            //获取当前用户
-                            /*BaseUser baseUser = c.getBaseUser();
-                            //判断当前携带的Token是否有效
-                            String  token = request.getHeaders().getFirst(Constant.AUTHORIZATION).replace("Bearer ","");
-                            if(!TokenUtil.judgeTokenValid(String.valueOf(baseUser.getId()),redisTemplate,token)){
-                                return false;
-                            }
-                            //获取当前权限
-                            String authority = c.getAuthority();
-                            //通过当前权限码查询可以请求的地址
-                            log.debug("当前权限是：{}",authority);
-                            List<Permission> permissions = permissionUtil.getResultPermission(authority);
-                            permissions = permissions.stream().filter(permission -> StringUtils.isNotBlank(permission.getRequestUrl())).collect(Collectors.toList());
-                            //请求URl匹配，放行
-                            if(permissions.stream().anyMatch(permission -> matcher.match(permission.getRequestUrl(),url))){
-                                return true;
-                            }*/
+                            log.info("\r\n权限过滤，roleId: {}, url: {}, method: {}", roleId, url, httpMethod);
+                            /* TODO
+                            根据sessionId，在redis取出当前用户的所有角色rolesByRedis;
+                            判断rolesByRedis是否包含当前roleId
+                            根据当前roleId，在redis取出有哪些权限authByRedis
+                            判断authByRedis是否包含当前url，httpMethod
+                            认证完毕；
+                            * */
                             return true;
                         })
                         .map( hasAuthority ->  new AuthorizationDecision(hasAuthority) )
                         .defaultIfEmpty(new AuthorizationDecision(true));
-    }
-
-    /**
-     * 构造对象
-     */
-    @Data
-    class AuthUser{
-        private String authority;
-
-        /*private BaseUser baseUser;*/
     }
 
 }

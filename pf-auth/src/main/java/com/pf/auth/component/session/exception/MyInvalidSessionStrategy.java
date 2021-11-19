@@ -23,20 +23,21 @@ import java.io.IOException;
  */
 public class MyInvalidSessionStrategy implements InvalidSessionStrategy {
     private final Log logger = LogFactory.getLog(this.getClass());
-    private final String destinationUrl;
+//    private final String destinationUrl;
 //    private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
     private boolean createNewSession = true;
 
-    public MyInvalidSessionStrategy(String invalidSessionUrl) {
-        Assert.isTrue(UrlUtils.isValidRedirectUrl(invalidSessionUrl), "url must start with '/' or with 'http(s)'");
-        this.destinationUrl = invalidSessionUrl;
+    public MyInvalidSessionStrategy(/*String invalidSessionUrl*/) {
+//        Assert.isTrue(UrlUtils.isValidRedirectUrl(invalidSessionUrl), "url must start with '/' or with 'http(s)'");
+//        this.destinationUrl = invalidSessionUrl;
     }
     /*
-     * sessionid不存在进入
+     * sessionid在redis中不存在进入
      */
     @Override
     public void onInvalidSessionDetected(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        this.logger.debug("Starting new session (if required) and redirecting to '" + this.destinationUrl + "'");
+        this.logger.debug("Starting new session (if required) and redirecting to none");
+//        this.logger.debug("Starting new session (if required) and redirecting to '" + this.destinationUrl + "'");
         if (this.createNewSession) {
             request.getSession();
         }

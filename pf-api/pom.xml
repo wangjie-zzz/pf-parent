@@ -20,7 +20,6 @@
         <dependency>
             <groupId>com.wj.pf</groupId>
             <artifactId>pf-common</artifactId>
-            <optional>true</optional>
         </dependency>
     </dependencies>
 

@@ -11,16 +11,16 @@
         <result column="dict_key" property="dictKey" />
         <result column="dict_value" property="dictValue" />
         <result column="dict_sort_no" property="dictSortNo" />
-        <result column="dict_use_state" property="dictUseState" />
-        <result column="dict_int_user" property="dictIntUser" />
-        <result column="dict_int_date" property="dictIntDate" />
-        <result column="dict_upd_user" property="dictUpdUser" />
-        <result column="dict_upd_date" property="dictUpdDate" />
+        <result column="use_state" property="useState" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        dict_id, app_id, dict_field, dict_name, dict_key, dict_value, dict_sort_no, dict_use_state, dict_int_user, dict_int_date, dict_upd_user, dict_upd_date
+        dict_id, app_id, dict_field, dict_name, dict_key, dict_value, dict_sort_no, use_state, create_user, create_time, update_user, update_time
     </sql>
 
 </mapper>

@@ -3,7 +3,9 @@ package com.pf.system.service.impl;
 import com.pf.base.CommonResult;
 import com.pf.bean.SnowflakeIdWorker;
 import com.pf.aop.context.UserContext;
-import com.pf.enums.*;
+import com.pf.enums.dicts.BoolEnum;
+import com.pf.enums.dicts.UseStateEnum;
+import com.pf.enums.dicts.UserDataSourceEnum;
 import com.pf.system.constants.SystemConstants;
 import com.pf.system.dao.SysUdeptRelMapper;
 import com.pf.system.dao.SysUserInfoMapper;
@@ -11,18 +13,13 @@ import com.pf.model.UserDto;
 import com.pf.system.model.entity.SysUdeptRel;
 import com.pf.system.model.entity.SysUserInfo;
 import com.pf.system.service.ISysUserInfoService;
-import com.pf.util.HttpHeaderUtil;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 
 /**
  * @ClassName : SysUsreInfoService

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pf.system.dao.MetadataMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="TableColumnMap" type="com.pf.system.model.vo.TableColumnVo">
+        <result column="table_schema" property="tableSchema" />
+        <result column="table_name" property="tableName" />
+        <result column="is_nullable" property="isNullable" />
+        <result column="data_type" property="dataType" />
+        <result column="column_name" property="columnName" />
+        <result column="column_key" property="columnKey" />
+        <result column="column_default" property="columnDefault" />
+        <result column="column_type" property="columnType" />
+        <result column="column_comment" property="columnComment" />
+    </resultMap>
+
+    <select id="getDbNames" parameterType="java.lang.String" resultType="java.lang.String">
+        select table_schema from information_schema.tables GROUP BY table_schema;
+    </select>
+    <select id="getTableNamesByDbName" resultType="java.lang.String">
+        select table_name from information_schema.tables where table_schema = #{dbName}; -- dbName
+    </select>
+    <select id="getColumnsByTableAndDb" resultMap="TableColumnMap" parameterType="java.lang.String">
+        select table_schema, table_name, is_nullable, data_type,
+        column_name, column_key, column_default,column_type, column_comment 
+        from information_schema.`COLUMNS` where table_name = #{tbName} and table_schema = #{dbName}; -- tableName
+    </select>
+
+</mapper>

@@ -1,7 +1,7 @@
 package com.pf.system.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.pf.enums.UseStateEnum;
+import com.pf.enums.dicts.UseStateEnum;
 import com.pf.util.Asserts;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;

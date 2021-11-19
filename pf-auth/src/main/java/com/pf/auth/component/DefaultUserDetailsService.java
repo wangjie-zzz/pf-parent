@@ -1,7 +1,7 @@
 package com.pf.auth.component;
 
 import com.pf.auth.constant.AuthConstants;
-import com.pf.enums.LoginTypeEnum;
+import com.pf.enums.dicts.LoginTypeEnum;
 import com.pf.util.Asserts;
 import com.pf.model.UserDto;
 import com.pf.system.service.ISysUserInfoProvider;
